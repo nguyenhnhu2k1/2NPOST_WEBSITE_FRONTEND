@@ -1,0 +1,109 @@
+.section-container{
+    height: 300px;
+    &.section-about{
+        border-top: 1px solid red;
+        margin-top: 45px;
+        height: 400px !important;
+        .section-about-header{
+            font-size: 25px;
+            padding-left: 60px;
+            margin-top: 20px;
+        }
+        .section-about-content{
+            display: flex;
+            height: 80%;
+            padding: 17px 60px;
+            gap: 100px;
+            .content-left{
+                width: 50%;
+            }   
+            .content-right{
+                width: 40%;
+                p{
+                    font-style: italic;
+                }
+            }
+        }
+    }
+    &.medical-facility-container{
+        background-color: #ebe9f0 !important;
+        margin: 40px 0;
+    }
+    .header-container-section{
+        display: flex;
+        height: 50px;
+        align-items: center;
+        margin: 10px 122px;
+        .title-header{
+            font-size: 25px;
+            font-weight: 600;
+            font-family: sans-serif;
+        }
+        .btn-header{
+            position: absolute;
+            right: 121px;
+            padding: 10px 17px;
+            border: 1px solid white;
+            outline: none;
+            border-radius: 20px;
+            &:hover{
+                background-color: orange;
+            }
+        }
+    }
+    .container{
+        height: 300px;
+        
+        .image-component{
+            height: 200px !important;
+            padding: 10px 20px !important;
+            .img-section{
+                height: 100%;
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: contain;
+                &.img-medical-facility{
+                    background-image: url(../../../assets/section/lo-go-viet-duc.jpg);
+
+                }
+                &.img-specialty{
+                    background-image: url(../../../assets/section/165021-nho-rang.png);
+                }
+                &.img-outstanding-doctor{
+                    background-image: url(../../../assets/section/bac-si-noi-bat.jpg);
+                }
+            }
+            .title-section{
+                margin-top: -16px;
+                text-align: center;
+                color: dimgray;
+                font-weight: 500;
+                &.title-outstanding-doctor{
+                    margin-top: 20px !important;
+                }
+                &.specialty{
+                    margin-top: 3px !important;
+                }
+            }
+        }
+        .slick-prev{
+            background: #708083 !important;
+            width: 45px !important;
+            height: 45px !important;
+            z-index: 1000;
+            &:hover{
+                background: #20a2bb !important;
+            }
+        }
+        .slick-next{
+            background: #708083 !important;
+            width: 45px !important;
+            height: 45px !important;
+            z-index: 1000;
+            &:hover{
+                background: #20a2bb !important;
+                }
+        }
+    }
+    
+}
