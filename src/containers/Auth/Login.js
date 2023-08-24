@@ -13,8 +13,8 @@ class Login extends Component {
         super(props);
         this.btnLogin = React.createRef();
         this.state = {
-            username: 'nhunguyen@gmail.com',
-            password: '10102001',
+            username: '',
+            password: '',
             isShowPassWord: false,
             errMessage: '',
         }
@@ -53,7 +53,7 @@ class Login extends Component {
         }
     }
 
-    // ẩn hiện mắt
+    // ẩn hiện password
     showOrHiddenEye = (event) => {
         this.setState({
             isShowPassWord: !this.state.isShowPassWord
@@ -61,18 +61,24 @@ class Login extends Component {
     }
 
     render() {
-
+        console.log('check Login Page', this.props.isLoggedIn)
         return (
             <div className="login-wrapper">
+                <div className='logo-container'>
+                    <div className='logo-icon'>
+                        <div className='logo'>
+                        </div>
+                    </div>
+                </div>
                 <div className="login-container">
                     <div className="form_login">
                         <div className='col-12 text-login'>Login</div>
                         <div className='col-12 form-group '>
-                            <label>Username</label>
-                            <input type='text' className='form-control' placeholder='Enter your username' value={this.state.username} onChange={this.handleOnchangInputUsername}></input>
+                            <label className='my-2'>Username</label>
+                            <input type='text' className='form-control input-user' placeholder='Enter your username' value={this.state.username} onChange={this.handleOnchangInputUsername}></input>
                         </div>
                         <div className='col-12 form-group my-3'>
-                            <label>Password</label>
+                            <label className='my-2'>Password</label>
                             <div className='input-password'>
                                 <input type={this.state.isShowPassWord ? 'text' : 'password'} className='form-control' placeholder='Enter your password' value={this.state.password} onChange={this.handleOnchangInputPassword}></input>
                                 <div>
@@ -84,20 +90,16 @@ class Login extends Component {
                         <div className="col-12 errMess">
                             {this.state.errMessage}
                         </div>
-                        <div className="col-12 my-3">
+                        <div className="col-12 div-btn-login">
                             <button className='btn-login' onClick={(event) => { this.handleLogin(event) }}>Login</button>
                         </div>
-                        <div className="col-12">
+                        <div className="col-12 div-forgot-pass">
                             <span className='forgot-password'>Forgot your password</span>
                         </div>
-                        <div className="col-12 login-with">
-                            <span className='login-with-text'>Or Login with:</span>
-                            <div className="col-12 icon-social">
-                                <i className="fab fa-google google"></i>
-                                <i className="fab fa-facebook-f facebook"></i>
-                            </div>
-
+                        <div className="col-12 div-redirect-sign-up">
+                            <span className='redirect-sign-up'>Không có tài khoản <a>Tạo tài khoản</a></span>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -107,7 +109,9 @@ class Login extends Component {
 
 const mapStateToProps = state => {
     return {
-        language: state.app.language
+        language: state.app.language,
+        isLoggedIn: state.user.isLoggedIn
+
     };
 };
 

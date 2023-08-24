@@ -41,6 +41,7 @@ class App extends Component {
     }
 
     render() {
+        console.log('this.props.isLoggedIn', this.props.isLoggedIn)
         return (
             <Fragment>
                 <Router history={history}>
@@ -53,6 +54,7 @@ class App extends Component {
                                 <Switch>
                                     <Route path={path.HOME} exact component={(Home)} />
                                     <Route path={path.HOME_PAGE} exact component={(HomePage)} />
+                                    {/* kiểm tra xem người dùng được phép truy cập trang đăng nhập hay không */}
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                 </Switch>

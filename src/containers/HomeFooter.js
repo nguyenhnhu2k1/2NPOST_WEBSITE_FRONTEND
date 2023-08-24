@@ -6,7 +6,6 @@ import './HomeFooter.scss'
 class HomeFooter extends Component {
 
     render() {
-
         return (
             <div className='footer-container'>
                 <div className='footer-information'>

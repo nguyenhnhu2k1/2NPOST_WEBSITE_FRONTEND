@@ -3,12 +3,14 @@ import { connectedRouterRedirect } from "redux-auth-wrapper/history4/redirect";
 
 const locationHelper = locationHelperBuilder({});
 
+// khi isLoggedIn=true=> người dùng có quyền; =false chuyển đến trang login
 export const userIsAuthenticated = connectedRouterRedirect({
     authenticatedSelector: state => state.user.isLoggedIn,
     wrapperDisplayName: 'UserIsAuthenticated',
-    redirectPath: '/login'
+    redirectPath: '/login' //chưa đăng nhập isLoggedIn=false
 });
 
+//nếu người dùng bằng true điều hướng được thực hiên
 export const userIsNotAuthenticated = connectedRouterRedirect({
     // Want to redirect the user when they are authenticated
     authenticatedSelector: state => !state.user.isLoggedIn,

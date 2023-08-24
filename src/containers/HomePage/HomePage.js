@@ -17,6 +17,8 @@ import "slick-carousel/slick/slick-theme.css";
 class HomePage extends Component {
 
     render() {
+        console.log('check homepage', this.props.isLoggedIn)
+
         const settings = {
             dots: false,
             infinite: true,
