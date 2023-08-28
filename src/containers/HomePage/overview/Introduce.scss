@@ -1,0 +1,23 @@
+.introduce-container {
+    animation-name: slider;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    animation-duration: 1s;
+    padding: 20px 100px;
+    h3 {
+      font-size: 30px;
+    }
+    .app-customer {
+      margin: 20px auto;
+    }
+  }
+  
+  @keyframes slider {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }

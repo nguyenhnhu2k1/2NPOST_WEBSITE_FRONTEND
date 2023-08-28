@@ -1,0 +1,16 @@
+.service-comp-container {
+    animation-name: slider;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    animation-duration: 2s;
+  }
+  
+  @keyframes slider {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }

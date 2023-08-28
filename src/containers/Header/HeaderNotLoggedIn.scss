@@ -1,0 +1,154 @@
+.header-not-logged-in-container{
+    border: 1px solid black;
+    height: 55px;
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    background: rgb(2, 11, 64);
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    .logo-header-not-logged-in-container{
+        width: 15%;
+        padding: 3px 0px;
+        .logo-icon{
+            height: 90%;
+            min-width: 130px;
+            background-image: url(../../assets/images/logo/logo.png);
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: contain;
+            margin: 2px 4px;
+            cursor: pointer;
+        }
+    }
+    .nav-container{
+        width: 50%;
+        display: flex;
+        gap: 10px;
+        justify-content: space-around;
+        align-items: center;
+        div{
+            a{
+                font-size: 15px;
+                text-decoration: none;
+                color: white;
+            }
+        }
+    }
+    .other-container{
+        width: 34%;
+        display: flex;
+        gap: 5px;
+        .lang-container{
+            width: 20%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            div{
+                font-size: 12px;
+                border-radius: 20px;
+                background: white;
+                padding: 3px 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                .logo-lang{
+                    width: 20px;
+                    height: 20px;
+                    margin-right: 5px;
+                }
+            }
+        }
+        .acc-container{
+            position: relative;
+            width: 20%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            .acc-btn{
+                width: 19%;
+                font-size: 15px;
+                .acc-btn-a{
+                    background: #020b40;
+                    text-decoration: none;
+                    color: white;
+                    border-radius: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 3px 20px;
+                    &:hover{
+                        background: #363b58;
+                    }
+                    i{
+                        margin-right: 5px;
+                        font-size: 20px;
+                    }
+                }
+            }
+            .acc-info{
+                background-color: white;
+                position: absolute;
+                top: 112%;
+                z-index: 100;
+                left: -145%;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                border: 1px solid #dfcccc;
+                padding: 10px;
+                border-radius: 15px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                min-width: 294px;
+                min-height: 234px;
+                .welcome{
+                    font-size: 16px;
+                    color: #e55006;
+                    font-weight: 600;
+                    margin: auto;
+                }
+                .login-info{
+                    border-radius: 15px;
+                    padding: 3px;
+                    border: 2px solid #e55006;
+                    color: #e55006;
+                }
+                .signup-info{
+                    border-radius: 15px;
+                    padding: 3px;
+                    color: white;
+                    background-color: #e55006;
+                    border: 2px solid #e55006;
+                }
+                .policy{
+                    padding-top: 11px;
+                    color: #8b8282;
+                    font-weight: 600;
+                    a{
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+        .search-container{
+            margin: auto 0px;
+            width: 50%;
+            margin-left: 30px;
+            input{
+                border-radius: 10px;
+                width: 78%;
+            }
+            i{
+                color: white;
+                margin-left: 13px;
+                font-size: 19px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+    

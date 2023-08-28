@@ -7,6 +7,7 @@ import * as actions from "../../store/actions";
 
 import './Login.scss';
 import { handleLoginAPI } from '../../services/userService';
+import HeaderAuth from './HeaderAuth';
 
 class Login extends Component {
     constructor(props) {
@@ -64,12 +65,7 @@ class Login extends Component {
         console.log('check Login Page', this.props.isLoggedIn)
         return (
             <div className="login-wrapper">
-                <div className='logo-container'>
-                    <div className='logo-icon'>
-                        <div className='logo'>
-                        </div>
-                    </div>
-                </div>
+                <HeaderAuth />
                 <div className="login-container">
                     <div className="form_login">
                         <div className='col-12 text-login'>Login</div>

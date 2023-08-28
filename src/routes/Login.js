@@ -51,7 +51,7 @@ class Login extends Component {
     processLogin = () => {
         const { username, password } = this.state;
 
-        const { adminLoginSuccess, adminLoginFail } = this.props;
+        // const { adminLoginSuccess, adminLoginFail } = this.props;
         let loginBody = {
             username: 'admin',
             password: '123456'
@@ -64,7 +64,7 @@ class Login extends Component {
             "accessToken": "eyJhbGciOiJIU"
         }
 
-        adminLoginSuccess(adminInfo);
+        // adminLoginSuccess(adminInfo);
         this.refresh();
         this.redirectToSystemPage();
         try {
@@ -75,7 +75,10 @@ class Login extends Component {
 
     }
 
+    // khi nhấn enter thì gọi tới nút đăng nhập
     handlerKeyDown = (event) => {
+        console.log("chạy vào handlerKeyDown")
+
         const keyCode = event.which || event.keyCode;
         if (keyCode === KeyCodeUtils.ENTER) {
             event.preventDefault();
@@ -85,12 +88,14 @@ class Login extends Component {
     };
 
     componentDidMount() {
+        console.log("chạy vào didmount")
         document.addEventListener('keydown', this.handlerKeyDown);
     }
 
     componentWillUnmount() {
-        document.removeEventListener('keydown', this.handlerKeyDown);
+        // document.removeEventListener('keydown', this.handlerKeyDown);
         // fix Warning: Can't perform a React state update on an unmounted component
+        console.log("chạy vào WillUnmount")
         this.setState = (state, callback) => {
             return;
         };
@@ -99,6 +104,7 @@ class Login extends Component {
     render() {
         const { username, password, loginError } = this.state;
         const { lang } = this.props;
+        console.log(lang);
 
         return (
             <div className="login-wrapper">
@@ -165,8 +171,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         navigate: (path) => dispatch(push(path)),
-        adminLoginSuccess: (adminInfo) => dispatch(actions.adminLoginSuccess(adminInfo)),
-        adminLoginFail: () => dispatch(actions.adminLoginFail()),
+        // adminLoginSuccess: (adminInfo) => dispatch(actions.adminLoginSuccess(adminInfo)),
+        // adminLoginFail: () => dispatch(actions.adminLoginFail()),
     };
 };
 
