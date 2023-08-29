@@ -8,11 +8,12 @@ import RegisterComp from './overview/RegisterComp';
 import ServiceComp from './overview/ServiceComp';
 import Introduce from './overview/Introduce';
 import HomeHeader from '../Header/HeaderNotLoggedIn';
+import HomeFooter from '../Footer/HomeFooter';
 import './Home.scss';
 
+import anh1 from '../../assets/images/homepage/huong_duong_1.jpg';
+import anh2 from '../../assets/images/homepage/huong_duong_2.jpg';
 import anh3 from '../../assets/images/homepage/huong_duong_3.jpg';
-import anh4 from '../../assets/images/homepage/huong_duong_4.jpg';
-import anh5 from '../../assets/images/homepage/huong_duong_5.jpg';
 
 class Home extends Component {
     constructor(props) {
@@ -71,7 +72,7 @@ class Home extends Component {
                 {/* banner */}
                 <div className='banner'>
                     {/* <!-- Carousel --> */}
-                    <div id="demo" className="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                    <div id="demo" className="carousel slide" data-bs-ride="carousel" data-bs-interval="3000000">
 
                         {/* <!-- Indicators/dots --> */}
                         <div className="carousel-indicators">
@@ -83,7 +84,7 @@ class Home extends Component {
                         {/* <!-- The slideshow/carousel --> */}
                         <div className="carousel-inner">
                             <div className="carousel-item active">
-                                <img src={anh3} alt="Los Angeles" className="d-block" />
+                                <img src={anh1} alt="Los Angeles" className="d-block" />
                                 <div className='carousel-caption'>
                                     <h2>Chúng tôi là 2NPost</h2>
                                     <div className='content-caption'>
@@ -99,7 +100,7 @@ class Home extends Component {
                                 </div>
                             </div>
                             <div className="carousel-item">
-                                <img src={anh4} alt="Chicago" className="d-block" />
+                                <img src={anh2} alt="Chicago" className="d-block" />
                                 <div className='carousel-caption'>
                                     <h2>Chúng tôi là 2NPost</h2>
                                     <div className='content-caption'>
@@ -115,7 +116,7 @@ class Home extends Component {
                                 </div>
                             </div>
                             <div className="carousel-item">
-                                <img src={anh5} alt="New York" className="d-block" />
+                                <img src={anh3} alt="New York" className="d-block" />
                                 <div className='carousel-caption'>
                                     <h2>Chúng tôi là 2NPost</h2>
                                     <div className='content-caption'>
@@ -177,6 +178,8 @@ class Home extends Component {
                         {this.state.registerComp && <RegisterComp />}
                     </div>
                 </div>
+
+                <HomeFooter />
             </div>
         )
     }

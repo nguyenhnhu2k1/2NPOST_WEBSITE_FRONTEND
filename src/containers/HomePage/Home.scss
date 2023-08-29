@@ -6,6 +6,7 @@
         width: 100%;
         height: 80%;
         background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(61, 57, 57, 0.25));
+        margin-top: 45px;
         .carousel{
             height: 100%;
             .carousel-inner{
@@ -20,10 +21,10 @@
                 }
                 .carousel-caption{
                     height: 90%;
+                    color: #242121;
                     .content-caption{
                         margin-top: 74px;
                         font-size: 30px;
-                        text-shadow: 5px 5px 5px #666363;
                         text-transform: uppercase;
                         p{
                             margin-top: 10px;
@@ -31,15 +32,14 @@
                     }
                     
                     h2{
-                        text-shadow: 2px 3px 15px #000000;
+                        text-shadow: 2px 3px 15px #c19898;
                         font-size: 43px;
                     }
                     .path-caption{
                         margin-top: 8%;
                         a{
-                            text-shadow: 5px 5px 5px #666363;
                             text-decoration: none;
-                            color: white;
+                            color: #242121;
                             font-size: 34px;
                             i{
                                 margin-left: 10px;
@@ -61,7 +61,6 @@
     }
 
     .overview{
-        border: 1px solid red;
         width: 100%;
         height: 90%;
         .heading{
@@ -76,7 +75,7 @@
             font-weight: 500;
             margin: 14px auto;
             div{
-                padding: 7px 43px;
+                padding: 7px 30px;
                 border-radius: 5px;
                 background-color: #eeeeee;
                 cursor: pointer;
@@ -90,10 +89,15 @@
             }
         }
         .show-component{
-            border: 1px solid blue;
             width: 100%;
             height: 81%;
         }
         
+    }
+
+    .footer{
+        width: 100%;
+        height: 20vh;
+        border: 1px solid #e34e4e;
     }
 }
