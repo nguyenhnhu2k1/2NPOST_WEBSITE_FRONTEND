@@ -11,7 +11,7 @@ class Introduce extends Component {
         return (
             <React.Fragment>
                 <div className='introduce-container'>
-                    <h3>2NPost là hệ thống trực tuyến kết nối giữa khách hàng với nhà vận chuyện</h3>
+                    <h3>2NPost là hệ thống trực tuyến kết nối giữa khách hàng với nhà vận chuyển</h3>
                     <div className='app-customer'>
                         <h3>App khách hàng</h3>
                         <p> App khách hàng hỗ trợ cả HĐH Android và IOS với giao diện thông dụng
