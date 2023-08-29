@@ -11,7 +11,7 @@ class ServiceComp extends Component {
         return (
             <React.Fragment>
                 <div className='service-comp-container'>
-                    service - Nhut chinh sua ne
+                    service - Nhut chinh sua lan 2
                 </div>
             </React.Fragment>
         )
