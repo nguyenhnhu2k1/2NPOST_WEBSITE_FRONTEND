@@ -1,9 +1,11 @@
+@import "../../styles/variables";
+
 .header-not-logged-in-container {
     height: 65px;
     display: flex;
     gap: 10px;
     width: 100%;
-    background: #06466c;
+    background: #22272e;
     position: fixed;
     top: 0;
     z-index: 1000;
@@ -121,7 +123,7 @@
 
                 .welcome {
                     font-size: 16px;
-                    color: #e55006;
+                    color: $color-main-red;
                     font-weight: 600;
                     margin: auto;
                 }
@@ -129,16 +131,16 @@
                 .login-info {
                     border-radius: 15px;
                     padding: 3px;
-                    border: 2px solid #e55006;
-                    color: #e55006;
+                    border: 2px solid $color-main-red;
+                    color: $color-main-red;
                 }
 
                 .signup-info {
                     border-radius: 15px;
                     padding: 3px;
                     color: white;
-                    background-color: #e55006;
-                    border: 2px solid #e55006;
+                    background-color: $color-main-red;
+                    border: 2px solid $color-main-red;
                 }
 
                 .policy {

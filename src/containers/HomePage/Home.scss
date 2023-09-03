@@ -1,3 +1,5 @@
+@import "../../styles/variables";
+
 .home {
     height: 100vh;
     width: 100%;
@@ -21,6 +23,7 @@
                     img {
                         height: 100%;
                         width: 100%;
+                        opacity: 0.5;
                     }
                 }
 
@@ -76,20 +79,12 @@
 
     .overview {
         width: 100%;
-<<<<<<< HEAD
-        height: 100%;
-        margin-bottom: 50px;
-        .heading{
-            display: flex;
-            gap: 10px;
-=======
         height: fit-content;
         margin-bottom: 40px;
 
         .overview-child {
             height: fit-content;
             box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
->>>>>>> 8171a18f7daa8321d5871970d44144a1eebb6414
             width: 90%;
             margin: 50px auto;
 
