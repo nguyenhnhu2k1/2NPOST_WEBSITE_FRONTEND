@@ -78,11 +78,57 @@ p {
 }
 
 .content-container {
-  .text-base {
-    // định dạng nội dung 
+  .title-1-base {
+    // định dạng heading 1
+    font-weight: 600;
+    font-size: 24px;
+  }
+
+  .title-2-base {
+    // định dạng heading 2
+    font-weight: 550;
+    font-size: 22px;
+  }
+
+  .title-3-base {
+    // định dạng heading 3
     font-weight: 500;
-    font-size: initial;
+    font-size: 20px;
+  }
+
+  .title-4-base {
+    // định dạng heading 4
+    font-weight: 480;
+    font-size: 19px;
+  }
+
+  .title-5-base {
+    // định dạng heading 5
+    font-weight: 460;
+    font-size: 18px;
+  }
+
+  .text-base {
+    // định dạng nội dung
+    font-weight: 400;
+    font-size: 16px;
     text-align: justify;
+  }
+
+  .animation-rise-base {
+    // hiệu ứng nội dung ngôi lên
+    animation-name: slider;
+    animation-duration: 1s;
+  }
+
+  @keyframes slider {
+    from {
+      transform: translateY(100%);
+    }
+
+    to {
+      transform: translateY(0);
+    }
   }
 
   // .title {

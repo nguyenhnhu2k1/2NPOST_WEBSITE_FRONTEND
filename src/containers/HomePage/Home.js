@@ -144,37 +144,39 @@ class Home extends Component {
                 </div>
 
                 <div className='overview'>
-                    <div className='heading'>
-                        <div
-                            className={`introduce-component ${this.state.introduce ? 'active' : ''}`}
-                            onClick={this.showIntroduce}>
-                            <i className="fas fa-industry"></i>
-                            Giới thiệu sản phẩm
+                    <div className='overview-child'>
+                        <div className='heading title-4-base'>
+                            <div
+                                className={`introduce-component ${this.state.introduce ? 'active' : ''}`}
+                                onClick={this.showIntroduce}>
+                                <i className="fas fa-industry"></i>
+                                Giới thiệu sản phẩm
+                            </div>
+                            <div
+                                className={`service-component ${this.state.serviceComp ? 'active' : ''}`}
+                                onClick={this.showServiceComp}>
+                                <i className="fas fa-truck"></i>
+                                Tổng quan dịch vụ
+                            </div>
+                            <div
+                                className={`search-component ${this.state.searchComp ? 'active' : ''}`}
+                                onClick={this.showSearchComp}>
+                                <i className="fas fa-search"></i>
+                                Tra cứu mã đơn
+                            </div>
+                            <div
+                                className={`register-component ${this.state.registerComp ? 'active' : ''}`}
+                                onClick={this.showRegisterComp}>
+                                <i className="fas fa-user-plus"></i>
+                                Đăng ký hợp tác
+                            </div>
                         </div>
-                        <div
-                            className={`service-component ${this.state.serviceComp ? 'active' : ''}`}
-                            onClick={this.showServiceComp}>
-                            <i className="fas fa-truck"></i>
-                            Tổng quan dịch vụ
+                        <div className='show-component'>
+                            {this.state.introduce && <Introduce />}
+                            {this.state.serviceComp && <ServiceComp />}
+                            {this.state.searchComp && <SearchComp />}
+                            {this.state.registerComp && <RegisterComp />}
                         </div>
-                        <div
-                            className={`search-component ${this.state.searchComp ? 'active' : ''}`}
-                            onClick={this.showSearchComp}>
-                            <i className="fas fa-search"></i>
-                            Tra cứu mã đơn
-                        </div>
-                        <div
-                            className={`register-component ${this.state.registerComp ? 'active' : ''}`}
-                            onClick={this.showRegisterComp}>
-                            <i className="fas fa-user-plus"></i>
-                            Đăng ký hợp tác
-                        </div>
-                    </div>
-                    <div className='show-component'>
-                        {this.state.introduce && <Introduce />}
-                        {this.state.serviceComp && <ServiceComp />}
-                        {this.state.searchComp && <SearchComp />}
-                        {this.state.registerComp && <RegisterComp />}
                     </div>
                 </div>
 
