@@ -4,7 +4,7 @@
 
     .banner {
         width: 100%;
-        height: 80%;
+        height: 100%;
         background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(61, 57, 57, 0.25));
         margin-top: 45px;
 
@@ -76,53 +76,58 @@
 
     .overview {
         width: 100%;
-        height: 90%;
-<<<<<<< HEAD
+        height: fit-content;
         margin-bottom: 40px;
-        .heading{
-=======
 
-        .heading {
->>>>>>> 446e23b9bc86b1ba9842e4c8273045b8a72c9e33
-            display: flex;
-            gap: 10px;
+        .overview-child {
+            height: fit-content;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
             width: 90%;
-            height: 11vh;
-            justify-content: center;
-            align-items: center;
-            font-size: 22px;
-            color: #8f8989;
-            font-weight: 500;
-            margin: 0 auto;
+            margin: 50px auto;
 
-            div {
-                width: 100%;
-                padding: 5px 20px;
-                border-radius: 5px;
-                background-color: #eeeeee;
-                cursor: pointer;
+            .heading {
+                height: 100%;
+                color: #8f8989;
 
-                i {
-                    margin-right: 12px;
-                }
+                div {
+                    width: 100%;
+                    height: 100%;
+                    padding: 5px 10px;
+                    background-color: #eeeeee;
+                    cursor: pointer;
 
-                &.active {
-                    background-color: #e34e4e !important;
-                    color: white;
+                    i {
+                        margin-right: 10px;
+                        font-size: 20px;
+                    }
+
+                    &.active {
+                        background-color: #e34e4e !important;
+                        color: white;
+                    }
                 }
             }
+
+            @media (min-width: 1000px) {
+                .heading {
+                    display: flex;
+                }
+            }
+
+            .show-component {
+                width: 100%;
+                height: 81%;
+            }
+
         }
 
-        .show-component {
-            width: 100%;
-            height: 81%;
-        }
+
 
     }
 
     .footer {
         width: 100%;
-        height: 20vh;
+        height: 100%;
         border: 1px solid #e34e4e;
     }
 }

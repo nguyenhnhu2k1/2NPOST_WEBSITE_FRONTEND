@@ -1,53 +1,10 @@
 .introduce-container {
-    animation-name: slider;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    animation-duration: 1s;
-    padding: 20px 100px;
-    h3 {
-      font-size: 30px;
-    }
-    .app-customer {
-      margin: 20px auto;
-      h3{
-        color: red;
-      }
-      p{
-        font-weight: 500;
-        font-size: initial;
-        text-align: justify;
-      }
-    }
-    .web-transporter{
-      margin: 20px auto;
-      h3{
-        color: red;
-      }
-      p{
-        font-weight: 500;
-        font-size: initial;
-        text-align: justify;
-      }
-    }
-    .app-driver{
-      margin: 20px auto;
-      h3{
-        color: red;
-      }
-      p{
-        font-weight: 500;
-        font-size: initial;
-        text-align: justify;
-      }
-    }
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 50px;
+
+  .title-2-base {
+    color: #e34e4e
   }
-  
-  @keyframes slider {
-    from {
-      transform: translateY(100%);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
+}
