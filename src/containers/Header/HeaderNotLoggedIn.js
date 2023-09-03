@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { LANGUAGES } from '../../utils';
 import { changeLanguageApp } from '../../store/actions';
+import { Link } from 'react-router-dom'
 
 
 import './HeaderNotLoggedIn.scss';
@@ -44,11 +45,10 @@ class HeaderNotLoggedIn extends Component {
                         <div className='logo-icon'></div>
                     </div>
                     <div className='nav-container'>
-                        <div><a href='/home'><FormattedMessage id="login.header-home" /></a></div>
-                        <div><a href='#'><FormattedMessage id="login.header-about" /></a></div>
-                        <div><a href='#'><FormattedMessage id="login.header-service" /></a></div>
-                        <div><a href='#'><FormattedMessage id="login.header-customer" /></a></div>
-
+                        <div><Link to='/home'><FormattedMessage id="login.header-home" /></Link></div>
+                        <div><Link to='/about_us'><FormattedMessage id="login.header-about" /></Link></div>
+                        <div><Link to='#'><FormattedMessage id="login.header-service" /></Link></div>
+                        <div><Link to='#'><FormattedMessage id="login.header-customer" /></Link></div>
                     </div>
                     <div className='other-container'>
                         <div className='lang-container'>

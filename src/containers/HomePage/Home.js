@@ -18,7 +18,6 @@ import anh3 from '../../assets/images/homepage/huong_duong_3.jpg';
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.btnLogin = React.createRef();
         this.state = {
             introduce: true,
             serviceComp: false,
@@ -72,7 +71,7 @@ class Home extends Component {
                 {/* banner */}
                 <div className='banner'>
                     {/* <!-- Carousel --> */}
-                    <div id="demo" className="carousel slide" data-bs-ride="carousel" data-bs-interval="3000000">
+                    <div id="demo" className="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
 
                         {/* <!-- Indicators/dots --> */}
                         <div className="carousel-indicators">

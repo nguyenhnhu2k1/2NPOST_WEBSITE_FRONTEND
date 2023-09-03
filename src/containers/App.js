@@ -16,6 +16,7 @@ import Header from './HeaderThamKhao/Header';
 import System from '../routes/System';
 import HomePage from './HomePage/Home';
 import Register from './Auth/Register';
+import AboutUs from './HomePage/AboutUs'
 
 import { CustomToastCloseButton } from '../components/CustomToast';
 import ConfirmModal from '../components/ConfirmModal';
@@ -58,6 +59,7 @@ class App extends Component {
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                     <Route path={path.REGISTER} exact component={(Register)} />
+                                    <Route path={path.ABOUT_US} exact component={(AboutUs)} />
                                 </Switch>
                             </CustomScrollbars>
                         </div>

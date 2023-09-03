@@ -42,7 +42,7 @@ class Home extends Component {
                             </div>
                         </div>
                         <div className='connect'>
-                            <h4>Kết nối cùng ViettelPost</h4>
+                            <h4>Kết nối cùng 2NPost</h4>
                             <div className='social-icon'>
                                 <img src={fbIcon} alt='Facebook icon'></img>
                                 <img src={mailIcon} alt='Email icon'></img>
