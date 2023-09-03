@@ -3,11 +3,9 @@ import { connect } from 'react-redux';
 
 import './Introduce.scss';
 
-
 class Introduce extends Component {
 
     render() {
-
         return (
             <React.Fragment>
                 <div className='introduce-container'>
@@ -33,7 +31,6 @@ class Introduce extends Component {
             </React.Fragment>
         )
     }
-
 }
 
 const mapStateToProps = state => {
@@ -44,6 +41,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+
     };
 };
 
