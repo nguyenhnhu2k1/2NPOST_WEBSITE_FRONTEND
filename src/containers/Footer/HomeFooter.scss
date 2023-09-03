@@ -1,4 +1,7 @@
-.footer-container{
+@import "../../styles/variables";
+
+
+.footer-container {
     width: 100%;
     padding-left: 20px;
     padding-right: 20px;
@@ -6,39 +9,42 @@
     color: white;
     padding-top: 40px;
     margin-top: 40px;
+
     @media (max-width:1150px) {
         margin-top: 170px;
-        
+
     }
-    .footer-info{
+
+    .footer-info {
         display: flex;
         flex-wrap: wrap;
         text-align: center;
 
-        .component_1{
+        .component_1 {
             flex: 32%;
 
-            p{
+            p {
                 text-align: justify;
                 margin: 0px 10px 15px 42px;
 
-                i{
+                i {
                     margin-right: 10px;
-                    color: #eb2525;
+                    color: $color-main-red;
                     font-size: larger;
                 }
             }
 
-            .contact{
-                .phone{
-                   span{
-                    font-size: xx-large;
-                   }
-                }    
+            .contact {
+                .phone {
+                    span {
+                        font-size: xx-large;
+                    }
+                }
             }
-            .connect{
-                .social-icon{
-                    img{
+
+            .connect {
+                .social-icon {
+                    img {
                         margin: auto 10px;
                         height: 35px;
                         width: 35px;
@@ -46,38 +52,22 @@
                     }
                 }
             }
+
             @media (max-width:1150px) {
-                    margin-bottom: 35px;
+                margin-bottom: 35px;
             }
         }
 
-        .component_2{
+        .component_2 {
             flex: 10%;
 
-            .about-us-link{
+            .about-us-link {
                 display: flex;
                 flex-direction: column;
                 align-items: start;
                 margin-left: 28%;
-                
-                a{
-                    color: white !important; 
-                    text-decoration: none;
-                    padding-bottom: 5px;
-                }
-            }
-        }
 
-        .component_3{
-            flex: 20%;
-
-            .support-customer{
-                display: flex;
-                flex-direction: column;
-                text-align: justify;
-                margin-left: 32%;
-
-                a{
+                a {
                     color: white !important;
                     text-decoration: none;
                     padding-bottom: 5px;
@@ -85,46 +75,69 @@
             }
         }
 
-        .component_4{
+        .component_3 {
+            flex: 20%;
+
+            .support-customer {
+                display: flex;
+                flex-direction: column;
+                text-align: justify;
+                margin-left: 32%;
+
+                a {
+                    color: white !important;
+                    text-decoration: none;
+                    padding-bottom: 5px;
+                }
+            }
+        }
+
+        .component_4 {
             flex: 25%;
 
-            .cooperate{
+            .cooperate {
                 text-align: justify;
                 margin-left: 26%;
                 font-size: 17px;
 
-                i{
+                i {
                     margin-right: 10px;
-                    color: red;
+                    color: $color-main-red;
                     margin-bottom: 7px;
                 }
             }
 
-            .register-link{
+            .register-link {
                 margin-top: 35px;
-                a{
+
+                a {
                     color: white;
                     text-decoration: none;
                     padding: 7px 16px;
                     border-radius: 10px;
-                    background-color: red;
+                    background-color: $color-main-red;
                     font-size: large;
                 }
             }
         }
+
         @media (max-width:1150px) {
-            .component_2, .component_3, .component_4{
+
+            .component_2,
+            .component_3,
+            .component_4 {
                 flex: 30%;
             }
-            .component_1{
+
+            .component_1 {
                 flex: 100%;
                 padding-left: 50px;
                 padding-right: 50px;
             }
         }
     }
-    
-    .copyright{
+
+    .copyright {
         text-align: center;
         font-size: large;
         background: #22272e;
