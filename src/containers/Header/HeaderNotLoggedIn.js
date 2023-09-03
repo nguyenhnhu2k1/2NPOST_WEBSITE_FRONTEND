@@ -64,19 +64,26 @@ class HeaderNotLoggedIn extends Component {
                             <div className='acc-btn'>
                                 <button className="acc-btn-a"
                                     onMouseEnter={this.changeIsShowAccInfoTrue}
-                                    onMouseLeave={this.changeIsShowAccInfoFalse}
-                                >
+                                    onMouseLeave={this.changeIsShowAccInfoFalse}>
                                     <i className="far fa-user"></i>
                                 </button>
                             </div>
+
                             {/* thông tin tài khoản khi click button user */}
-                            {this.state.isShowAccInfo && (
-                                <div className='acc-info'>
-                                    <p className='welcome'>Chào mừng đến với 2NSpost</p>
-                                    <button className='login-info'>Đăng Nhập</button>
-                                    <button className='signup-info'>Hợp Tác Làm Nhà Vận Chuyển</button>
-                                    <p className='policy'>Xem thêm về chính sách của chúng tôi <a href='#'>Tại Đây</a></p>
-                                </div>)}
+                            <div className='div-acc-info'
+                                onMouseEnter={this.changeIsShowAccInfoTrue}
+                                onMouseLeave={this.changeIsShowAccInfoFalse}>
+                                {this.state.isShowAccInfo && (
+                                    <div className='acc-info'
+                                        onMouseEnter={this.changeIsShowAccInfoTrue}
+                                        onMouseLeave={this.changeIsShowAccInfoFalse}>
+                                        <p className='welcome'>Chào mừng đến với 2NSpost</p>
+                                        <button className='login-info'>Đăng Nhập</button>
+                                        <button className='signup-info'>Hợp Tác Làm Nhà Vận Chuyển</button>
+                                        <p className='policy'>Xem thêm về chính sách của chúng tôi <a href='#'>Tại Đây</a></p>
+                                    </div>
+                                )}
+                            </div>
                         </div>
 
                         <div className='search-container'>
