@@ -2,22 +2,20 @@
 
 
 .footer-container {
-    width: 100%;
-    padding-left: 20px;
+    width        : 100%;
+    padding-left : 20px;
     padding-right: 20px;
-    background: #22272e;
-    color: white;
-    padding-top: 40px;
-    margin-top: 40px;
+    background   : #22272e;
+    color        : white;
+    padding-top  : 40px;
 
     @media (max-width:1150px) {
         margin-top: 170px;
-
     }
 
     .footer-info {
-        display: flex;
-        flex-wrap: wrap;
+        display   : flex;
+        flex-wrap : wrap;
         text-align: center;
 
         .component_1 {
@@ -25,12 +23,12 @@
 
             p {
                 text-align: justify;
-                margin: 0px 10px 15px 42px;
+                margin    : 0px 10px 15px 42px;
 
                 i {
                     margin-right: 10px;
-                    color: $color-main-red;
-                    font-size: larger;
+                    color       : $color-main-red;
+                    font-size   : larger;
                 }
             }
 
@@ -47,7 +45,7 @@
                     img {
                         margin: auto 10px;
                         height: 35px;
-                        width: 35px;
+                        width : 35px;
                         cursor: pointer;
                     }
                 }
@@ -62,15 +60,15 @@
             flex: 10%;
 
             .about-us-link {
-                display: flex;
+                display       : flex;
                 flex-direction: column;
-                align-items: start;
-                margin-left: 28%;
+                align-items   : start;
+                margin-left   : 28%;
 
                 a {
-                    color: white !important;
+                    color          : white !important;
                     text-decoration: none;
-                    padding-bottom: 5px;
+                    padding-bottom : 5px;
                 }
             }
         }
@@ -79,15 +77,15 @@
             flex: 20%;
 
             .support-customer {
-                display: flex;
+                display       : flex;
                 flex-direction: column;
-                text-align: justify;
-                margin-left: 32%;
+                text-align    : justify;
+                margin-left   : 32%;
 
                 a {
-                    color: white !important;
+                    color          : white !important;
                     text-decoration: none;
-                    padding-bottom: 5px;
+                    padding-bottom : 5px;
                 }
             }
         }
@@ -96,13 +94,13 @@
             flex: 25%;
 
             .cooperate {
-                text-align: justify;
+                text-align : justify;
                 margin-left: 26%;
-                font-size: 17px;
+                font-size  : 17px;
 
                 i {
-                    margin-right: 10px;
-                    color: $color-main-red;
+                    margin-right : 10px;
+                    color        : $color-main-red;
                     margin-bottom: 7px;
                 }
             }
@@ -111,12 +109,12 @@
                 margin-top: 35px;
 
                 a {
-                    color: white;
-                    text-decoration: none;
-                    padding: 7px 16px;
-                    border-radius: 10px;
+                    color           : white;
+                    text-decoration : none;
+                    padding         : 7px 16px;
+                    border-radius   : 10px;
                     background-color: $color-main-red;
-                    font-size: large;
+                    font-size       : large;
                 }
             }
         }
@@ -130,17 +128,17 @@
             }
 
             .component_1 {
-                flex: 100%;
-                padding-left: 50px;
+                flex         : 100%;
+                padding-left : 50px;
                 padding-right: 50px;
             }
         }
     }
 
     .copyright {
-        text-align: center;
-        font-size: large;
-        background: #22272e;
+        text-align   : center;
+        font-size    : large;
+        background   : #22272e;
         margin-bottom: 10px;
     }
 }

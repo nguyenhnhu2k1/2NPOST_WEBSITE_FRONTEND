@@ -119,8 +119,8 @@ class Home extends Component {
                                 <div className='carousel-caption'>
                                     <h2>Chúng tôi là 2NPost</h2>
                                     <div className='content-caption'>
-                                        <span>Khám phá một cách mới để quản lý giao hàng</span>
-                                        <p>tối ưu hóa quá trình vận chuyển mang đến trải nghiệm linh hoạt thông minh</p>
+                                        <span>Tối ưu hóa quá trình vận chuyển</span>
+                                        <p>mang đến trải nghiệm linh hoạt thông minh</p>
                                     </div>
                                     <div className='path-caption'>
                                         <a href="#">
