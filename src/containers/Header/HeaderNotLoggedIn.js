@@ -13,28 +13,22 @@ class HeaderNotLoggedIn extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isShowAccInfo: false,
+            showNav: false,
         }
-    }
-
-    changeIsShowAccInfoTrue = () => {
-        this.setState({
-            isShowAccInfo: true
-        })
-    }
-
-    changeIsShowAccInfoFalse = () => {
-        this.setState({
-            isShowAccInfo: false
-        })
     }
 
     changeLanguage = (language) => {
         if (language === LANGUAGES.VI) language = LANGUAGES.EN;
         else language = LANGUAGES.VI;
-        console.log(language);
         this.props.changeLanguageAppRedux(language)
     }
+
+    changeShowNav = () => {
+        this.setState({
+            showNav: !this.state.showNav
+        })
+    }
+
     render() {
         let language = this.props.language;
         return (
@@ -44,7 +38,7 @@ class HeaderNotLoggedIn extends Component {
                     <div className='logo-header-not-logged-in-container'>
                         <div className='logo-icon'></div>
                     </div>
-                    <div className='nav-container'>
+                    <div className={`nav-container ${this.state.showNav ? 'active-nav' : ''}`}>
                         <div><Link to='/home'><FormattedMessage id="login.header-home" /></Link></div>
                         <div><Link to='/about_us'><FormattedMessage id="login.header-about" /></Link></div>
                         <div><Link to='#'><FormattedMessage id="login.header-service" /></Link></div>
@@ -55,40 +49,34 @@ class HeaderNotLoggedIn extends Component {
                             <div onClick={() => this.changeLanguage(language)}>
                                 {language === LANGUAGES.VI && <img className='logo-lang' src={ViLogo}></img>}
                                 {language === LANGUAGES.EN && <img className='logo-lang' src={EnLogo}></img>}
-                                {language}
                             </div>
                         </div>
 
                         <div className='acc-container'>
 
                             <div className='acc-btn'>
-                                <button className="acc-btn-a"
-                                    onMouseEnter={this.changeIsShowAccInfoTrue}
-                                    onMouseLeave={this.changeIsShowAccInfoFalse}>
+                                <button className="acc-btn-a">
                                     <i className="far fa-user"></i>
                                 </button>
                             </div>
 
                             {/* thông tin tài khoản khi click button user */}
-                            <div className='div-acc-info'
-                                onMouseEnter={this.changeIsShowAccInfoTrue}
-                                onMouseLeave={this.changeIsShowAccInfoFalse}>
-                                {this.state.isShowAccInfo && (
-                                    <div className='acc-info'
-                                        onMouseEnter={this.changeIsShowAccInfoTrue}
-                                        onMouseLeave={this.changeIsShowAccInfoFalse}>
-                                        <p className='welcome'>Chào mừng đến với 2NSpost</p>
-                                        <button className='login-info'>Đăng Nhập</button>
-                                        <button className='signup-info'>Hợp Tác Làm Nhà Vận Chuyển</button>
-                                        <p className='policy'>Xem thêm về chính sách của chúng tôi <a href='#'>Tại Đây</a></p>
-                                    </div>
-                                )}
+                            <div className='div-acc-info'>
+                                <div className='acc-info'>
+                                    <p className='welcome'>Chào mừng đến với 2NSpost</p>
+                                    <button className='login-info'>Đăng Nhập</button>
+                                    <button className='signup-info'>Hợp Tác Làm Nhà Vận Chuyển</button>
+                                    <p className='policy'>Xem thêm về chính sách của chúng tôi <a href='#'>Tại Đây</a></p>
+                                </div>
                             </div>
                         </div>
 
-                        <div className='search-container'>
+                        <div className={`search-container ${this.state.showNav ? 'active-search' : ''}`}>
                             <input type='text' />
                             <i className="fas fa-search"></i>
+                        </div>
+                        <div className='bar-container'>
+                            {this.state.showNav ? <i onClick={this.changeShowNav} className="fas fa-times"></i> : <i onClick={this.changeShowNav} className="fas fa-bars"></i>}
                         </div>
 
                     </div>

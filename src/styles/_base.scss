@@ -12,18 +12,6 @@
 //   overflow: hidden;
 // }
 
-<<<<<<< HEAD
-.btn {
-  padding: 0;
-  border: none;
-  cursor: pointer;
-  font-weight: 700;
-  height: 30px;
-  line-height: 30px;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
-=======
 // p {
 //   line-height: 30px;
 // }
@@ -38,7 +26,6 @@
 //   -moz-user-select: none;
 //   -webkit-user-select: none;
 //   user-select: none;
->>>>>>> 825e6e146c7087ec31f2f07892879943befc766e
 
 //   i {
 //     font-size: $base-size - 3px;
@@ -94,43 +81,43 @@
   .title-1-base {
     // định dạng heading 1
     font-weight: 600;
-    font-size: 24px;
+    font-size  : 24px;
   }
 
   .title-2-base {
     // định dạng heading 2
     font-weight: 550;
-    font-size: 22px;
+    font-size  : 22px;
   }
 
   .title-3-base {
     // định dạng heading 3
     font-weight: 500;
-    font-size: 20px;
+    font-size  : 20px;
   }
 
   .title-4-base {
     // định dạng heading 4
     font-weight: 480;
-    font-size: 19px;
+    font-size  : 19px;
   }
 
   .title-5-base {
     // định dạng heading 5
     font-weight: 460;
-    font-size: 18px;
+    font-size  : 18px;
   }
 
   .text-base {
     // định dạng nội dung
     font-weight: 400;
-    font-size: 16px;
-    text-align: justify;
+    font-size  : 16px;
+    text-align : justify;
   }
 
   .animation-rise-base {
     // hiệu ứng nội dung ngôi lên
-    animation-name: slider;
+    animation-name    : slider;
     animation-duration: 1s;
   }
 

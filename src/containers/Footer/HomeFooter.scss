@@ -53,11 +53,16 @@
 
             @media (max-width:1150px) {
                 margin-bottom: 35px;
+                padding      : 0px !important;
             }
         }
 
         .component_2 {
             flex: 10%;
+
+            @media (max-width:655px) {
+                flex: 40% !important;
+            }
 
             .about-us-link {
                 display       : flex;
@@ -65,22 +70,36 @@
                 align-items   : start;
                 margin-left   : 28%;
 
+                @media (max-width:655px) {
+                    margin-left: 20%;
+                }
+
                 a {
                     color          : white !important;
                     text-decoration: none;
                     padding-bottom : 5px;
                 }
+
+
             }
         }
 
         .component_3 {
             flex: 20%;
 
+            @media (max-width:655px) {
+                flex: 60% !important;
+            }
+
             .support-customer {
                 display       : flex;
                 flex-direction: column;
                 text-align    : justify;
                 margin-left   : 32%;
+
+                @media (max-width:655px) {
+                    margin-left: 20%;
+                }
 
                 a {
                     color          : white !important;
@@ -92,6 +111,11 @@
 
         .component_4 {
             flex: 25%;
+
+            @media (max-width:655px) {
+                flex      : 100% !important;
+                margin-top: 20px;
+            }
 
             .cooperate {
                 text-align : justify;
