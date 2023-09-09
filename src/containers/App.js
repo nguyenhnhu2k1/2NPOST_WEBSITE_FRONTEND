@@ -4,10 +4,10 @@ import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import { history } from '../redux'
 import { ToastContainer } from 'react-toastify';
-
-
+import { CustomToastCloseButton } from '../components/CustomToast';
+import ConfirmModal from '../components/ConfirmModal';
+import CustomScrollbars from '../components/CustomScrollbars';
 import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
-
 import { path } from '../utils'
 
 import Home from '../routes/Home';
@@ -17,10 +17,8 @@ import System from '../routes/System';
 import HomePage from './HomePage/Home';
 import Register from './Auth/Register';
 import AboutUs from './HomePage/AboutUs'
+import Dashboard from '../transporters/dashboard/Dashboard';
 
-import { CustomToastCloseButton } from '../components/CustomToast';
-import ConfirmModal from '../components/ConfirmModal';
-import CustomScrollbars from '../components/CustomScrollbars';
 
 class App extends Component {
 
@@ -60,6 +58,8 @@ class App extends Component {
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                     <Route path={path.REGISTER} exact component={(Register)} />
                                     <Route path={path.ABOUT_US} exact component={(AboutUs)} />
+                                    <Route path={path.TRANSPORTERS.DASHBOARD} exact component={(Dashboard)} />
+
                                 </Switch>
                             </CustomScrollbars>
                         </div>

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import './SearchComp.scss';
 
-import deliveryCartoon from "../../../assets/images/homepage/order_search/delivery-cartoon.png"
+import deliveryCartoon from "../../../assets/images/homepage/overview_home/delivery-cartoon.png"
 
 class SearchComp extends Component {
 

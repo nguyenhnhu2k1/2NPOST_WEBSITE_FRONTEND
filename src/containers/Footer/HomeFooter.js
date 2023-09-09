@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 
-import Login from '../Auth/Login';
 import './HomeFooter.scss';
 import fbIcon from '../../assets/images/social/fb1.png';
 import zaloIcon from '../../assets/images/social/Group-5897.png';

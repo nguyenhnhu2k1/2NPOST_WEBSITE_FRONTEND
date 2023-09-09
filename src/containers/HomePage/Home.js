@@ -11,9 +11,9 @@ import HomeHeader from '../Header/HeaderNotLoggedIn';
 import HomeFooter from '../Footer/HomeFooter';
 import './Home.scss';
 
-import anh1 from '../../assets/images/homepage/huong_duong_1.jpg';
-import anh2 from '../../assets/images/homepage/huong_duong_2.jpg';
-import anh3 from '../../assets/images/homepage/huong_duong_3.jpg';
+import anh1 from '../../assets/images/homepage/banner1.jpg';
+import anh2 from '../../assets/images/homepage/banner2.jpg';
+import anh3 from '../../assets/images/homepage/banner3.jpg';
 
 class Home extends Component {
     constructor(props) {

@@ -5,7 +5,11 @@ export const path = {
     LOG_OUT: '/logout',
     SYSTEM: '/system',
     REGISTER: '/register',
-    ABOUT_US: '/about_us'
+    ABOUT_US: '/about_us',
+
+    TRANSPORTERS: {
+        DASHBOARD: '/transporter/dasboard',
+    }
 };
 
 export const LANGUAGES = {
