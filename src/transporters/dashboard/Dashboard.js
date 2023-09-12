@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import HeaderTrans from '../header/Header';
-import './Dashboard'
+import './Dashboard.scss'
 
 class Dashboard extends Component {
 

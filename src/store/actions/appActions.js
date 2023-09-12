@@ -13,3 +13,8 @@ export const changeLanguageApp = (language) => ({
     type: actionTypes.CHANGE_LANGUAGE,
     language: language
 });
+
+export const changeShowNavApp = (showNav) => ({
+    type: actionTypes.CHANGE_SHOW_NAV,
+    showNav: showNav
+});

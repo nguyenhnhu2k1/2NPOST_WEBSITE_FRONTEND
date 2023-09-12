@@ -16,8 +16,9 @@ import Header from './HeaderThamKhao/Header';
 import System from '../routes/System';
 import HomePage from './HomePage/Home';
 import Register from './Auth/Register';
-import AboutUs from './HomePage/AboutUs'
+import AboutUs from './HomePage/AboutUs';
 import Dashboard from '../transporters/dashboard/Dashboard';
+import StoreManager from '../transporters/store-manager/StoreManager';
 
 
 class App extends Component {
@@ -59,6 +60,7 @@ class App extends Component {
                                     <Route path={path.REGISTER} exact component={(Register)} />
                                     <Route path={path.ABOUT_US} exact component={(AboutUs)} />
                                     <Route path={path.TRANSPORTERS.DASHBOARD} exact component={(Dashboard)} />
+                                    <Route path={path.TRANSPORTERS.STORE_MANAGER} exact component={(StoreManager)} />
 
                                 </Switch>
                             </CustomScrollbars>

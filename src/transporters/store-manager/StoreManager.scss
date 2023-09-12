@@ -1,0 +1,58 @@
+.store-manager {
+    .store-manager-component {
+        margin    : 95px 20px auto 90px;
+        height    : 100vh;
+        transition: margin-left 0.5s ease-in-out;
+
+        &.active-show-nav {
+            margin-left: 248px;
+        }
+
+        .information-transporter {
+            .information-component {
+                padding: 25px;
+                border : 1px solid #dbd5d5;
+
+                .info-form-component {
+                    margin: 21px auto 23px 28px;
+                }
+
+                .container-select {
+                    margin: auto;
+
+                    .scope-component {
+
+                        .scope-select {
+                            margin: 21px auto 23px 0px;
+
+                            label {
+                                margin-left: 10px;
+                            }
+                        }
+                    }
+
+                    .service-component {
+                        .service-select {
+                            margin: 21px auto 23px 0px;
+
+                            label {
+                                margin-left: 10px;
+                            }
+                        }
+                    }
+                }
+
+
+                .button-div {
+                    display        : flex;
+                    justify-content: center;
+
+                    button {
+                        background  : #ee0033;
+                        border-color: #ee0033;
+                    }
+                }
+            }
+        }
+    }
+}
