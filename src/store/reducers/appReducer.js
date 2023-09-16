@@ -44,6 +44,11 @@ const appReducer = (state = initialState, action) => {
                 showNav: action.showNav,
 
             }
+        case actionTypes.CHANGE_CURRENT_TAG:
+            return {
+                ...state,
+                currentTag: action.currentTag,
+            }
         default:
             return state;
     }

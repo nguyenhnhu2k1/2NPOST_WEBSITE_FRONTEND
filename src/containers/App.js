@@ -19,7 +19,9 @@ import Register from './Auth/Register';
 import AboutUs from './HomePage/AboutUs';
 import Dashboard from '../transporters/dashboard/Dashboard';
 import StoreManager from '../transporters/store-manager/StoreManager';
-
+import Driver from '../transporters/driver/Driver';
+import Vehicle from '../transporters/vehicle/Vehicle';
+import Order from '../transporters/order/Order'
 
 class App extends Component {
 
@@ -61,9 +63,12 @@ class App extends Component {
                                     <Route path={path.ABOUT_US} exact component={(AboutUs)} />
                                     <Route path={path.TRANSPORTERS.DASHBOARD} exact component={(Dashboard)} />
                                     <Route path={path.TRANSPORTERS.STORE_MANAGER} exact component={(StoreManager)} />
-
+                                    <Route path={path.TRANSPORTERS.DRIVER} exact component={(Driver)} />
+                                    <Route path={path.TRANSPORTERS.VEHICLE} exact component={(Vehicle)} />
+                                    <Route path={path.TRANSPORTERS.ORDERS} exact component={(Order)} />
                                 </Switch>
                             </CustomScrollbars>
+
                         </div>
 
                         <ToastContainer

@@ -9,7 +9,10 @@ export const path = {
 
     TRANSPORTERS: {
         DASHBOARD: '/transporter/dasboard',
-        STORE_MANAGER: '/transporter/store-manager'
+        STORE_MANAGER: '/transporter/store-manager',
+        DRIVER: '/transporter/driver',
+        VEHICLE: '/transporter/vehicle',
+        ORDERS: '/transporter/orders',
     }
 };
 

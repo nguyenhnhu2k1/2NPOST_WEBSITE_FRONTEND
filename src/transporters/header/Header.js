@@ -2,14 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { LANGUAGES } from '../../utils';
-import { changeLanguageApp, changeShowNavApp } from '../../store/actions/appActions';
+import { changeLanguageApp, changeShowNavApp, changeCurrentTag } from '../../store/actions/appActions';
 
-import Dashboard from '../dashboard/Dashboard'
 import './Header.scss'
 
 import logoIMG from '../../assets/images/logo/logo.png'
 
 class Header extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    changeCurrentTag = (tag) => {
+        console.log(tag)
+        this.props.changeCurrentTagAppRedux(tag);
+    }
 
     changeShowNav = (showNav) => {
         this.props.changeShowNavAppRedux(showNav);
@@ -21,9 +28,14 @@ class Header extends Component {
         this.props.changeLanguageAppRedux(language)
     }
 
+    componentDidCatch() {
+        changeCurrentTag(window.location.pathname);
+    }
+
     render() {
         let language = this.props.language;
         let showNav = this.props.showNav;
+        let currentTag = this.props.currentTag ? this.props.currentTag : window.location.pathname;
         return (
             <React.Fragment>
                 <div className='header-container'>
@@ -31,7 +43,7 @@ class Header extends Component {
 
                         {/* logo */}
                         <div className='logo-component'>
-                            <Link to={Dashboard}>
+                            <Link to='/transporter/dasboard'>
                                 <img src={logoIMG} alt='logo' />
                             </Link>
                         </div>
@@ -43,31 +55,14 @@ class Header extends Component {
 
                         {/* thanh nav */}
                         <div className='nav-component'>
-                            <div>
-                                <i className="fas fa-home"></i>
-                                <Link to="/transporter/dasboard">Bảng điều khiển</Link>
-                            </div>
-                            <div>
-                                <i className="fas fa-store"></i>
-                                <Link to="/transporter/store-manager">Cập nhật thông tin</Link>
-                            </div>
-                            <div>
-                                <i className="far fa-user"></i>
-                                <Link to={Dashboard}>Quản lý tài xế</Link>
-                            </div>
-                            <div>
-                                <i className="fas fa-truck"></i>
-                                <Link to={Dashboard}>QL Phương tiện</Link>
-                            </div>
-                            <div>
-                                <i className="fas fa-box-open"></i>
-                                <Link to={Dashboard}>Quản lý đơn hàng</Link>
-                            </div>
-                            <div>
-                                <i className="far fa-star"></i>
-                                <Link to={Dashboard}>Đánh giá</Link>
-                            </div>
+                            <Link to="/transporter/dasboard" onClick={() => (this.changeCurrentTag('/transporter/dasboard'))} className={`${currentTag === '/transporter/dasboard' ? 'activeTag' : ''}`}> <i className="fas fa-home"></i> Bảng điều khiển</Link>
+                            <Link to="/transporter/store-manager" onClick={() => (this.changeCurrentTag('/transporter/store-manager'))} className={`${currentTag === '/transporter/store-manager' ? 'activeTag' : ''}`}><i className="fas fa-store"></i> Cập nhật thông tin</Link>
+                            <Link to='/transporter/driver' onClick={() => (this.changeCurrentTag('/transporter/driver'))} className={`${currentTag === '/transporter/driver' ? 'activeTag' : ''}`}><i className="far fa-user"></i> Quản lý tài xế</Link>
+                            <Link to="/transporter/vehicle" onClick={() => (this.changeCurrentTag('/transporter/vehicle'))} className={`${currentTag === '/transporter/vehicle' ? 'activeTag' : ''}`}><i className="fas fa-truck"></i> QL Phương tiện</Link>
+                            <Link to="/transporter/orders" onClick={() => (this.changeCurrentTag('/transporter/orders'))} className={`${currentTag === '/transporter/orders' ? 'activeTag' : ''}`} ><i className="fas fa-box-open"></i> Quản lý đơn hàng</Link>
+                            <Link to="/transporter/dasboard" ><i className="far fa-star"></i> Đánh giá</Link>
                         </div>
+
                     </div>
                     <div className='right-component'>
 
@@ -97,7 +92,8 @@ const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
         language: state.app.language,
-        showNav: state.app.showNav
+        showNav: state.app.showNav,
+        currentTag: state.app.currentTag,
     };
 };
 
@@ -105,6 +101,7 @@ const mapDispatchToProps = dispatch => {
     return {
         changeLanguageAppRedux: (language) => dispatch(changeLanguageApp(language)),
         changeShowNavAppRedux: (showNav) => dispatch(changeShowNavApp(showNav)),
+        changeCurrentTagAppRedux: (tag) => dispatch(changeCurrentTag(tag)),
     };
 };
 

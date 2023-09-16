@@ -1,0 +1,11 @@
+.order {
+    .order-component {
+        margin    : 95px 20px auto 90px;
+        height    : 100vh;
+        transition: margin-left 0.5s ease-in-out;
+
+        &.active-show-nav {
+            margin-left: 248px;
+        }
+    }
+}

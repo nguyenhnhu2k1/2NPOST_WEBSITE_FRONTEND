@@ -8,6 +8,33 @@
             margin-left: 248px;
         }
 
+        .heading-and-price {
+            display        : flex;
+            justify-content: space-between;
+            align-items    : start;
+
+            #add-driver-button {
+                background-color: #e34e4e;
+                color           : #fff;
+                border          : none;
+                border-radius   : 5px;
+                cursor          : pointer;
+                width           : 190px;
+                padding         : 10px;
+                font-size       : 16px;
+                transition      : background-color 0.3s ease;
+
+                i {
+                    margin-right: 5px;
+                }
+
+                &#add-driver-button:hover {
+                    background-color: #b70709;
+                }
+            }
+        }
+
+
         .information-transporter {
             .information-component {
                 padding: 25px;
@@ -48,8 +75,12 @@
                     justify-content: center;
 
                     button {
-                        background  : #ee0033;
-                        border-color: #ee0033;
+                        background  : #d44949;
+                        border-color: #d44949;
+
+                        &:hover {
+                            background-color: #b70709;
+                        }
                     }
                 }
             }

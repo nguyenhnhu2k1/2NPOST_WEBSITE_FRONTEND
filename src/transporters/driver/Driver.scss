@@ -1,0 +1,129 @@
+.driver {
+    .driver-component {
+        margin    : 95px 20px auto 90px;
+        height    : 100vh;
+        transition: margin-left 0.5s ease-in-out;
+
+        &.active-show-nav {
+            margin-left: 248px;
+        }
+
+        .component-1 {
+
+            display        : flex;
+            flex-direction : row;
+            justify-content: space-around;
+            align-items    : center;
+            margin         : 20px 0px;
+            border-radius  : 5px;
+            background     : #f3f1f1;
+            border         : 1px solid #e1e1e1;
+            padding        : 50px;
+            flex-wrap      : wrap;
+
+            @media (max-width: 870px) {
+                gap: 20px;
+            }
+
+            .search-component {
+
+                input {
+                    width        : 230px;
+                    padding      : 10px;
+                    border       : none;
+                    border-radius: 4px;
+                    outline      : none;
+                    font-size    : 16px;
+                    background   : #e1e1e1;
+                }
+            }
+
+            .filter-component {
+
+                #status-account-type {
+                    width        : 230px;
+                    padding      : 10px;
+                    outline      : none;
+                    border       : none;
+                    background   : #e1e1e1;
+                    font-size    : 16px;
+                    border-radius: 4px;
+
+                }
+            }
+
+            .add-component {
+
+                #add-driver-button {
+                    background-color: #e34e4e;
+                    color           : #fff;
+                    border          : none;
+                    border-radius   : 5px;
+                    cursor          : pointer;
+                    width           : 230px;
+                    padding         : 10px;
+                    font-size       : 16px;
+                    transition      : background-color 0.3s ease;
+
+                    i {
+                        margin-right: 5px;
+                    }
+
+                    &#add-driver-button:hover {
+                        background-color: #b70709;
+                    }
+                }
+
+            }
+        }
+    }
+
+    .component-2 {
+        margin: 20px 0px;
+
+        table {
+            text-align: center;
+
+            tr {
+
+                th,
+                td {
+                    border: 1px solid black;
+                    height: 40px;
+                }
+
+                &.header-table {
+                    background-color: #c1c1c1;
+                    ;
+                }
+            }
+
+            img {
+                width : 75px;
+                margin: 3px;
+            }
+        }
+    }
+
+    .component-3 {
+        float    : right;
+        margin   : 20px 51px;
+        font-size: larger;
+
+        button {
+            background : #e34e4e;
+            color      : #f1f3ce;
+            font-weight: 500;
+
+            &:focus {
+                background: #b70709;
+                box-shadow: none;
+            }
+
+            &:hover {
+                background-color: #b70709;
+            }
+        }
+    }
+
+}

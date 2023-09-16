@@ -18,3 +18,8 @@ export const changeShowNavApp = (showNav) => ({
     type: actionTypes.CHANGE_SHOW_NAV,
     showNav: showNav
 });
+
+export const changeCurrentTag = (tag) => ({
+    type: actionTypes.CHANGE_CURRENT_TAG,
+    currentTag: tag
+});

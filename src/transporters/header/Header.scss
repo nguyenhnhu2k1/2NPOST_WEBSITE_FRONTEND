@@ -31,6 +31,10 @@
         border-radius   : 5px;
         transition      : left 0.5s ease-in-out;
 
+        &:hover {
+            background-color: #b70709;
+        }
+
         &.active-bar {
             left: 240px;
         }
@@ -66,11 +70,16 @@
             grid-gap      : 31px;
             gap           : 31px;
 
-            div {
-                padding: 10px 0px 10px 50px;
+            a {
+                padding        : 10px 0px 10px 50px;
+                cursor         : pointer;
+                text-decoration: none;
+                color          : black;
 
+                &.activeTag,
                 &:hover {
-                    background: #555555;
+                    background: #b70709;
+                    color     : wheat;
                 }
 
                 i {
@@ -80,11 +89,6 @@
                     left        : 10px;
                 }
 
-                a {
-                    text-decoration: none;
-                    color          : black;
-
-                }
             }
         }
     }

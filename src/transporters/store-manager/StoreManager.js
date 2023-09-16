@@ -11,7 +11,6 @@ class StoreManager extends Component {
 
     render() {
         let showNav = this.props.showNav;
-        console.log(showNav);
         return (
             <React.Fragment>
 
@@ -22,7 +21,14 @@ class StoreManager extends Component {
                 <div className='store-manager'>
                     <div className={`store-manager-component ${showNav ? '' : 'active-show-nav'}`}>
 
-                        <p className='title-1-base'>THÔNG TIN NHÀ VẬN CHUYỂN</p>
+                        <div className='heading-and-price'>
+                            <p className='title-1-base'>THÔNG TIN NHÀ VẬN CHUYỂN</p>
+
+                            {/* nút thêm */}
+                            <button id="add-driver-button">
+                                <i className="fas fa-plus-circle"></i> Cập nhật giá
+                            </button>
+                        </div>
 
                         {/* toàn bộ form thông tin */}
                         <div className='information-transporter'>
@@ -33,19 +39,19 @@ class StoreManager extends Component {
                                 <form>
 
                                     <div className='info-form-component'>
-                                        <label for="transporterName" className="form-label">Tên doanh nghiệp</label>
+                                        <label htmlFor="transporterName" className="form-label">Tên doanh nghiệp</label>
                                         <input type="text" id="transporterName" className="form-control" />
 
 
-                                        <label for="email" className="form-label">Email</label>
+                                        <label htmlFor="email" className="form-label">Email</label>
                                         <input type="email" id="email" className="form-control" />
 
 
-                                        <label for="phone" className="form-label">Phone</label>
+                                        <label htmlFor="phone" className="form-label">Phone</label>
                                         <input type="tel" id="phone" className="form-control" />
 
 
-                                        <label for="founding-date" className="form-label">Ngày thành lập</label>
+                                        <label htmlFor="founding-date" className="form-label">Ngày thành lập</label>
                                         <input type="date" id="founding-date" className="form-control" />
                                     </div>
 
@@ -58,27 +64,27 @@ class StoreManager extends Component {
                                                 <p> Chọn phạm vi vận chuyển có thể lấy hàng và giao hàng: </p>
 
                                                 <div className="form-check form-switch">
-                                                    <label className="form-check-label" for="flexSwitchCheckDefault">Nội Thành</label>
+                                                    <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Nội Thành</label>
                                                     <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
                                                 </div>
 
                                                 <div className="form-check form-switch">
-                                                    <label className="form-check-label" for="flexSwitchCheckDefault">Toàn Quốc</label>
+                                                    <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Toàn Quốc</label>
                                                     <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
                                                 </div>
 
                                                 <div className="form-check form-switch">
-                                                    <label className="form-check-label" for="flexSwitchCheckDefault">Miền Nam</label>
+                                                    <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Miền Nam</label>
                                                     <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
                                                 </div>
 
                                                 <div className="form-check form-switch">
-                                                    <label className="form-check-label" for="flexSwitchCheckDefault">Miền Trung</label>
+                                                    <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Miền Trung</label>
                                                     <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
                                                 </div>
 
                                                 <div className="form-check form-switch">
-                                                    <label className="form-check-label" for="flexSwitchCheckDefault">Miền Bắc</label>
+                                                    <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Miền Bắc</label>
                                                     <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
                                                 </div>
 
@@ -94,17 +100,17 @@ class StoreManager extends Component {
                                                 <p className=''>Chọn loại dịch vụ có thể cung cấp: </p>
 
                                                 <div className="form-check form-switch">
-                                                    <label className="form-check-label" for="flexSwitchCheckDefault">Vận chuyển hỏa tốc nội thành</label>
+                                                    <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Vận chuyển hỏa tốc nội thành</label>
                                                     <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
                                                 </div>
 
                                                 <div className="form-check form-switch">
-                                                    <label className="form-check-label" for="flexSwitchCheckDefault">Vận chuyển hỏa tốc ngoại thành</label>
+                                                    <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Vận chuyển hỏa tốc ngoại thành</label>
                                                     <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
                                                 </div>
 
                                                 <div className="form-check form-switch">
-                                                    <label className="form-check-label" for="flexSwitchCheckDefault">Vận chuyển tiêu chuẩn ngoại thành</label>
+                                                    <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Vận chuyển tiêu chuẩn ngoại thành</label>
                                                     <input className="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
                                                 </div>
                                             </div>
@@ -117,10 +123,6 @@ class StoreManager extends Component {
                                     </div>
                                 </form>
                             </div>
-
-
-
-
                         </div>
                     </div>
                 </div>
