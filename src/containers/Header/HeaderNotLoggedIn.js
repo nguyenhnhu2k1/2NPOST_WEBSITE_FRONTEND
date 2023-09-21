@@ -36,12 +36,14 @@ class HeaderNotLoggedIn extends Component {
             <React.Fragment>
                 <div className='header-not-logged-in-container'>
                     <div className='logo-header-not-logged-in-container'>
-                        <div className='logo-icon'></div>
+                        <Link to='/home'>
+                            <div className='logo-icon'></div>
+                        </Link>
                     </div>
                     <div className={`nav-container ${this.state.showNav ? 'active-nav' : ''}`}>
                         <div><Link to='/home'><FormattedMessage id="login.header-home" /></Link></div>
-                        <div><Link to='/about_us'><FormattedMessage id="login.header-about" /></Link></div>
-                        <div><Link to='#'><FormattedMessage id="login.header-service" /></Link></div>
+                        <div><Link to='/home/about_us'><FormattedMessage id="login.header-about" /></Link></div>
+                        <div><Link to='/home/service'><FormattedMessage id="login.header-service" /></Link></div>
                         <div><Link to='#'><FormattedMessage id="login.header-customer" /></Link></div>
                     </div>
                     <div className='other-container'>
@@ -64,8 +66,12 @@ class HeaderNotLoggedIn extends Component {
                             <div className='div-acc-info'>
                                 <div className='acc-info'>
                                     <p className='welcome'>Chào mừng đến với 2NSpost</p>
-                                    <button className='login-info'>Đăng Nhập</button>
-                                    <button className='signup-info'>Hợp Tác Làm Nhà Vận Chuyển</button>
+                                    <Link to='/login'>
+                                        <button className='login-info'>Đăng Nhập</button>
+                                    </Link>
+                                    <Link to='/register'>
+                                        <button className='signup-info'>Hợp Tác Làm Nhà Vận Chuyển</button>
+                                    </Link>
                                     <p className='policy'>Xem thêm về chính sách của chúng tôi <a href='#'>Tại Đây</a></p>
                                 </div>
                             </div>

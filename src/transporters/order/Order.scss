@@ -7,5 +7,26 @@
         &.active-show-nav {
             margin-left: 248px;
         }
+
+        .status-order-component {
+            width        : 100%;
+            height       : 100vh;
+            border       : 1px solid #d3d1d1;
+            padding      : 20px;
+            border-radius: 5px;
+
+            .status-order {
+                display        : flex;
+                justify-content: space-around;
+                border-bottom  : 2px solid #d3d1d1;
+
+                div {
+                    cursor       : pointer;
+                    height       : 27px;
+                    margin-bottom: 7px;
+                }
+            }
+        }
+
     }
 }

@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, Route } from 'react-router-dom';
 import { LANGUAGES } from '../../utils';
 import { changeLanguageApp, changeShowNavApp, changeCurrentTag } from '../../store/actions/appActions';
+import { processLogout } from '../../store/actions/userActions';
 
 import './Header.scss'
 
 import logoIMG from '../../assets/images/logo/logo.png'
 
 class Header extends Component {
+
     constructor(props) {
         super(props);
+        this.state = {
+            userName: this.props.userInfo.userName,
+        }
     }
 
     changeCurrentTag = (tag) => {
-        console.log(tag)
         this.props.changeCurrentTagAppRedux(tag);
     }
 
@@ -30,6 +34,14 @@ class Header extends Component {
 
     componentDidCatch() {
         changeCurrentTag(window.location.pathname);
+    }
+
+    processLogout = () => {
+        this.props.processLogoutUserRedux();
+        <Route>
+            <Redirect to='/login'></Redirect>
+        </Route>
+
     }
 
     render() {
@@ -66,18 +78,28 @@ class Header extends Component {
                     </div>
                     <div className='right-component'>
 
+                        {/* username */}
                         <div className='user-component'>
                             <i className="fas fa-user"></i>
-                            <span>user-name</span>
+                            <span>{this.state.userName}</span>
                         </div>
+
+                        {/* language */}
                         <div className='language-component'>
                             <div onClick={() => this.changeLanguage(language)}>
                                 {language === LANGUAGES.VI && <span style={{ color: '#219751', border: '1px solid #219751' }}>VI</span>}
                                 {language === LANGUAGES.EN && <span style={{ color: 'orange', border: '1px solid orange' }}>EN</span>}
                             </div>
                         </div>
+
+                        {/* notification */}
                         <div className='notification-component'>
                             <i className="fas fa-bell"></i>
+                        </div>
+
+                        {/* log-out button */}
+                        <div className='logout-componenet' onClick={this.processLogout}>
+                            <i className="fas fa-sign-out-alt" ></i>
                         </div>
                     </div>
 
@@ -94,6 +116,7 @@ const mapStateToProps = state => {
         language: state.app.language,
         showNav: state.app.showNav,
         currentTag: state.app.currentTag,
+        userInfo: state.user.userInfo
     };
 };
 
@@ -102,6 +125,7 @@ const mapDispatchToProps = dispatch => {
         changeLanguageAppRedux: (language) => dispatch(changeLanguageApp(language)),
         changeShowNavAppRedux: (showNav) => dispatch(changeShowNavApp(showNav)),
         changeCurrentTagAppRedux: (tag) => dispatch(changeCurrentTag(tag)),
+        processLogoutUserRedux: () => dispatch(processLogout()),
     };
 };
 

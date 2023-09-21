@@ -2,29 +2,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from "connected-react-router";
+import { Link } from 'react-router-dom';
 
 import * as actions from "../../store/actions";
 
 import './Login.scss';
 import { handleLoginAPI } from '../../services/userService';
 import HeaderAuth from './HeaderAuth';
+import { KeyCodeUtils } from '../../utils';
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.btnLogin = React.createRef();
         this.state = {
-            username: '',
+            phone: '',
             password: '',
             isShowPassWord: false,
             errMessage: '',
         }
     }
 
-    //xử lý nhập vào username
-    handleOnchangInputUsername = (event) => {
+    handlerKeyDown = (event) => {
+        const keyCode = event.which || event.keyCode;
+        if (keyCode === KeyCodeUtils.ENTER) {
+            event.preventDefault();
+            if (!this.btnLogin.current || this.btnLogin.current.disabled) return;
+            this.btnLogin.current.click();
+        }
+    }
+
+    //xử lý nhập vào phone
+    handleOnchangInputPhone = (event) => {
         this.setState({
-            username: event.target.value
+            phone: event.target.value
         })
     }
 
@@ -42,9 +53,14 @@ class Login extends Component {
         });
 
         try {
-            let data = await handleLoginAPI(this.state.username, this.state.password);
+            let data = await handleLoginAPI(this.state.phone, this.state.password, 'R2');
             if (data && data.errCode === 0) {
-                this.props.userLoginSuccess(data.User);
+                this.props.userLoginSuccess(data.user);
+            }
+            else {
+                this.setState({
+                    errMessage: data.message,
+                });
             }
         }
         catch (e) {
@@ -61,17 +77,21 @@ class Login extends Component {
         })
     }
 
+    componentDidMount() {
+        document.addEventListener('keydown', this.handlerKeyDown);
+    }
+
     render() {
-        console.log('check Login Page', this.props.isLoggedIn)
         return (
             <div className="login-wrapper">
                 <HeaderAuth />
                 <div className="login-container">
                     <div className="form_login">
                         <div className='col-12 text-login'>Login</div>
+
                         <div className='col-12 form-group '>
-                            <label className='my-2'>Username</label>
-                            <input type='text' className='form-control input-user' placeholder='Enter your username' value={this.state.username} onChange={this.handleOnchangInputUsername}></input>
+                            <label className='my-2'>Số Điện Thoại</label>
+                            <input type='text' className='form-control input-user' placeholder='Enter your number phone' value={this.state.phone} onChange={this.handleOnchangInputPhone}></input>
                         </div>
                         <div className='col-12 form-group my-3'>
                             <label className='my-2'>Password</label>
@@ -83,17 +103,18 @@ class Login extends Component {
 
                             </div>
                         </div>
+
                         <div className="col-12 errMess">
                             {this.state.errMessage}
                         </div>
                         <div className="col-12 div-btn-login">
-                            <button className='btn-login' onClick={(event) => { this.handleLogin(event) }}>Login</button>
+                            <button className='btn-login' id='btnLogin' ref={this.btnLogin} onClick={(event) => { this.handleLogin(event) }}>Login</button>
                         </div>
                         <div className="col-12 div-forgot-pass">
                             <span className='forgot-password'>Forgot your password</span>
                         </div>
                         <div className="col-12 div-redirect-sign-up">
-                            <span className='redirect-sign-up'>Không có tài khoản <a>Tạo tài khoản</a></span>
+                            <span className='redirect-sign-up'>Không có tài khoản <Link to='/register'>Tạo tài khoản</Link></span>
                         </div>
 
                     </div>
@@ -107,7 +128,6 @@ const mapStateToProps = state => {
     return {
         language: state.app.language,
         isLoggedIn: state.user.isLoggedIn
-
     };
 };
 
@@ -115,7 +135,7 @@ const mapDispatchToProps = dispatch => {
     return {
         navigate: (path) => dispatch(push(path)),
         userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo)),
-        userLoginFail: () => dispatch(actions.userLoginFail()),
+        // userLoginFail: () => dispatch(actions.userLoginFail()),
     };
 };
 

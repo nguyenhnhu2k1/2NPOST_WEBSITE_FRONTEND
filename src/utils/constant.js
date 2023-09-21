@@ -1,19 +1,9 @@
 export const path = {
     HOME: '/',
-    HOME_PAGE: '/home',
     LOGIN: '/login',
-    LOG_OUT: '/logout',
-    SYSTEM: '/system',
+    TRANSPORTERS: '/transporter',
+    HOME_PAGE: '/home',
     REGISTER: '/register',
-    ABOUT_US: '/about_us',
-
-    TRANSPORTERS: {
-        DASHBOARD: '/transporter/dasboard',
-        STORE_MANAGER: '/transporter/store-manager',
-        DRIVER: '/transporter/driver',
-        VEHICLE: '/transporter/vehicle',
-        ORDERS: '/transporter/orders',
-    }
 };
 
 export const LANGUAGES = {

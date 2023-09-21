@@ -24,7 +24,8 @@ const adminPersistConfig = {
 const userPersistConfig = {
     ...persistCommonConfig,
     key: 'user',
-    whitelist: ['isLoggedIn', 'userInfo']
+    whitelist: ['isLoggedIn', 'userInfo', 'OS0', 'TS0', 'TS1',
+        'TS2', 'TS3', 'TS4', 'OS2', 'orders']
 };
 
 const appPersistConfig = {

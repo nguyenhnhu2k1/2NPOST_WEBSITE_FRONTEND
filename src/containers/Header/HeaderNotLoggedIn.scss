@@ -18,7 +18,7 @@
         .logo-icon {
             height             : 90%;
             min-width          : 130px;
-            background-image   : url(../../assets/images/logo/logo.png);
+            background-image   : url(../../assets/images/logo/logo_white.png);
             background-position: center center;
             background-repeat  : no-repeat;
             background-size    : contain;
@@ -158,6 +158,7 @@
                 box-shadow      : 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
                 min-width       : 294px;
                 min-height      : 234px;
+                text-align      : center;
 
                 @media (max-width: 925px) {
                     left: -247%;
@@ -175,6 +176,7 @@
                     padding      : 3px;
                     border       : 2px solid $color-main-red;
                     color        : $color-main-red;
+                    width        : 100%;
                 }
 
                 .signup-info {
@@ -183,6 +185,7 @@
                     color           : white;
                     background-color: $color-main-red;
                     border          : 2px solid $color-main-red;
+                    width           : 100%;
                 }
 
                 .policy {

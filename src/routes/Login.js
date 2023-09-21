@@ -77,7 +77,6 @@ class Login extends Component {
 
     // khi nhấn enter thì gọi tới nút đăng nhập
     handlerKeyDown = (event) => {
-        console.log("chạy vào handlerKeyDown")
 
         const keyCode = event.which || event.keyCode;
         if (keyCode === KeyCodeUtils.ENTER) {

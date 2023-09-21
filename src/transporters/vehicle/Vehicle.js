@@ -60,7 +60,7 @@ class Vehicle extends Component {
                                 </button>
 
                                 {/* form thêm phương tiện vận chuyển */}
-                                <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div className="modal-dialog">
                                         <div className="modal-content">
                                             <div className="modal-header">
@@ -72,14 +72,14 @@ class Vehicle extends Component {
                                                 {/* thêm ảnh */}
                                                 <div className='picture'>
                                                     <div className="mb-3">
-                                                        <label for="formFileImg" className="form-label">Hình ảnh phương tiện: </label>
+                                                        <label htmlFor="formFileImg" className="form-label">Hình ảnh phương tiện: </label>
                                                         <input className="form-control" type="file" id="formFileImg" accept='image/*' />
                                                     </div>
                                                 </div>
 
                                                 {/* loai xe */}
                                                 <div className='vehicle-type input-group mb-3'>
-                                                    <label for="vehicle-type" className='input-group-text label-vehicle'>Loại xe</label>
+                                                    <label htmlFor="vehicle-type" className='input-group-text label-vehicle'>Loại xe</label>
                                                     <select id="vehicle-type" className="form-select">
                                                         <option value="motorcycle">Xe máy</option>
                                                         <option value="car">Ô tô con</option>
@@ -89,7 +89,7 @@ class Vehicle extends Component {
 
                                                 {/* khối lượng */}
                                                 <div className='weight input-group mb-3'>
-                                                    <label for="weight" className='input-group-text label-weight'>Khối lượng</label>
+                                                    <label htmlFor="weight" className='input-group-text label-weight'>Khối lượng</label>
                                                     <select id="weight" className="form-select">
                                                         <option value="">{'>'}20kg</option>
                                                     </select>
@@ -99,26 +99,26 @@ class Vehicle extends Component {
                                                 <div className='license-plates'>
                                                     <div className="input-group mb-3">
                                                         <span className="input-group-text" id="license-plates">Biển số xe</span>
-                                                        <input type="text" className="form-control" placeholder="Nhập vào biển số xe" for='license-plates' />
+                                                        <input type="text" className="form-control" placeholder="Nhập vào biển số xe" htmlFor='license-plates' />
                                                     </div>
                                                 </div>
 
                                                 {/* mô tả */}
                                                 <div className='describe input-group mb-3'>
-                                                    <label for='describe' className='input-group-text label-describe'>Mô tả</label>
-                                                    <input type="text" className="form-control" placeholder="Nhập vào mô tả" for='license-plates' />
+                                                    <label htmlFor='describe' className='input-group-text label-describe'>Mô tả</label>
+                                                    <input type="text" className="form-control" placeholder="Nhập vào mô tả" htmlFor='license-plates' />
                                                 </div>
 
                                                 <div className='status-vehicle input-group mb-3'>
-                                                    <label for='status-vehicle' className='input-group-text'>Trạng thái xe </label>
+                                                    <label htmlFor='status-vehicle' className='input-group-text'>Trạng thái xe </label>
                                                     <div className='form-control status'>
                                                         <div>
                                                             <input type="radio" id="status-on" name='status' value="on" />
-                                                            <label for="status-on">Bật</label><br />
+                                                            <label htmlFor="status-on">Bật</label><br />
                                                         </div>
                                                         <div>
                                                             <input type="radio" id="status-off" name='status' value="off" />
-                                                            <label for="status-off">Tắt</label><br />
+                                                            <label htmlFor="status-off">Tắt</label><br />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -138,30 +138,34 @@ class Vehicle extends Component {
                         {/* bảng */}
                         <div className='component-2'>
                             <table style={{ width: '100%' }}>
-                                <tr className='header-table'>
-                                    <th>STT</th>
-                                    <th>Loại xe</th>
-                                    <th>Tải trọng</th>
-                                    <th>Biển số xe</th>
-                                    <th>Mô tả</th>
-                                    <th>Trạng thái</th>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Xe tải</td>
-                                    <td>900</td>
-                                    <td>01374</td>
-                                    <td>Xe tải ô tô con loại vừa</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Xe tải</td>
-                                    <td>900</td>
-                                    <td>01374</td>
-                                    <td>Xe tải ô tô con loại vừa</td>
-                                    <td>50</td>
-                                </tr>
+                                <thead>
+                                    <tr className='header-table'>
+                                        <th>STT</th>
+                                        <th>Loại xe</th>
+                                        <th>Tải trọng</th>
+                                        <th>Biển số xe</th>
+                                        <th>Mô tả</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Xe tải</td>
+                                        <td>900</td>
+                                        <td>01374</td>
+                                        <td>Xe tải ô tô con loại vừa</td>
+                                        <td>50</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Xe tải</td>
+                                        <td>900</td>
+                                        <td>01374</td>
+                                        <td>Xe tải ô tô con loại vừa</td>
+                                        <td>50</td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
 

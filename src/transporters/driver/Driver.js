@@ -62,36 +62,40 @@ class Driver extends Component {
                         {/* bảng */}
                         <div className='component-2'>
                             <table style={{ width: '100%' }}>
-                                <tr className='header-table'>
-                                    <th>STT</th>
-                                    <th>Hình ảnh</th>
-                                    <th>Username</th>
-                                    <th>SĐT</th>
-                                    <th>Email</th>
-                                    <th>Ngày sinh</th>
-                                    <th>Giới tính</th>
-                                    <th>Địa chỉ</th>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td><img src='https://i.pinimg.com/564x/01/94/59/01945995d11d95a14f94de93b8b15788.jpg' alt='avatar'></img></td>
-                                    <td>900</td>
-                                    <td>01374</td>
-                                    <td>Xe tải ô tô con loại vừa</td>
-                                    <td>50</td>
-                                    <td>50</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><img src='https://i.pinimg.com/564x/01/94/59/01945995d11d95a14f94de93b8b15788.jpg' alt='avatar'></img></td>
-                                    <td>900</td>
-                                    <td>01374</td>
-                                    <td>Xe tải ô tô con loại vừa</td>
-                                    <td>50</td>
-                                    <td>50</td>
-                                    <td>50</td>
-                                </tr>
+                                <thead>
+                                    <tr className='header-table'>
+                                        <th>STT</th>
+                                        <th>Hình ảnh</th>
+                                        <th>Username</th>
+                                        <th>SĐT</th>
+                                        <th>Email</th>
+                                        <th>Ngày sinh</th>
+                                        <th>Giới tính</th>
+                                        <th>Địa chỉ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td><img src='https://i.pinimg.com/564x/01/94/59/01945995d11d95a14f94de93b8b15788.jpg' alt='avatar'></img></td>
+                                        <td>900</td>
+                                        <td>01374</td>
+                                        <td>Xe tải ô tô con loại vừa</td>
+                                        <td>50</td>
+                                        <td>50</td>
+                                        <td>50</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td><img src='https://i.pinimg.com/564x/01/94/59/01945995d11d95a14f94de93b8b15788.jpg' alt='avatar'></img></td>
+                                        <td>900</td>
+                                        <td>01374</td>
+                                        <td>Xe tải ô tô con loại vừa</td>
+                                        <td>50</td>
+                                        <td>50</td>
+                                        <td>50</td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
 

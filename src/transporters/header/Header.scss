@@ -22,8 +22,8 @@
 
     .bar-component {
         position        : fixed;
-        top             : 23px;
-        left            : 80px;
+        top             : 16px;
+        left            : 56px;
         cursor          : pointer;
         font-size       : larger;
         color           : white;
@@ -69,6 +69,7 @@
             grid-gap      : 20px;
             grid-gap      : 31px;
             gap           : 31px;
+            width         : 100%;
 
             a {
                 padding        : 10px 0px 10px 50px;
@@ -153,6 +154,11 @@
                     background-color: #e6e1e1;
                 }
             }
+        }
+
+        .logout-componenet {
+            cursor: pointer;
+            color : #e03;
         }
     }
 }

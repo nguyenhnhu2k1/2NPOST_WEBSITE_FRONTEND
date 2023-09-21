@@ -7,7 +7,5 @@
 
 
 export * from './constant'; // hằng số
-export { default as CommonUtils } from './CommonUtils';
 export { default as KeyCodeUtils } from './KeyCodeUtils'; //kiểm tra phím
 export { default as LanguageUtils } from './LanguageUtils'; //ngôn ngữ
-export { default as ToastUtil } from './ToastUtil';

@@ -11,17 +11,10 @@ import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authenticati
 import { path } from '../utils'
 
 import Home from '../routes/Home';
+import Register from './Auth/Register'
 import Login from './Auth/Login';
-import Header from './HeaderThamKhao/Header';
-import System from '../routes/System';
-import HomePage from './HomePage/Home';
-import Register from './Auth/Register';
-import AboutUs from './HomePage/AboutUs';
-import Dashboard from '../transporters/dashboard/Dashboard';
-import StoreManager from '../transporters/store-manager/StoreManager';
-import Driver from '../transporters/driver/Driver';
-import Vehicle from '../transporters/vehicle/Vehicle';
-import Order from '../transporters/order/Order'
+import Transporter from '../routes/Transporter';
+import HomePage from '../routes/HomePage';
 
 class App extends Component {
 
@@ -44,28 +37,26 @@ class App extends Component {
     }
 
     render() {
-        console.log('this.props.isLoggedIn', this.props.isLoggedIn)
+        if (this.props.isLoggedIn) {
+            // this.props.getOrders();
+        }
         return (
             <Fragment>
                 <Router history={history}>
                     <div className="main-container">
                         <ConfirmModal />
-                        {this.props.isLoggedIn && <Header />}
+                        {/* {this.props.isLoggedIn && <Header />} */}
 
                         <div className="content-container">
                             <CustomScrollbars style={{ height: '100vh', width: '100%' }}>
                                 <Switch>
                                     <Route path={path.HOME} exact component={(Home)} />
-                                    <Route path={path.HOME_PAGE} exact component={(HomePage)} />
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
-                                    <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
-                                    <Route path={path.REGISTER} exact component={(Register)} />
-                                    <Route path={path.ABOUT_US} exact component={(AboutUs)} />
-                                    <Route path={path.TRANSPORTERS.DASHBOARD} exact component={(Dashboard)} />
-                                    <Route path={path.TRANSPORTERS.STORE_MANAGER} exact component={(StoreManager)} />
-                                    <Route path={path.TRANSPORTERS.DRIVER} exact component={(Driver)} />
-                                    <Route path={path.TRANSPORTERS.VEHICLE} exact component={(Vehicle)} />
-                                    <Route path={path.TRANSPORTERS.ORDERS} exact component={(Order)} />
+                                    <Route path={path.TRANSPORTERS} component={userIsAuthenticated(Transporter)}></Route>
+                                    <Route path={path.HOME_PAGE} component={(HomePage)} />
+                                    <Route path={path.HOME_PAGE} component={(HomePage)} />
+                                    <Route path={path.REGISTER} component={(Register)} />
+
                                 </Switch>
                             </CustomScrollbars>
 
@@ -87,7 +78,7 @@ class App extends Component {
 const mapStateToProps = state => {
     return {
         started: state.app.started,
-        isLoggedIn: state.user.isLoggedIn
+        isLoggedIn: state.user.isLoggedIn,
     };
 };
 

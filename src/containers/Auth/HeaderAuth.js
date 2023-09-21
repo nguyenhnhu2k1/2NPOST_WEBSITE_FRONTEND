@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from "connected-react-router";
+import { Link } from 'react-router-dom';
 import * as actions from "../../store/actions";
 
 import './HeaderAuth.scss';
@@ -13,8 +14,10 @@ class HeaderAuth extends Component {
         return (
             <div className='logo-container'>
                 <div className='logo-icon'>
-                    <div className='logo'>
-                    </div>
+                    <Link to='/home'>
+                        <div className='logo'>
+                        </div>
+                    </Link>
                 </div>
             </div>
         )
