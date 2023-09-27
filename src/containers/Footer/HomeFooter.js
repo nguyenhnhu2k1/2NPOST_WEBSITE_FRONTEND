@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css';

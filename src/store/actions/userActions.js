@@ -11,11 +11,12 @@ export const processLogout = () => ({
 })
 
 // lấy tất cả đơn hàng theo trạng thái
-export const getOrdersByStatus = () => {
-    return async (dispatch, getStoredState) => {
+export const getOrdersByStatus = (idTrans) => {
+    return async (dispatch) => {
         try {
+            console.log('idTrans ', idTrans)
             const orderStatuses = ['OS0', 'TS0', 'TS1', 'TS2', 'TS3', 'TS4', 'OS2', 'All'];
-            const promises = orderStatuses.map((status) => getOrdersByStatusAPI(status, 2));
+            const promises = orderStatuses.map((status) => getOrdersByStatusAPI(status, idTrans));
 
             const results = await Promise.all(promises);
 
