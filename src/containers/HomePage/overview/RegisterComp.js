@@ -26,7 +26,7 @@ class RegisterComp extends Component {
                             </div>
                         </div>
                         <div className='col-md-4'>
-                            <img src={registerIMG} />
+                            <img src={registerIMG} alt='' />
                         </div>
                     </div>
                 </div>

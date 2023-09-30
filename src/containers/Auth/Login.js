@@ -47,7 +47,7 @@ class Login extends Component {
     }
 
     //xử lý đăng nhập
-    handleLogin = async (event) => {
+    handleLogin = async () => {
         this.setState({
             errMessage: ''
         });

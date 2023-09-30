@@ -72,7 +72,7 @@ class Header extends Component {
                             <Link to='/transporter/driver' onClick={() => (this.changeCurrentTag('/transporter/driver'))} className={`${currentTag === '/transporter/driver' ? 'activeTag' : ''}`}><i className="far fa-user"></i> Quản lý tài xế</Link>
                             <Link to="/transporter/vehicle" onClick={() => (this.changeCurrentTag('/transporter/vehicle'))} className={`${currentTag === '/transporter/vehicle' ? 'activeTag' : ''}`}><i className="fas fa-truck"></i> QL Phương tiện</Link>
                             <Link to="/transporter/orders" onClick={() => (this.changeCurrentTag('/transporter/orders'))} className={`${currentTag === '/transporter/orders' ? 'activeTag' : ''}`} ><i className="fas fa-box-open"></i> Quản lý đơn hàng</Link>
-                            <Link to="/transporter/dasboard" ><i className="far fa-star"></i> Đánh giá</Link>
+                            {/* <Link to="/transporter/dasboard" ><i className="far fa-star"></i> Đánh giá</Link> */}
                         </div>
 
                     </div>

@@ -49,8 +49,8 @@ class HeaderNotLoggedIn extends Component {
                     <div className='other-container'>
                         <div className='lang-container'>
                             <div onClick={() => this.changeLanguage(language)}>
-                                {language === LANGUAGES.VI && <img className='logo-lang' src={ViLogo}></img>}
-                                {language === LANGUAGES.EN && <img className='logo-lang' src={EnLogo}></img>}
+                                {language === LANGUAGES.VI && <img className='logo-lang' src={ViLogo} alt='' />}
+                                {language === LANGUAGES.EN && <img className='logo-lang' src={EnLogo} alt='' />}
                             </div>
                         </div>
 
@@ -72,7 +72,7 @@ class HeaderNotLoggedIn extends Component {
                                     <Link to='/register'>
                                         <button className='signup-info'>Hợp Tác Làm Nhà Vận Chuyển</button>
                                     </Link>
-                                    <p className='policy'>Xem thêm về chính sách của chúng tôi <a href='#'>Tại Đây</a></p>
+                                    <p className='policy'>Xem thêm về chính sách của chúng tôi <a href='/home'>Tại Đây</a></p>
                                 </div>
                             </div>
                         </div>

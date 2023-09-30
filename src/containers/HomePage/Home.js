@@ -91,7 +91,7 @@ class Home extends Component {
                                         <p>Thao tác đơn giản theo dõi đơn hàng của bạn mọi lúc</p>
                                     </div>
                                     <div className='path-caption'>
-                                        <a href="#">
+                                        <a href="/home">
                                             Về chúng tôi
                                             <i className="fas fa-chevron-right"></i>
                                         </a>
@@ -107,7 +107,7 @@ class Home extends Component {
                                         <p>với mạng lưới nhà vận chuyển đáng tin cậy</p>
                                     </div>
                                     <div className='path-caption'>
-                                        <a href="#">
+                                        <a href="home">
                                             Dịch vụ
                                             <i className="fas fa-chevron-right"></i>
                                         </a>
@@ -123,7 +123,7 @@ class Home extends Component {
                                         <p>mang đến trải nghiệm linh hoạt thông minh</p>
                                     </div>
                                     <div className='path-caption'>
-                                        <a href="#">
+                                        <a href="/home">
                                             Hợp tác
                                             <i className="fas fa-chevron-right"></i>
                                         </a>

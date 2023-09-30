@@ -44,21 +44,21 @@ class AboutUs extends Component {
                         </div>
                         <div className='summary'>
                             <div className='summary_1'>
-                                <img className='' src={tanTam} />
+                                <img className='' src={tanTam} alt='' />
                                 <span className='span-content'>
                                     <p>TẬN TÂM</p>
                                     <span>Lấy hàng tận nơi</span>
                                 </span>
                             </div>
                             <div className='summary_2'>
-                                <img className='' src={nhanhChong} />
+                                <img className='' src={nhanhChong} alt='' />
                                 <span className='span-content'>
                                     <p>NHANH CHÓNG</p>
                                     <span>Nhận hàng giao ngay với dịch vụ hỏa tóc</span>
                                 </span>
                             </div>
                             <div className='summary_3'>
-                                <img className='' src={uyTin} />
+                                <img className='' src={uyTin} alt='' />
                                 <span className='span-content'>
                                     <p>UY TÍN</p>
                                     <span>Mạng lưới nhà vận chuyển uy tính</span>
@@ -122,7 +122,7 @@ class AboutUs extends Component {
                                 </div>
                                 <div className='download-link'>
                                     <Link to='/login'>
-                                        < img src={downloadAPK} />
+                                        < img src={downloadAPK} alt='' />
                                     </Link>
                                 </div>
                             </div>

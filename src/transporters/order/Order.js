@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js'
 
+import DateRangePickerValue from './DateRangePickerValue';
 import OrdersStatusView from './OrdersStatusView';
 import HeaderTrans from '../header/Header';
 import './Order.scss'
@@ -40,6 +41,8 @@ class Order extends Component {
                         <h1 className='title-1-base'>QUẢN LÝ ĐƠN HÀNG</h1>
 
                         <div className='status-order-component'>
+
+                            {/* trạng thái đơn hàng */}
                             <div className='status-order'>
                                 <div className='' onClick={() => this.changeOrderStatus('orders')}>Tất cả</div>
                                 <div className='' onClick={() => this.changeOrderStatus('OS0')}>Chờ xác nhận</div>
@@ -50,6 +53,32 @@ class Order extends Component {
                                 <div className='' onClick={() => this.changeOrderStatus('TS5')}>Đơn hàng thành công</div>
                                 <div className='' onClick={() => this.changeOrderStatus('OS2')}>Đã hủy</div>
                             </div>
+
+                            {/* tìm kiếm + lọc */}
+                            <div className='search-filter-component'>
+                                <div className='search'>
+                                    <div class="input-group mb-3">
+                                        <select className='input-group-text' id='search'>
+                                            <option value="1">Mã đơn</option>
+                                            <option value="2">Tên khách hàng</option>
+                                        </select>
+                                        <input type="text" class="form-control" placeholder="Nhập nội dung cần tìm" aria-describedby="search" />
+                                    </div>
+                                </div>
+                                <div className='filter-by-service'>
+                                    <select class="form-select">
+                                        <option selected hidden>Chọn loại dịch vụ</option>
+                                        <option value="1">Hỏa tốc nội thành</option>
+                                        <option value="2">Hỏa tốc ngoại thành</option>
+                                        <option value="3">Tiêu chuẩn ngoại thành</option>
+                                    </select>
+                                </div>
+                                <div className='filter-by-date'>
+                                    <DateRangePickerValue />
+                                </div>
+                            </div>
+
+                            {/* hiển thị đơn hàng */}
                             <div>
                                 {this.state.orderStatus === 'orders' && <OrdersStatusView orderStatus={orders} />}
                                 {this.state.orderStatus === 'OS0' && <OrdersStatusView orderStatus={OS0} />}
