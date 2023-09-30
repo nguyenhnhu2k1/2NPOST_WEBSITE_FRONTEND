@@ -14,7 +14,7 @@ class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: this.props.userInfo.transporterName,
+            userName: 'Nhu',
         }
     }
 
@@ -45,6 +45,7 @@ class Header extends Component {
     }
 
     render() {
+        console.log(this.state.userName)
         let language = this.props.language;
         let showNav = this.props.showNav;
         let currentTag = this.props.currentTag ? this.props.currentTag : window.location.pathname;

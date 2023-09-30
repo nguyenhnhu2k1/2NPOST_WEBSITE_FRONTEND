@@ -15,7 +15,7 @@ class Transporter extends Component {
 
     componentDidMount() {
         if (this.props.isLoggedIn) {
-            this.props.getOrders(this.props.userInfo.id);
+            this.props.getOrders(1);
         }
     }
 
