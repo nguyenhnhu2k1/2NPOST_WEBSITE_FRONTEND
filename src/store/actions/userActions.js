@@ -16,7 +16,7 @@ export const getOrdersByStatus = (idTrans) => {
         try {
             console.log('idTrans ', idTrans)
             const orderStatuses = ['OS0', 'TS0', 'TS1', 'TS2', 'TS3', 'TS4', 'OS2', 'All'];
-            const promises = orderStatuses.map((status) => getOrdersByStatusAPI(status, idTrans));
+            const promises = orderStatuses.map((status) => getOrdersByStatusAPI(status, 1)); //
 
             const results = await Promise.all(promises);
 

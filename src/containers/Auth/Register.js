@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { KeyCodeUtils } from '../../utils';
 import * as actions from "../../store/actions";
+import { Redirect } from 'react-router-dom';
 
 import './Register.scss';
 import { handleRegisterAPI } from '../../services/userService';
@@ -111,15 +112,13 @@ class Register extends Component {
                     console.log(data)
                     if (data && data.errCode === 0) {
                         let userInfo = {
-                            ...data.data.user[0],
-                            ...data.data.transporter[0],
+                            ...data.data.user,
+                            ...data.data.transporter,
                         }
-                        console.log(data.data.user[0])
-                        console.log(data.data.transporter[0])
                         console.log(userInfo)
 
-                        // this.props.userLoginSuccess(userInfo);
-                        // <Register to='/login'></Register>
+                        this.props.userLoginSuccess(userInfo);
+                        this.props.history.push('/login');
                     }
                     else {
                         this.setState({

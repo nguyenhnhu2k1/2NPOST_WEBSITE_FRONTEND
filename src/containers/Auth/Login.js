@@ -54,6 +54,7 @@ class Login extends Component {
 
         try {
             let data = await handleLoginAPI(this.state.phone, this.state.password, 'R2');
+            console.log(data)
             if (data && data.errCode === 0) {
                 this.props.userLoginSuccess(data.user);
             }
@@ -64,9 +65,10 @@ class Login extends Component {
             }
         }
         catch (e) {
-            this.setState({
-                errMessage: e.response.data.message,
-            });
+            // this.setState({
+            //     errMessage: e.response.data.message,
+            // });
+            console.log('catch', e)
         }
     }
 

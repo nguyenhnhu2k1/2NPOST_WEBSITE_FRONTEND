@@ -14,7 +14,7 @@ class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: this.props.userInfo.userName,
+            userName: this.props.userInfo.transporterName,
         }
     }
 
