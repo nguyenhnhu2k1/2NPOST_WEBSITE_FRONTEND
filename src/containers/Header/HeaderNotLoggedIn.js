@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom'
 import './HeaderNotLoggedIn.scss';
 import ViLogo from '../../assets/images/logo/vi.jpg'
 import EnLogo from '../../assets/images/logo/en.jpg'
+import logoIMG from '../../assets/images/logo/logo.png'
+
 class HeaderNotLoggedIn extends Component {
     constructor(props) {
         super(props);
@@ -37,7 +39,7 @@ class HeaderNotLoggedIn extends Component {
                 <div className='header-not-logged-in-container'>
                     <div className='logo-header-not-logged-in-container'>
                         <Link to='/home'>
-                            <div className='logo-icon'></div>
+                            <img src={logoIMG} alt='logo' />
                         </Link>
                     </div>
                     <div className={`nav-container ${this.state.showNav ? 'active-nav' : ''}`}>

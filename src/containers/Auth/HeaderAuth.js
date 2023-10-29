@@ -1,11 +1,10 @@
 /* eslint-disable react/no-direct-mutation-state */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { push } from "connected-react-router";
 import { Link } from 'react-router-dom';
-import * as actions from "../../store/actions";
 
 import './HeaderAuth.scss';
+import logoIMG from '../../assets/images/logo/logo.png'
 
 
 class HeaderAuth extends Component {
@@ -15,8 +14,7 @@ class HeaderAuth extends Component {
             <div className='logo-container'>
                 <div className='logo-icon'>
                     <Link to='/home'>
-                        <div className='logo'>
-                        </div>
+                        <img src={logoIMG} alt='logo' />
                     </Link>
                 </div>
             </div>

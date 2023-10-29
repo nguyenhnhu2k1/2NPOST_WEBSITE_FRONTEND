@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { getOrdersByStatus } from '../store/actions/userActions';
+import {
+    getOrdersByStatus, GetVehicleByIdTransporter, GetServiceOfTransporter,
+    GetAllDriverOfTransporter
+} from '../store/actions/userActions';
 
 import Dashboard from '../transporters/dashboard/Dashboard';
 import StoreManager from '../transporters/store-manager/StoreManager';
@@ -15,12 +18,15 @@ class Transporter extends Component {
 
     componentDidMount() {
         if (this.props.isLoggedIn) {
-            this.props.getOrders(1);
+            this.props.getOrders(this.props.userInfo.idTransporter);
+            this.props.getVehicles(this.props.userInfo.idTransporter);
+            this.props.getServiceOfTransporter(this.props.userInfo.idTransporter);
+            // this.props.getScopeOfTransporter(this.props.userInfo.idTransporter);
+            this.props.getAllDriverOfTransporter(this.props.userInfo.idTransporter);
         }
     }
 
     render() {
-
         return (
             <Switch>
                 <Route path="/transporter/dasboard" component={Dashboard} />
@@ -39,20 +45,16 @@ const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
         userInfo: state.user.userInfo,
-        OS0: state.user.OS0,
-        TS0: state.user.TS0,
-        TS1: state.user.TS1,
-        TS2: state.user.TS2,
-        TS3: state.user.TS3,
-        TS4: state.user.TS4,
-        OS2: state.user.OS2,
-        orders: state.user.orders,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         getOrders: (idTrans) => dispatch(getOrdersByStatus(idTrans)),
+        getVehicles: (idTrans) => dispatch(GetVehicleByIdTransporter(idTrans)),
+        getServiceOfTransporter: (idTrans) => dispatch(GetServiceOfTransporter(idTrans)),
+        // getScopeOfTransporter: (idTrans) => dispatch(GetScopeOfTransporter(idTrans)),
+        getAllDriverOfTransporter: (idTrans) => dispatch(GetAllDriverOfTransporter(idTrans)),
     };
 };
 

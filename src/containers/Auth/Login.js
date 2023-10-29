@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import * as actions from "../../store/actions";
 
 import './Login.scss';
-import { handleLoginAPI } from '../../services/userService';
+import { handleLoginAPI, getTransporterByIdUser } from '../../services/userService';
 import HeaderAuth from './HeaderAuth';
 import { KeyCodeUtils } from '../../utils';
 
@@ -56,7 +56,15 @@ class Login extends Component {
             let data = await handleLoginAPI(this.state.phone, this.state.password, 'R2');
             console.log(data)
             if (data && data.errCode === 0) {
-                this.props.userLoginSuccess(data.user);
+                console.log('data && data.errCode === 0', data && data.errCode === 0)
+                let user = await getTransporterByIdUser(data.data.id);
+                // data.data.id
+                console.log(user)
+                let userInfo = {
+                    ...user.data.user,
+                    ...user.data.transporter,
+                }
+                this.props.userLoginSuccess(userInfo);
             }
             else {
                 this.setState({
@@ -89,16 +97,16 @@ class Login extends Component {
                 <HeaderAuth />
                 <div className="login-container">
                     <div className="form_login">
-                        <div className='col-12 text-login'>Login</div>
+                        <div className='col-12 text-login'>Đăng nhập</div>
 
                         <div className='col-12 form-group '>
                             <label className='my-2'>Số Điện Thoại</label>
-                            <input type='text' className='form-control input-user' placeholder='Enter your number phone' value={this.state.phone} onChange={this.handleOnchangInputPhone}></input>
+                            <input type='text' className='form-control input-user' value={this.state.phone} onChange={this.handleOnchangInputPhone}></input>
                         </div>
                         <div className='col-12 form-group my-3'>
-                            <label className='my-2'>Password</label>
+                            <label className='my-2'>Mật Khẩu</label>
                             <div className='input-password'>
-                                <input type={this.state.isShowPassWord ? 'text' : 'password'} className='form-control' placeholder='Enter your password' value={this.state.password} onChange={this.handleOnchangInputPassword}></input>
+                                <input type={this.state.isShowPassWord ? 'text' : 'password'} className='form-control' value={this.state.password} onChange={this.handleOnchangInputPassword}></input>
                                 <div>
                                     <i className={this.state.isShowPassWord ? 'fas fa-eye-slash show-eye ' : 'fas fa-eye show-eye'} onClick={(event) => this.showOrHiddenEye(event)}></i>
                                 </div>
@@ -110,10 +118,10 @@ class Login extends Component {
                             {this.state.errMessage}
                         </div>
                         <div className="col-12 div-btn-login">
-                            <button className='btn-login' id='btnLogin' ref={this.btnLogin} onClick={(event) => { this.handleLogin(event) }}>Login</button>
+                            <button className='btn-login' id='btnLogin' ref={this.btnLogin} onClick={(event) => { this.handleLogin(event) }}>Đăng nhập</button>
                         </div>
                         <div className="col-12 div-forgot-pass">
-                            <span className='forgot-password'>Forgot your password</span>
+                            <span className='forgot-password'>Quên mật khẩu</span>
                         </div>
                         <div className="col-12 div-redirect-sign-up">
                             <span className='redirect-sign-up'>Không có tài khoản <Link to='/register'>Tạo tài khoản</Link></span>

@@ -27,7 +27,7 @@ class Order extends Component {
 
         let showNav = this.props.showNav;
         let { orders, OS0, TS0, TS1, TS2, TS3, TS4, OS2 } = this.props;
-        console.log(orders);
+        const { orderStatus } = this.state;
         return (
             <React.Fragment>
 
@@ -44,30 +44,30 @@ class Order extends Component {
 
                             {/* trạng thái đơn hàng */}
                             <div className='status-order'>
-                                <div className='' onClick={() => this.changeOrderStatus('orders')}>Tất cả</div>
-                                <div className='' onClick={() => this.changeOrderStatus('OS0')}>Chờ xác nhận</div>
-                                <div className='' onClick={() => this.changeOrderStatus('TS1')}>Chờ lấy hàng</div>
-                                <div className='' onClick={() => this.changeOrderStatus('TS2')}>Tài xế đã nhận hàng</div>
-                                <div className='' onClick={() => this.changeOrderStatus('TS3')}>Đơn hàng đang ở kho</div>
-                                <div className='' onClick={() => this.changeOrderStatus('TS4')}>Đơn hàng đang giao</div>
-                                <div className='' onClick={() => this.changeOrderStatus('TS5')}>Đơn hàng thành công</div>
-                                <div className='' onClick={() => this.changeOrderStatus('OS2')}>Đã hủy</div>
+                                <div className={orderStatus === 'orders' ? 'action' : ''} onClick={() => this.changeOrderStatus('orders')}>Tất cả</div>
+                                <div className={orderStatus === 'OS0' ? 'action' : ''} onClick={() => this.changeOrderStatus('OS0')}>Chờ xác nhận</div>
+                                <div className={orderStatus === 'TS1' ? 'action' : ''} onClick={() => this.changeOrderStatus('TS1')}>Chờ lấy hàng</div>
+                                <div className={orderStatus === 'TS2' ? 'action' : ''} onClick={() => this.changeOrderStatus('TS2')}>Tài xế đã nhận hàng</div>
+                                <div className={orderStatus === 'TS3' ? 'action' : ''} onClick={() => this.changeOrderStatus('TS3')}>Đơn hàng đang ở kho</div>
+                                <div className={orderStatus === 'TS4' ? 'action' : ''} onClick={() => this.changeOrderStatus('TS4')}>Đơn hàng đang giao</div>
+                                <div className={orderStatus === 'TS5' ? 'action' : ''} onClick={() => this.changeOrderStatus('TS5')}>Đơn hàng thành công</div>
+                                <div className={orderStatus === 'OS2' ? 'action' : ''} onClick={() => this.changeOrderStatus('OS2')}>Đã hủy</div>
                             </div>
 
                             {/* tìm kiếm + lọc */}
                             <div className='search-filter-component'>
                                 <div className='search'>
-                                    <div class="input-group mb-3">
+                                    <div className="input-group mb-3">
                                         <select className='input-group-text' id='search'>
                                             <option value="1">Mã đơn</option>
                                             <option value="2">Tên khách hàng</option>
                                         </select>
-                                        <input type="text" class="form-control" placeholder="Nhập nội dung cần tìm" aria-describedby="search" />
+                                        <input type="text" className="form-control" placeholder="Nhập nội dung cần tìm" aria-describedby="search" />
                                     </div>
                                 </div>
                                 <div className='filter-by-service'>
-                                    <select class="form-select">
-                                        <option selected hidden>Chọn loại dịch vụ</option>
+                                    <select className="form-select">
+                                        <option defaultValue hidden>Chọn loại dịch vụ</option>
                                         <option value="1">Hỏa tốc nội thành</option>
                                         <option value="2">Hỏa tốc ngoại thành</option>
                                         <option value="3">Tiêu chuẩn ngoại thành</option>

@@ -12,7 +12,8 @@ class Dashboard extends Component {
     render() {
         let showNav = this.props.showNav;
         const items = [];
-
+        const itemYears = [{ month: 2022, value: 2022 }, { month: 2023, value: 2023 }]
+        console.log('itemYears', itemYears);
         for (let i = 1; i <= 12; i++) {
             items.push({ value: i, month: 'Tháng ' + i });
         }
@@ -82,6 +83,7 @@ class Dashboard extends Component {
                             <p className='title-1-base'>Thống kê theo tháng</p>
                             <div className='select-by-month' >
                                 <SelectSmall labelProp='Month' itemSelect={items} />
+                                <SelectSmall labelProp='Year' itemSelect={itemYears} />
                             </div>
                         </div>
 

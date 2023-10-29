@@ -1,12 +1,13 @@
-.login-wrapper{
+.login-wrapper {
     height: 100vh;
     background: #eee;
-    .login-container{
+
+    .login-container {
         height: 85%;
         margin: 0px auto;
         width: 400px;
-        
-        .form_login{
+
+        .form_login {
             padding: 40px 20px;
             background-color: white;
             border-radius: 20px;
@@ -14,19 +15,22 @@
             position: relative;
             top: 60px;
             box-shadow: 2px 4px 8px 2px rgba(0, 0, 0, 0.2), 0 0px 20px 0 rgba(0, 0, 0, 0.1);
-            .input-user{
+
+            .input-user {
                 width: 100%;
             }
-            .text-login{
+
+            .text-login {
                 font-weight: 600;
                 font-size: x-large;
                 text-align: center;
                 font-size: calc(1.375rem + 1.5vw);
             }
-            .btn-login{
+
+            .btn-login {
                 width: 85%;
                 height: 35px;
-                background: rgb(2, 11, 64);
+                background: #22272e;
                 font-size: large;
                 color: white;
                 font-weight: 500;
@@ -37,54 +41,66 @@
                 justify-content: center;
                 align-items: center;
             }
-            .forgot-password{
+
+            .forgot-password {
                 font-size: 12px;
                 text-decoration: underline;
                 color: #c5341b;
                 cursor: pointer;
             }
-            .login-with{
+
+            .login-with {
                 height: 200px;
                 margin: 50px auto;
-                .login-with-text{
+
+                .login-with-text {
                     display: flex;
                     justify-content: center;
                     margin: 20px auto;
                     font-size: 16px;
                 }
             }
-            .input-password{
+
+            .input-password {
                 display: flex;
-                .show-eye, .hidden-eye{
+
+                .show-eye,
+                .hidden-eye {
                     font-size: 20px;
                     padding: 8px;
                     cursor: pointer;
                     position: absolute;
                     right: 25px;
                 }
-                input{
+
+                input {
                     position: relative;
                 }
             }
-            .errMess{
-                color:red;
+
+            .errMess {
+                color: red;
             }
-            .div-btn-login{
+
+            .div-btn-login {
                 margin-top: 20px;
             }
-            .div-forgot-pass{
+
+            .div-forgot-pass {
                 margin-top: 10px;
             }
-            .div-redirect-sign-up{
+
+            .div-redirect-sign-up {
                 margin: 19px auto;
                 text-align: center;
-                a{
+
+                a {
                     text-decoration: underline !important;
                     color: #0d6efd;
                     cursor: pointer;
                 }
             }
         }
-        
+
     }
 }

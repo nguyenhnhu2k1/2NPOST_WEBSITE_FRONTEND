@@ -1,24 +1,23 @@
 .logo-container {
-    height    : 65px;
-    width     : 100%;
-    background: rgb(2, 11, 64);
+    height: 65px;
+    width: 100%;
+    background: #22272e;
     box-shadow: 1px 4px 8px 2px rgba(0, 0, 0, 0.1), 0 0px 20px 0 rgba(0, 0, 0, 0.1);
-    z-index   : 1000 !important;
+    z-index: 1000 !important;
 
     .logo-icon {
-        height : 100%;
-        width  : 20%;
+        height: 100%;
+        width: 20%;
         padding: 7px;
 
-        .logo {
-            height             : 100%;
-            min-width          : 126px;
-            background-image   : url(../../assets/images/logo/logo_white.png);
-            background-position: center center;
-            background-repeat  : no-repeat;
-            background-size    : contain;
-            margin-left        : 20px;
-            cursor             : pointer;
+        a {
+            img {
+                width: 105px;
+                margin: 5px 18px;
+                position: absolute;
+                left: 0px;
+                top: 3px;
+            }
         }
     }
 }

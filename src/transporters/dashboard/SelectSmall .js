@@ -29,12 +29,9 @@ class SelectSmall extends Component {
                     label="Age"
                     onChange={this.handleChange}
                 >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
                     {/* status.map((value, index) => ( */}
                     {items.map((item, index) => (
-                        <MenuItem value={item.value}>{item.month}</MenuItem>
+                        <MenuItem key={index} value={item.value}>{item.month}</MenuItem>
                     ))}
                 </Select>
             </FormControl>

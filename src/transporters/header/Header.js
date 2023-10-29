@@ -14,7 +14,6 @@ class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userName: 'Nhu',
         }
     }
 
@@ -45,7 +44,6 @@ class Header extends Component {
     }
 
     render() {
-        console.log(this.state.userName)
         let language = this.props.language;
         let showNav = this.props.showNav;
         let currentTag = this.props.currentTag ? this.props.currentTag : window.location.pathname;
@@ -82,7 +80,7 @@ class Header extends Component {
                         {/* username */}
                         <div className='user-component'>
                             <i className="fas fa-user"></i>
-                            <span>{this.state.userName}</span>
+                            <span>{this.props.userInfo.transporterName}</span>
                         </div>
 
                         {/* language */}

@@ -119,11 +119,14 @@
 
             .select-by-month {
                 margin-right: 90px;
-                background-color: navajowhite;
                 border-radius: 10px;
 
                 @media (max-width: 600px) {
                     margin-right: 0px;
+                }
+
+                div {
+                    background-color: navajowhite;
                 }
             }
         }

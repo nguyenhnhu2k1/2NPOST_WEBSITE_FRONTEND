@@ -46,6 +46,7 @@
                     img {
                         width: 120px;
                         height: 120px;
+                        object-fit: cover;
                     }
 
                     .order-info {
@@ -163,6 +164,12 @@
                         .content {
                             flex: 50%;
                         }
+                    }
+                }
+
+                .goods-properties {
+                    .type-of-good-component {
+                        flex: 50%;
                     }
                 }
             }

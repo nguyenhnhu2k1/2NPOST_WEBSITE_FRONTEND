@@ -1,7 +1,7 @@
 .store-manager {
     .store-manager-component {
-        margin    : 95px 20px auto 90px;
-        height    : 100vh;
+        margin: 95px 20px auto 90px;
+        height: 100vh;
         transition: margin-left 0.5s ease-in-out;
 
         &.active-show-nav {
@@ -9,20 +9,26 @@
         }
 
         .heading-and-price {
-            display        : flex;
+            display: flex;
             justify-content: space-between;
-            align-items    : start;
+            align-items: start;
+            flex-direction: row;
+
+            @media (max-width: 630px) {
+                flex-direction: column;
+                margin-bottom: 10px;
+            }
 
             #add-driver-button {
                 background-color: #e34e4e;
-                color           : #fff;
-                border          : none;
-                border-radius   : 5px;
-                cursor          : pointer;
-                width           : 190px;
-                padding         : 10px;
-                font-size       : 16px;
-                transition      : background-color 0.3s ease;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                width: 190px;
+                padding: 10px;
+                font-size: 16px;
+                transition: background-color 0.3s ease;
 
                 i {
                     margin-right: 5px;
@@ -32,16 +38,143 @@
                     background-color: #b70709;
                 }
             }
+
+            #updatePrice {
+                .modal-body {
+
+                    .service-1,
+                    .service-2,
+                    .service-3 {
+                        margin: 0px 20px;
+
+                        .title-service {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+
+                            span {
+                                font-weight: 500;
+                            }
+
+                            i {
+                                color: #0612b1;
+                                font-size: 21px;
+                            }
+                        }
+
+                        .content-service {
+                            div {
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                gap: 30px;
+                                margin: 3px 0px;
+
+                                input {
+                                    border: 1px solid gray;
+                                    outline: none;
+                                    text-align: center;
+                                }
+
+                                .Km90Km100 {
+                                    margin-left: -10px;
+                                }
+
+                                .Km100Km150 {
+                                    margin-left: -20px !important;
+                                }
+
+                                .Km150 {
+                                    margin-left: -11px !important;
+                                }
+
+                                &.lastKm {
+                                    margin-left: 24px;
+
+                                    &.borderLastKm {
+                                        border-bottom: 1px solid #d5d5d5;
+                                        padding-bottom: 15px;
+                                    }
+
+                                    input {
+                                        width: 106px;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+
+
+                }
+
+                .modal-footer {
+                    .updatePrice {
+                        background-color: #d44949;
+                        border: 1px solid #d44949;
+
+                        &:hover {
+                            background-color: #b70709;
+                            border: 1px solid #b70709;
+
+                        }
+                    }
+                }
+            }
         }
 
 
         .information-transporter {
             .information-component {
                 padding: 25px;
-                border : 1px solid #dbd5d5;
+                border: 1px solid #dbd5d5;
 
                 .info-form-component {
                     margin: 21px auto 23px 28px;
+
+                    .show_picture {
+                        text-align: center;
+
+                        img {
+                            width: 200px;
+                        }
+                    }
+
+                    .address {
+                        position: relative;
+
+                        .updateLocation {
+                            position: absolute;
+                            top: 36px;
+                            right: 8px;
+                            border-radius: 5px;
+                            background: #d44949;
+                            border-color: #d44949;
+
+                            &:hover {
+                                background-color: #b70709;
+                            }
+
+                            color: white;
+                            font-weight: 500;
+                        }
+                    }
+
+                    #updateLocation {
+                        .modal-footer {
+                            z-index: 100;
+
+                            .updateLocation {
+                                cursor: pointer;
+                                background: #d44949;
+                                border-color: #d44949;
+
+                                &:hover {
+                                    background-color: #b70709;
+                                }
+                            }
+                        }
+                    }
                 }
 
                 .container-select {
@@ -49,8 +182,14 @@
 
                     .scope-component {
 
+
                         .scope-select {
                             margin: 21px auto 23px 0px;
+
+                            .domain {
+                                margin-left: 26px;
+                                margin-top: 5px;
+                            }
 
                             label {
                                 margin-left: 10px;
@@ -60,7 +199,7 @@
 
                     .service-component {
                         .service-select {
-                            margin: 21px auto 23px 0px;
+                            margin: 21px auto 23px 23px;
 
                             label {
                                 margin-left: 10px;
@@ -71,12 +210,15 @@
 
 
                 .button-div {
-                    display        : flex;
+                    display: flex;
                     justify-content: center;
 
-                    button {
-                        background  : #d44949;
+                    // .cancelUpdateInfo {}
+
+                    .updateInfo {
+                        background: #d44949;
                         border-color: #d44949;
+                        margin-left: 12px;
 
                         &:hover {
                             background-color: #b70709;

@@ -87,14 +87,10 @@ class Login extends Component {
     };
 
     componentDidMount() {
-        console.log("chạy vào didmount")
         document.addEventListener('keydown', this.handlerKeyDown);
     }
 
     componentWillUnmount() {
-        // document.removeEventListener('keydown', this.handlerKeyDown);
-        // fix Warning: Can't perform a React state update on an unmounted component
-        console.log("chạy vào WillUnmount")
         this.setState = (state, callback) => {
             return;
         };
@@ -103,7 +99,6 @@ class Login extends Component {
     render() {
         const { username, password, loginError } = this.state;
         const { lang } = this.props;
-        console.log(lang);
 
         return (
             <div className="login-wrapper">
@@ -145,6 +140,7 @@ class Login extends Component {
                         )}
 
                         <div className="form-group login">
+
                             <input
                                 ref={this.btnLogin}
                                 id="btnLogin"

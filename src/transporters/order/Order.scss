@@ -21,11 +21,19 @@
                 display: flex;
                 justify-content: space-around;
                 border-bottom: 2px solid #d3d1d1;
+                font-weight: 500;
 
                 div {
+                    &.action {
+                        border-bottom: 2px solid #ee0033;
+                    }
+
                     cursor: pointer;
-                    height: 27px;
-                    margin-bottom: 7px;
+                    height: 35px;
+                    margin-bottom: -2px;
+                    text-align: center;
+                    padding-left: 9px;
+                    padding-right: 9px;
                 }
             }
 

@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 
 const app = express();
@@ -18,6 +19,8 @@ if (subDir === '/') {
 if (logRequests) {
     console.log('The server will log all incoming request. It\'s not recommended for production use.');
 }
+
+app.use(cors());
 
 // Serve the static files from the React app
 app.use(subDir, express.static(buildDir));

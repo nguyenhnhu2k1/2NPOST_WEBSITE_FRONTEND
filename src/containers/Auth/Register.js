@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { KeyCodeUtils } from '../../utils';
 import * as actions from "../../store/actions";
-import { Redirect } from 'react-router-dom';
 
 import './Register.scss';
 import { handleRegisterAPI } from '../../services/userService';
@@ -109,13 +108,11 @@ class Register extends Component {
                         keyRole: this.state.keyRole,
                     }
                     let data = await handleRegisterAPI(transporter, user);
-                    console.log(data)
                     if (data && data.errCode === 0) {
                         let userInfo = {
                             ...data.data.user,
                             ...data.data.transporter,
                         }
-                        console.log(userInfo)
 
                         this.props.userLoginSuccess(userInfo);
                         this.props.history.push('/login');
@@ -151,6 +148,7 @@ class Register extends Component {
     }
 
     render() {
+        console.log(this.state)
         return (
             <div className='register-container'>
                 <HeaderAuth />
