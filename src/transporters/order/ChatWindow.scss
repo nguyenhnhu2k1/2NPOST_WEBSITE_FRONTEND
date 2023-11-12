@@ -1,0 +1,76 @@
+.chat-window-container {
+    position: fixed;
+    bottom: 0px;
+    right: 20px;
+    z-index: 10000;
+    width: 950px;
+    height: 500px;
+    background-color: white;
+
+    .header-x {
+
+        i {
+            float: right;
+            border: 1px solid #0dcaf0;
+            padding: 4px;
+            background-color: #0dcaf0;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    }
+
+    .card {
+        max-height: 400px;
+
+        .card-body-user {
+            height: 400px;
+        }
+
+        .user-chat-list {
+            &.action {
+                background-color: #d5d5d5;
+            }
+
+            a {
+                position: relative;
+                text-decoration: none;
+
+                .time {
+                    position: absolute;
+                    right: -1px;
+                    background-color: inherit;
+                    z-index: 100;
+
+                    p {
+                        margin-left: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+    .card-message {
+        max-height: 400px;
+
+        .br-message {
+            margin-bottom: 300px;
+            width: 100%;
+            height: 10px;
+        }
+    }
+
+    .form-outline {
+        position: fixed;
+        bottom: 0px;
+        width: 100vh;
+        background-color: white;
+    }
+
+    .btn-send {
+        position: fixed;
+        bottom: 67px;
+        right: 40px;
+        z-index: 100;
+    }
+}

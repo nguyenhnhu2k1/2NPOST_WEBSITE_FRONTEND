@@ -8,16 +8,17 @@ class SelectSmall extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            age: '',
+            value: '',
         };
     }
 
     handleChange = (event) => {
-        this.setState({ age: event.target.value });
+        this.setState({ value: event.target.value });
+        this.props.onValueChange(event.target.value);
     };
 
     render() {
-        const { age } = this.state;
+        const { value } = this.state;
         let items = this.props.itemSelect;
         return (
             <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
@@ -25,8 +26,8 @@ class SelectSmall extends Component {
                 <Select
                     labelId="demo-select-small-label"
                     id="demo-select-small"
-                    value={age}
-                    label="Age"
+                    value={value}
+                    label="Value"
                     onChange={this.handleChange}
                 >
                     {/* status.map((value, index) => ( */}

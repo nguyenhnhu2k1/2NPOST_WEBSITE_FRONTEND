@@ -18,8 +18,15 @@ class DateRangePickerValue extends Component {
     }
 
     handleValueChange = (newValue) => {
-        this.setState({ value: newValue });
+        this.setState({
+            value: newValue
+        }, () => {
+            console.log(this.state.value); // Log giá trị sau khi cập nhật xong
+            const [startDate, endDate] = this.state.value;
+            this.props.onDateChange(dayjs(startDate).toDate(), dayjs(endDate).toDate());
+        });
     };
+
 
     render() {
         const { value } = this.state;

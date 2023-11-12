@@ -186,7 +186,7 @@ class Driver extends Component {
                         }
                         let driverNew = await CreateNewUserFromApi(driverInput);
                         if (driverNew && driverNew.errCode === 0) {
-                            alert(`Tạo tài xế thành công \n phone: ${driverNew.data.phone} \n password: ${driverInput.password}`);
+                            alert(`Tạo tài xế thành công\n phone: ${driverNew.data.phone} \n password: ${driverInput.password}`);
                             this.resetForm();
                             this.props.getAllDriverOfTransporter(this.props.userInfo.idTransporter);
                             this.btnCancel.current.click();
@@ -319,7 +319,7 @@ class Driver extends Component {
     }
     // xử lý chỉnh sửa tài xế
     handleEditDriver = async () => {
-        const { id, image, userName, phone, password, address, email, birthday, keyGender, linkImgOnServer, showImg, status, inputBirthday } = this.state.drivers
+        const { id, image, userName, phone, address, email, birthday, keyGender, linkImgOnServer, status } = this.state.drivers
         try {
             if (address && userName && phone && birthday && (keyGender === 'G0' || keyGender === 'G1') && (status === 1 || status === 0)) {
                 if (this.compareOldDriverAndDriver()) {
@@ -391,14 +391,6 @@ class Driver extends Component {
         if (event.keyCode === KeyCodeUtils.ENTER) {
             let driverFind = this.props.drivers.filter((driver) =>
                 this.removeAccents(driver.userName.toLowerCase()).includes(this.removeAccents(this.state.search.toLowerCase()))
-            )
-            let Find;
-            this.props.drivers.map((driver) => {
-                Find = this.removeAccents(driver.userName.toLowerCase()).includes(this.removeAccents(this.state.search.toLowerCase()))
-                console.log(this.removeAccents(driver.userName.toLowerCase()));
-                console.log(this.removeAccents(this.state.search.toLowerCase()));
-                console.log(Find);
-            }
             )
             if (driverFind) {
                 this.setState({
@@ -681,7 +673,6 @@ class Driver extends Component {
                             </div>
                         </div>
 
-                        {/* bảng */}
                         {/* bảng */}
                         <div className='component-2'>
                             <table style={{ width: '100%' }}>

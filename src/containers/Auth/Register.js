@@ -20,7 +20,7 @@ class Register extends Component {
             foundingDate: '',
             keyRole: 'R2',
             errMessage: '',
-
+            agree: false
         }
     }
 
@@ -33,11 +33,29 @@ class Register extends Component {
         }
     }
 
+    //xử lý check đồng ý chính sách và dịch vụ
+    handleOnchangeAgree = (event) => {
+        const isChecked = event.target.checked
+        if (isChecked) {
+            this.setState({
+                agree: true
+            })
+        }
+        else {
+            this.setState({
+                agree: false
+            })
+        }
+    }
+
     //xử lý nhập vào phone
     handleOnchangInputPhone = (event) => {
-        this.setState({
-            phone: event.target.value
-        })
+        const value = event.target.value;
+        if (/^[0-9]*$/.test(value) && value.length <= 10) {
+            this.setState({
+                phone: event.target.value
+            })
+        }
     }
 
     //xử lý nhập vào password
@@ -148,7 +166,7 @@ class Register extends Component {
     }
 
     render() {
-        console.log(this.state)
+        console.log(this.state.agree)
         return (
             <div className='register-container'>
                 <HeaderAuth />
@@ -167,18 +185,18 @@ class Register extends Component {
 
                                                     <div className="align-items-center mb-3">
                                                         <div className='d-flex flex-row'>
-                                                            <i class="fas fa-phone fa-lg me-3 fa-fw"></i>
-                                                            <label className="form-label" for="register-form-phone">Số điện thoại</label>
+                                                            <i className="fas fa-phone fa-lg me-3 fa-fw"></i>
+                                                            <label className="form-label" htmlFor="register-form-phone">Số điện thoại</label>
                                                         </div>
                                                         <div className="form-outline flex-fill mb-0">
-                                                            <input type="tel" id="register-form-phone" className="form-control input-css" onChange={this.handleOnchangInputPhone} />
+                                                            <input type="tel" id="register-form-phone" className="form-control input-css" value={this.state.phone} onChange={this.handleOnchangInputPhone} />
                                                         </div>
                                                     </div>
 
                                                     <div className="align-items-center mb-3">
                                                         <div className='d-flex flex-row'>
                                                             <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
-                                                            <label className="form-label" for="register-form-password">Mật khẩu</label>
+                                                            <label className="form-label" htmlFor="register-form-password">Mật khẩu</label>
                                                         </div>
                                                         <div className="form-outline flex-fill mb-0">
                                                             <input type="password" id="register-form-password" className="form-control input-css" onChange={this.handleOnchangInputPassword} />
@@ -188,7 +206,7 @@ class Register extends Component {
                                                     <div className="align-items-center mb-3">
                                                         <div className='d-flex flex-row'>
                                                             <i className="fas fa-key fa-lg me-3 fa-fw"></i>
-                                                            <label className="form-label" for="register-form-repeat-password">Nhắc lại mật khẩu</label>
+                                                            <label className="form-label" htmlFor="register-form-repeat-password">Nhắc lại mật khẩu</label>
                                                         </div>
                                                         <div className="form-outline flex-fill mb-0">
                                                             <input type="password" id="register-form-repeat-password" className="form-control input-css" onChange={this.handleOnchangInputRepeatPassword} />
@@ -198,7 +216,7 @@ class Register extends Component {
                                                     <div className="align-items-center mb-3">
                                                         <div className='d-flex flex-row'>
                                                             <i className="fas fa-user fa-lg me-3 fa-fw"></i>
-                                                            <label className="form-label" for="register-form-name">Tên công ty của bạn</label>
+                                                            <label className="form-label" htmlFor="register-form-name">Tên công ty của bạn</label>
                                                         </div>
                                                         <div className="form-outline flex-fill mb-0">
                                                             <input type="text" id="register-form-name" className="form-control input-css" onChange={this.handleOnchangInputtransporterName} />
@@ -209,7 +227,7 @@ class Register extends Component {
                                                     <div className="align-items-center mb-3">
                                                         <div className='d-flex flex-row'>
                                                             <i className="fas fa-calendar fa-lg me-3 fa-fw"></i>
-                                                            <label className="form-label" for="register-form-founding-date">Ngày thành lập</label>
+                                                            <label className="form-label" htmlFor="register-form-founding-date">Ngày thành lập</label>
                                                         </div>
                                                         <div className="form-outline flex-fill mb-0">
                                                             <input type="date" id="register-form-founding-date" className="form-control input-css" onChange={this.handleOnchangInputFoundingDate} />
@@ -219,14 +237,14 @@ class Register extends Component {
                                                         {this.state.errMessage}
                                                     </div>
                                                     <div className="form-check d-flex justify-content-center mb-3">
-                                                        <input className="form-check-input me-2" type="checkbox" value="" id="terms-services" />
-                                                        <label className="form-check-label" for="terms-services">
+                                                        <input className="form-check-input me-2" type="checkbox" value="" id="terms-services" onClick={this.handleOnchangeAgree} />
+                                                        <label className="form-check-label" htmlFor="terms-services">
                                                             Tôi đồng ý với chính sách và dịch vụ
                                                         </label>
                                                     </div>
 
                                                     <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4 btn-register">
-                                                        <button type="button" className="btn btn-primary btn-lg" ref={this.btnRegister} onClick={this.handleRegister}>Đăng ký</button>
+                                                        <button type="button" className="btn btn-primary btn-lg" ref={this.btnRegister} onClick={this.handleRegister} disabled={!this.state.agree}> Đăng ký </button>
                                                     </div>
                                                 </form>
 

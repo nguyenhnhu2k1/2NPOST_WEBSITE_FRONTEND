@@ -1,0 +1,60 @@
+.message {
+    border-radius: 15px;
+    position: fixed;
+    bottom: 0px;
+    right: 50px;
+    width: 390px;
+    z-index: 100;
+
+    &.minichat {
+        // bottom: -400px;
+        top: 552px;
+    }
+
+    .card-header {
+        .fa-window-restore {
+            cursor: pointer;
+
+            &:hover {
+                font-size: large;
+            }
+        }
+
+        .fa-minus {
+            cursor: pointer;
+
+            &:hover {
+                font-size: large;
+            }
+        }
+
+        .fa-times {
+            cursor: pointer;
+
+            &:hover {
+                font-size: large;
+            }
+        }
+    }
+
+    .card-body {
+        max-height: 400px;
+        overflow-y: scroll;
+
+        .form-outline {
+            position: relative;
+
+            i {
+                position: absolute;
+                right: 33px;
+                cursor: pointer;
+                z-index: 1000;
+                bottom: 51px;
+
+                &:hover {
+                    font-size: larger;
+                }
+            }
+        }
+    }
+}

@@ -1,67 +1,70 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-
+import { handleUpdateOrderStatus } from '../../services/userService';
+import { getOrdersByStatus } from '../../store/actions';
 import './AcceptBtn.scss';
 
 class AcceptBtn extends Component {
-    constructor(props) {
-        super(props);
-        this.state = ({
-            stepNext: ''
+    handleAccept = async (id, step) => {
+        try {
+            let result = await handleUpdateOrderStatus(id, this.updateStepNext(step))
+            if (result && result.errCode === 0) {
+                alert('Trạng thái đơn hàng có id ' + id + ' đã được cập nhật bước tiếp theo')
+                this.props.getOrders(this.props.userInfo.idTransporter);
+            }
+        } catch (e) {
+            console.log(e);
+        }
 
-        })
     }
-    handleAccept = (step) => {
-        console.log(step)
+    handleCancel = async (id, step) => {
+        // eslint-disable-next-line no-restricted-globals
+        if (confirm("Bạn có muốn hủy đơn này") === true) {
+            try {
+                let result = await handleUpdateOrderStatus(id, step)
+                if (result && result.errCode === 0) {
+                    alert('Trạng thái đơn hàng có id ' + id + ' đã được hủy bỏ')
+                    this.props.getOrders(this.props.userInfo.idTransporter);
+
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        }
     }
-    handleCancel = (step) => {
-        console.log(step)
-    }
-    updateStepNext = () => {
+    updateStepNext = (status) => {
         let stepNext = ''
-        if (this.props.nameAccept === 'OS0') {
+        if (status === 'OS0') {
             stepNext = 'TS0';
         }
-        if (this.props.nameAccept === 'TS0') {
+        if (status === 'TS0') {
             stepNext = 'TS1';
         }
-        if (this.props.nameAccept === 'TS1') {
+        if (status === 'TS1') {
             stepNext = 'TS2';
         }
-        if (this.props.nameAccept === 'TS2') {
+        if (status === 'TS2') {
             stepNext = 'TS3';
         }
-        if (this.props.nameAccept === 'TS3') {
+        if (status === 'TS3') {
             stepNext = 'TS4';
         }
-        console.log('stepNext', stepNext);
-        this.setState({
-            stepNext
-        })
-    }
-    componentDidMount() {
-        this.updateStepNext();
-    }
-    componentDidUpdate(prevProps, prevState) {
-        if (this.state.stepNext !== prevState.stepNext) {
-            this.updateStepNext();
-        }
+        return stepNext;
     }
 
     render() {
-        console.log(this.state.stepNext)
 
         return (
             <React.Fragment>
                 <div className='btn-component'>
-                    <button className='accept-component' disabled={this.props.nameAccept === 'Xem chi tiết'}
-                        onClick={() => this.handleAccept(this.state.stepNext)}
+                    <button className={`accept-component ${this.props.nameAccept === 'Xem chi tiết' || this.props.nameAccept === 'Chờ khách hàng xác nhận' ? 'disable-style' : ''}`} disabled={this.props.nameAccept === 'Xem chi tiết' || this.props.nameAccept === 'Chờ khách hàng xác nhận'}
+                        onClick={() => this.handleAccept(this.props.order.id, this.props.order.keyOrderStatus)}
                     >
                         {this.props.nameAccept}
                     </button>
-                    <button className='cancle-component' hidden={this.props.nameAccept === 'Xem chi tiết'}
-                        onClick={() => this.handleCancel('OS2')}
+                    <button className='cancle-component' hidden={this.props.nameAccept === 'Xem chi tiết' || this.props.nameAccept === 'Chờ khách hàng xác nhận'}
+                        onClick={() => this.handleCancel(this.props.order.id, 'OS2')}
                     >
                         {this.props.nameCancle}
                     </button>
@@ -74,12 +77,14 @@ class AcceptBtn extends Component {
 
 const mapStateToProps = state => {
     return {
+        userInfo: state.user.userInfo,
+        TS3: state.user.TS3,
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        getOrders: (idTrans) => dispatch(getOrdersByStatus(idTrans)),
     };
 };
 

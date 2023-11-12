@@ -52,9 +52,9 @@ const mapDispatchToProps = dispatch => {
     return {
         getOrders: (idTrans) => dispatch(getOrdersByStatus(idTrans)),
         getVehicles: (idTrans) => dispatch(GetVehicleByIdTransporter(idTrans)),
+        getAllDriverOfTransporter: (idTrans) => dispatch(GetAllDriverOfTransporter(idTrans)),
         getServiceOfTransporter: (idTrans) => dispatch(GetServiceOfTransporter(idTrans)),
         // getScopeOfTransporter: (idTrans) => dispatch(GetScopeOfTransporter(idTrans)),
-        getAllDriverOfTransporter: (idTrans) => dispatch(GetAllDriverOfTransporter(idTrans)),
     };
 };
 

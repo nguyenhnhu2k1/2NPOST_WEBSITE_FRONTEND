@@ -187,3 +187,14 @@ export const getOrdersByStatusAPI = (keyOrderStatus, idTransporter) => { // lấ
             }
         });
 }
+export const handleUpdateOrderStatus = (id, keyOrderStatus) => {
+    return axios.put('/api/update-key-order-status', { id, keyOrderStatus });
+}
+
+// Chọn tài xế và phương tiện cho đơn hàng
+export const handleCreateDriverForOrder = (idOrder, idDriver) => {
+    return axios.post('/api/create-driver-for-order', { idOrder, idDriver });
+}
+export const handleCreateVehicleForOrder = (idOrder, idVehicle) => {
+    return axios.post('/api/create-vehicle-for-order', { idOrder, idVehicle });
+}

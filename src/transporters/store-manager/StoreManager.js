@@ -336,13 +336,12 @@ class StoreManager extends Component {
     // nhấn lưu thông tin nhà vận chuyển
     handleSaveChangesInfoTrans = async () => {
         const { image, transporterName, email, description, foundingDate, address } = this.state.transInfo
-        const { oldimage, oldtransporterName, oldemail, olddescription, oldfoundingDate, oldaddress } = this.state.oldTransInfo
         if (image && transporterName && email && description && foundingDate && address) {
             if (this.validationEmail(email)) {
                 if (this.state.services.length) {
                     // if (this.state.scope.length) {
 
-                    if (this.compareInfoTrans() && this.compareArr(this.state.services, this.state.oldServices) && this.compareArr(this.state.scope, this.state.oldScope)) {
+                    if (this.compareInfoTrans() && this.compareArr(this.state.services, this.state.oldServices)) {
                         alert("Chưa có sự thay đổi nào");
                     }
                     else {
@@ -351,7 +350,7 @@ class StoreManager extends Component {
                             if (!this.compareInfoTrans()) {
                                 // cập nhật vị trí
                                 // kiểm tra vị trí có thay đổi hay không
-                                if (oldaddress !== address) {
+                                if (this.state.oldTransInfo.address !== address) {
                                     let allUserLocation = await getAllUserLocationByIdUserAPI(this.props.userInfo.id);
                                     if (allUserLocation.errCode === 0 && allUserLocation.data.length > 0) {
                                         await handleDeleteUserLocationByIdAPI(allUserLocation.data[0].id);
@@ -378,15 +377,15 @@ class StoreManager extends Component {
 
                                 }
                                 let img;
-                                if (oldimage !== image) {
+                                if (this.state.oldTransInfo.image !== image) {
                                     //Nếu ảnh thay đổi 
                                     // => tải ảnh lên server 
                                     const formData = new FormData();
                                     formData.append('profile_pic', image);
                                     img = await uploadImage(formData);
                                     // => xóa ảnh cũ
-                                    if (oldimage) {
-                                        await handleDeleteFile(oldimage);
+                                    if (this.state.oldTransInfo.image) {
+                                        await handleDeleteFile(this.state.oldTransInfo.image);
                                     }
                                     this.setState({
                                         transInfo: {
@@ -400,6 +399,7 @@ class StoreManager extends Component {
                                     })
                                 }
                                 //  cập nhật thông tin người dùng
+                                console.log(this.state.transInfo);
                                 let transporterNew = await handleEditTransporterFromApi(this.state.transInfo);
                                 if (transporterNew && transporterNew.errCode === 0) {
                                     let userInfo = {

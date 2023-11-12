@@ -7,11 +7,11 @@ class CustomScrollbars extends Component {
 
     ref = React.createRef();
 
-    getScrollLeft =()=>{
+    getScrollLeft = () => {
         const scrollbars = this.ref.current;
         return scrollbars.getScrollLeft();
     }
-    getScrollTop =()=>{
+    getScrollTop = () => {
         const scrollbars = this.ref.current;
         return scrollbars.getScrollTop();
     }
@@ -21,9 +21,18 @@ class CustomScrollbars extends Component {
             return;
         }
         const scrollbars = this.ref.current;
-        const targetScrollTop = scrollbars.getScrollHeight();
-        this.scrollTo(targetScrollTop);
+        const targetTop = scrollbars.getScrollHeight() - scrollbars.getClientHeight();
+        scrollbars.scrollTop(targetTop);
     };
+
+    // scrollToBottom = () => {
+    //     if (!this.ref || !this.ref.current) {
+    //         return;
+    //     }
+    //     const scrollbars = this.ref.current;
+    //     const targetScrollTop = scrollbars.getScrollHeight();
+    //     this.scrollTo(targetScrollTop);
+    // };
 
     scrollTo = (targetTop) => {
         const { quickScroll } = this.props;
@@ -84,7 +93,7 @@ class CustomScrollbars extends Component {
     };
 
     render() {
-        const { className, disableVerticalScroll, disableHorizontalScroll, children,...otherProps } = this.props;
+        const { className, disableVerticalScroll, disableHorizontalScroll, children, ...otherProps } = this.props;
         return (
             <Scrollbars
                 ref={this.ref}

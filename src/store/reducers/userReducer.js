@@ -8,7 +8,8 @@ const initialState = {
     TS1: [], //tài xế đã nhận hàng
     TS2: [], //đơn hàng đang ở kho
     TS3: [], //đơn hàng đang giao
-    TS4: [], //đơn hàng thành công
+    TS4: [], //đơn hàng đã giao
+    TS5: [], //đơn hàng thành công
     OS2: [], //đã hủy
     orders: [], //tất cả đơn hàng,
     drivers: [], //tài xế
@@ -37,6 +38,7 @@ const userReducer = (state = initialState, action) => {
                 TS2: null,
                 TS3: null,
                 TS4: null,
+                TS5: null,
                 OS2: null,
                 orders: null,
                 drivers: null,
@@ -55,8 +57,9 @@ const userReducer = (state = initialState, action) => {
                 TS2: action.dataOrders[3].data,
                 TS3: action.dataOrders[4].data,
                 TS4: action.dataOrders[5].data,
-                OS2: action.dataOrders[6].data,
-                orders: action.dataOrders[7].data,
+                TS5: action.dataOrders[6].data,
+                OS2: action.dataOrders[7].data,
+                orders: action.dataOrders[8].data,
             }
         case actionTypes.GET_VEHICLES_BY_IDTRANSPORTER:
             return {

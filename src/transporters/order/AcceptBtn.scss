@@ -12,6 +12,11 @@
             border: solid #b70709;
             background-color: #b70709;
         }
+
+        &.disable-style {
+            background-color: #f77676;
+            border: #f77676;
+        }
     }
 
     .cancle-component {

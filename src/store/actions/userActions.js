@@ -17,7 +17,7 @@ export const processLogout = () => ({
 export const getOrdersByStatus = (idTrans) => {
     return async (dispatch) => {
         try {
-            const orderStatuses = ['OS0', 'TS0', 'TS1', 'TS2', 'TS3', 'TS4', 'OS2', 'All'];
+            const orderStatuses = ['OS0', 'TS0', 'TS1', 'TS2', 'TS3', 'TS4', 'TS5', 'OS2', 'All'];
             const promises = orderStatuses.map((status) => getOrdersByStatusAPI(status, idTrans)); //
 
             const results = await Promise.all(promises);

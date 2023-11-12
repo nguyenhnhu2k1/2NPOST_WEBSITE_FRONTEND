@@ -201,6 +201,29 @@
                 font-weight: 500;
             }
         }
+
+        .payment {
+            float: right;
+            margin: 20px 65px 20px auto;
+
+            .title-payment {
+                span {
+                    padding: 5px 10px;
+                    border: 2px solid;
+                    font-size: larger;
+                    font-weight: 600;
+
+                    &.paid {
+                        color: #3e9d3e;
+                    }
+
+                    &.unpaid {
+                        color: #f10033;
+                    }
+                }
+            }
+
+        }
     }
 
 }

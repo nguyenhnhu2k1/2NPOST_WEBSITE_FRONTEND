@@ -11,6 +11,7 @@ import WarehouseIcon from '@mui/icons-material/Warehouse';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 import Typography from '@mui/material/Typography';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
@@ -80,7 +81,8 @@ class ColorlibStepIcon extends Component {
             3: <WarehouseIcon />,
             4: <LocalShippingIcon />,
             5: <CheckCircleOutlineIcon />,
-            6: <HighlightOffIcon />,
+            6: <DoneOutlineIcon />,
+            7: <HighlightOffIcon />,
         };
 
         return (
@@ -125,6 +127,11 @@ class OrderDetailsComp extends Component {
                 },
                 {
                     status: 'TS4',
+                    text: 'Đơn hàng đã giao',
+                    date: '10/102001',
+                },
+                {
+                    status: 'TS5',
                     text: 'Đơn hàng thành công',
                     date: '10/102001',
                 },
@@ -216,22 +223,23 @@ class OrderDetailsComp extends Component {
 
     formatCurrency(number) { //chuyển đổi 10000 về dạng  10,000 VNĐ
         // Chuyển đổi số thành chuỗi và thêm dấu phẩy sau mỗi 3 chữ số
+        number = number ? number : 0;
         const formattedNumber = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
+        console.log('formattedNumber', formattedNumber)
         // Thêm ký tự VNĐ vào cuối chuỗi
         return formattedNumber + " VNĐ";
     }
 
-    calculateTotal = (priceA, priceB) => {
+    transportationCost = (priceA, priceB) => { //chuyển đổi 10,000 về dạng 10000
         let A = priceA ? parseInt(priceA.replace(/,/g, ""), 10) : 0
         let B = priceB ? parseInt(priceB.replace(/,/g, ""), 10) : 0
         console.log(A)
         console.log(B)
-        return this.formatCurrency(A + B)
+        return this.formatCurrency(A - B)
     }
 
     updateNameAccept = (status) => {
-        let nameAccept = ''
+        let nameAccept = '';
         if (status === 'OS0') {
             nameAccept = 'Nhận đơn';
         }
@@ -247,7 +255,10 @@ class OrderDetailsComp extends Component {
         if (status === 'TS3') {
             nameAccept = 'Thành công';
         }
-        if (status === 'TS4' || status === 'OS2') {
+        if (status === 'TS4') {
+            nameAccept = 'Chờ khách hàng xác nhận';
+        }
+        if (status === 'OS2' || status === 'TS5') {
             nameAccept = 'Xem chi tiết';
         }
         return nameAccept;
@@ -273,7 +284,8 @@ class OrderDetailsComp extends Component {
                     {/* tiêu đề chi tiết đơn hàng */}
                     <div className='heading-order-detail'>
                         <span className='title-1-base '>CHI TIẾT ĐƠN HÀNG <span className='id-order'>#{id}</span> </span>
-                        <AcceptBtn nameAccept={order && this.updateNameAccept(order.keyOrderStatus)} nameCancle='Hủy Bỏ' />
+                        <AcceptBtn nameAccept={order && this.updateNameAccept(order.keyOrderStatus)}
+                            order={order} nameCancle='Hủy Bỏ' />
                     </div>
 
                     {/* trạng thái đơn hàng */}
@@ -281,7 +293,7 @@ class OrderDetailsComp extends Component {
                         <Stack sx={{ width: "100%" }} spacing={4}>
                             <Stepper
                                 alternativeLabel
-                                activeStep={order && this.getIndexByKeyStatusOnStep(order.keyOrderStatus)}
+                                activeStep={this.getIndexByKeyStatusOnStep(order.keyOrderStatus)}
                                 connector={<ColorlibConnector />}
                             >
                                 {steps.map((label, index) => (
@@ -384,7 +396,7 @@ class OrderDetailsComp extends Component {
                                     <span className='title '>Tính chất hàng hóa</span>
                                     <div className='type-of-good-component'>
                                         {order && order.typeOfGoods.map((typeGood, index) =>
-                                            <div className='content'>{typeGood.keyTypeOfGoodsAllCode.valueVi}<br style={{ width: '1px' }}></br></div>
+                                            <div className='content' key={index}>{typeGood.keyTypeOfGoodsAllCode.valueVi}<br style={{ width: '1px' }}></br></div>
                                         )}
                                     </div>
                                 </div>
@@ -402,7 +414,7 @@ class OrderDetailsComp extends Component {
                     <div className='total-amount-component'>
                         <div className='transportation-costs cost'>
                             <div className='title'>Chi phí vận chuyển</div>
-                            <div className='content'>{order.totalCost ? order.totalCost : '0'} VNĐ</div>
+                            <div className='content'>{order.totalCost ? this.transportationCost(order.totalCost, this.formatCurrency(order.typeOfGoods.length * 5000)) : '0'} VNĐ</div>
                         </div>
                         <div className='incurred-costs cost'>
                             <div className='title'>Tổng cước phát sinh</div>
@@ -410,7 +422,13 @@ class OrderDetailsComp extends Component {
                         </div>
                         <div className='total-costs cost'>
                             <div className='title'><AttachMoneyIcon />Thành tiền</div>
-                            <div className='content'>{order && order.typeOfGoods && this.calculateTotal(order.totalCost, this.formatCurrency(order.typeOfGoods.length * 5000))}</div>
+                            {/* <div className='content'>{order && order.typeOfGoods && this.calculateTotal(order.totalCost, this.formatCurrency(order.typeOfGoods.length * 5000))}</div> */}
+                            <div className='content'>{order.totalCost ? order.totalCost : '0'}</div>
+                        </div>
+                        <div className='payment'>
+                            <div className='title-payment'>
+                                <span className={`${order.transportationOrder && order.transportationOrder.payment ? 'paid' : 'unpaid'}`}>{order.transportationOrder && order.transportationOrder.payment ? 'ĐÃ THANH TOÁN' : 'CHƯA THANH TOÁN'}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
