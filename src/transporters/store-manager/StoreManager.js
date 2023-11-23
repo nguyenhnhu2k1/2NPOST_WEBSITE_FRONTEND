@@ -30,7 +30,7 @@ class StoreManager extends Component {
                 address: this.props.userInfo.address,
                 id: this.props.userInfo.id,
                 idTransporter: this.props.userInfo.idTransporter,
-                idDefaultLocation: ''
+                idDefaultLocation: this.props.userInfo.idDefaultLocation
             },
             oldTransInfo: {
                 image: this.props.userInfo.image,
@@ -363,9 +363,7 @@ class StoreManager extends Component {
                                     }
                                     await handleCreateUserLocationFromApi(userLocationInput);
                                     let findUserLocation = await getAllUserLocationByIdUserAPI(this.props.userInfo.id);
-                                    console.log(findUserLocation)
                                     if (findUserLocation.errCode === 0 && findUserLocation.data.length > 0) {
-                                        console.log(findUserLocation)
                                         this.setState({
                                             transInfo: {
                                                 ...this.state.transInfo,
@@ -399,7 +397,6 @@ class StoreManager extends Component {
                                     })
                                 }
                                 //  cập nhật thông tin người dùng
-                                console.log(this.state.transInfo);
                                 let transporterNew = await handleEditTransporterFromApi(this.state.transInfo);
                                 if (transporterNew && transporterNew.errCode === 0) {
                                     let userInfo = {
@@ -489,7 +486,6 @@ class StoreManager extends Component {
         try {
             let suggestCost = await getAllCostCodeFromAPI();
             if (suggestCost && suggestCost.errCode === 0) {
-                console.log(suggestCost)
                 let suggestCostSE0 = [];
                 let suggestCostSE1 = [];
                 let suggestCostSE2 = [];
@@ -543,7 +539,6 @@ class StoreManager extends Component {
                 let currentCostSE2 = [];
                 // SE0 nếu 
                 if (costSE0.data.length === 0) {
-                    console.log(this.state.suggestedPrice.SE0)
                     let suggestCostSE0 = [];
                     this.state.suggestedPrice.SE0.map((cost) =>
                         suggestCostSE0.push(cost.cost)
@@ -551,10 +546,8 @@ class StoreManager extends Component {
                     if (suggestCostSE0.length > 0) {
                         let createCostDefault = await handleCreateCostOfTransporterFromApi('SE0', suggestCostSE0, this.props.userInfo.idTransporter)
                         if (createCostDefault && createCostDefault.errCode === 0) {
-                            console.log(createCostDefault);
                             for (let i = 0; i < createCostDefault.data.length; i++) {
                                 currentCostSE0.push(createCostDefault.data[i].cost);
-                                console.log('createCostDefault.data[i].cost', createCostDefault.data[i].cost);
                             }
                         }
                     }
@@ -562,24 +555,19 @@ class StoreManager extends Component {
                 else {
                     for (let i = 0; i < costSE0.data.length; i++) {
                         currentCostSE0.push(costSE0.data[i].cost);
-                        console.log('costSE0.data[i].cost', costSE0.data[i].cost);
                     }
                 }
 
                 if (costSE1.data.length === 0) {
-                    console.log(costSE1.data);
                     let suggestCostSE1 = [];
                     this.state.suggestedPrice.SE1.map((cost) =>
                         suggestCostSE1.push(cost.cost)
                     )
-                    console.log(suggestCostSE1)
                     if (suggestCostSE1.length > 0) {
                         let createCostDefault = await handleCreateCostOfTransporterFromApi('SE1', suggestCostSE1, this.props.userInfo.idTransporter)
                         if (createCostDefault && createCostDefault.errCode === 0) {
-                            console.log(createCostDefault);
                             for (let i = 0; i < createCostDefault.data.length; i++) {
                                 currentCostSE1.push(createCostDefault.data[i].cost);
-                                console.log('createCostDefault.data[i].cost', createCostDefault.data[i].cost);
                             }
                         }
                     }
@@ -589,10 +577,8 @@ class StoreManager extends Component {
                         currentCostSE1.push(costSE1.data[i].cost);
                     }
                 }
-                console.log(costSE2.data.length);
 
                 if (costSE2.data.length === 0) {
-                    console.log(costSE2.data);
                     let suggestCostSE2 = [];
                     this.state.suggestedPrice.SE2.map((cost) =>
                         suggestCostSE2.push(cost.cost)
@@ -600,10 +586,8 @@ class StoreManager extends Component {
                     if (suggestCostSE2.length > 0) {
                         let createCostDefault = await handleCreateCostOfTransporterFromApi('SE2', suggestCostSE2, this.props.userInfo.idTransporter)
                         if (createCostDefault && createCostDefault.errCode === 0) {
-                            console.log(createCostDefault);
                             for (let i = 0; i < createCostDefault.data.length; i++) {
                                 currentCostSE2.push(createCostDefault.data[i].cost);
-                                console.log('createCostDefault.data[i].cost', createCostDefault.data[i].cost);
                             }
                         }
                     }
@@ -613,9 +597,6 @@ class StoreManager extends Component {
                         currentCostSE2.push(costSE2.data[i].cost);
                     }
                 }
-                console.log(currentCostSE0)
-                console.log(currentCostSE1)
-                console.log(currentCostSE2)
 
                 this.setState({
                     currentPrice: {
@@ -685,7 +666,6 @@ class StoreManager extends Component {
                 }
             }
 
-            console.log() //so sanh mang cu va moi
         }
         else {
             alert("Không được bỏ trống thông tin");
@@ -701,6 +681,17 @@ class StoreManager extends Component {
         const number = Number(currencyString);
         return number.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
     }
+    getUserLocation = async () => {
+        let allUserLocation = await getAllUserLocationByIdUserAPI(this.props.userInfo.id);
+        const lat = parseFloat(allUserLocation.data[0].lat);
+        const lng = parseFloat(allUserLocation.data[0].lng);
+        this.setState({
+            defaultLocation: {
+                lat,
+                lng
+            },
+        })
+    }
     componentDidMount() {
         if (this.props.services) {
             this.getServiceOfTransporter(this.props.services);
@@ -711,9 +702,9 @@ class StoreManager extends Component {
         //     })
         //     this.getScopeOfTransporter(this.props.scope);
         // }
-        console.log(this.state.suggestedPrice)
         this.getAllCostCode();
         this.SetCurrentCostAndNewCost();
+        this.getUserLocation();
     }
     componentDidUpdate(prevProps, prevState) {
         if (this.props.services !== prevProps.services) {
@@ -730,8 +721,6 @@ class StoreManager extends Component {
     render() {
         let showNav = this.props.showNav;
         let { transporterName, email, phone, description, address } = this.state.transInfo
-        console.log('this.props.userInfo', this.props.userInfo);
-        console.log('this.state', this.state);
         return (
             <React.Fragment>
 
@@ -886,7 +875,7 @@ class StoreManager extends Component {
                                             <div className="modal-dialog">
                                                 <div className="modal-content">
                                                     <div className="modal-body">
-                                                        <SimpleMap getAddres={this.getAddress} />
+                                                        <SimpleMap getAddres={this.getAddress} defaultLocation={this.state.defaultLocation} />
                                                     </div>
                                                     <div className="modal-footer">
                                                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={this.btnCancel}>Thoát</button>

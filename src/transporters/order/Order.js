@@ -112,6 +112,7 @@ class Order extends Component {
                 showOrder: this.props.orders
             })
         }
+        this.changeOrderStatus('orders');
     }
     // định dạng ngày tháng
     formatDDMMYYYY = (inputDateString) => {
@@ -138,7 +139,6 @@ class Order extends Component {
     // tìm kiếm theo ngày tạo đơn
     searchByCreateDate = () => {
         let orderFind = this.props.orders.filter((order) => {
-            console.log(dayjs(order.createdAt).toDate().getTime())
             return dayjs(order.createdAt).toDate().getTime() > this.state.startDate.getTime()
                 && dayjs(order.createdAt).toDate().getTime() < this.state.endDate.getTime();
         })
@@ -150,6 +150,7 @@ class Order extends Component {
         else {
             alert("Không tìm thấy đơn hàng");
         }
+        this.changeOrderStatus('orders');
     }
     componentDidUpdate(prevProps, prevState) {
         if (this.props.orders !== prevProps.orders) {
@@ -163,7 +164,6 @@ class Order extends Component {
         let showNav = this.props.showNav;
         let { OS0, TS0, TS1, TS2, TS3, TS4, TS5, OS2 } = this.props;
         const { orderStatus } = this.state;
-        console.log(this.state);
         return (
             <React.Fragment>
 
@@ -219,15 +219,15 @@ class Order extends Component {
 
                             {/* hiển thị đơn hàng */}
                             <div>
-                                {this.state.orderStatus === 'orders' && <OrdersStatusView orderStatus={this.state.showOrder} />}
-                                {this.state.orderStatus === 'OS0' && <OrdersStatusView orderStatus={OS0} />}
-                                {this.state.orderStatus === 'TS0' && <OrdersStatusView orderStatus={TS0} />}
-                                {this.state.orderStatus === 'TS1' && <OrdersStatusView orderStatus={TS1} />}
-                                {this.state.orderStatus === 'TS2' && <OrdersStatusView orderStatus={TS2} />}
-                                {this.state.orderStatus === 'TS3' && <OrdersStatusView orderStatus={TS3} />}
-                                {this.state.orderStatus === 'TS4' && <OrdersStatusView orderStatus={TS4} />}
-                                {this.state.orderStatus === 'TS5' && <OrdersStatusView orderStatus={TS5} />}
-                                {this.state.orderStatus === 'OS2' && <OrdersStatusView orderStatus={OS2} />}
+                                {this.state.orderStatus === 'orders' && <OrdersStatusView statusText={this.state.orderStatus} orderStatus={this.state.showOrder} />}
+                                {this.state.orderStatus === 'OS0' && <OrdersStatusView statusText={this.state.orderStatus} orderStatus={OS0} />}
+                                {this.state.orderStatus === 'TS0' && <OrdersStatusView statusText={this.state.orderStatus} orderStatus={TS0} />}
+                                {this.state.orderStatus === 'TS1' && <OrdersStatusView statusText={this.state.orderStatus} orderStatus={TS1} />}
+                                {this.state.orderStatus === 'TS2' && <OrdersStatusView statusText={this.state.orderStatus} orderStatus={TS2} />}
+                                {this.state.orderStatus === 'TS3' && <OrdersStatusView statusText={this.state.orderStatus} orderStatus={TS3} />}
+                                {this.state.orderStatus === 'TS4' && <OrdersStatusView statusText={this.state.orderStatus} orderStatus={TS4} />}
+                                {this.state.orderStatus === 'TS5' && <OrdersStatusView statusText={this.state.orderStatus} orderStatus={TS5} />}
+                                {this.state.orderStatus === 'OS2' && <OrdersStatusView statusText={this.state.orderStatus} orderStatus={OS2} />}
                             </div>
                         </div>
                     </div>

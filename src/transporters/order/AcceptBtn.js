@@ -4,14 +4,63 @@ import { connect } from 'react-redux';
 import { handleUpdateOrderStatus } from '../../services/userService';
 import { getOrdersByStatus } from '../../store/actions';
 import './AcceptBtn.scss';
+import { handleCreateTransportationOrder } from '../../services/userService';
 
 class AcceptBtn extends Component {
+    // xử lý cập nhật trạng thái
     handleAccept = async (id, step) => {
         try {
-            let result = await handleUpdateOrderStatus(id, this.updateStepNext(step))
-            if (result && result.errCode === 0) {
-                alert('Trạng thái đơn hàng có id ' + id + ' đã được cập nhật bước tiếp theo')
-                this.props.getOrders(this.props.userInfo.idTransporter);
+            const { order, getOrders, userInfo } = this.props;
+            // Nếu đơn hàng là tiêu chuẩn thì chuyển trang
+            // Nếu đơn hàng không là tiêu chuẩn, thì xem tại trạng thái TS0 đã chọn tài xế hay chưa
+            if (order.keyService !== 'SE2') {
+                if (step === 'TS0') {
+                    if (order.transportationOrder && order.transportationOrder.idDriver && order.transportationOrder.idVehicle) {
+                        // bước tiếp theo của trạng thái hiện tại
+                        let result = await handleUpdateOrderStatus(id, this.updateStepNext(step))
+                        if (result && result.errCode === 0) {
+                            alert('Trạng thái đơn hàng có id ' + id + ' đã được cập nhật bước tiếp theo')
+                            getOrders(userInfo.idTransporter);
+                            if (this.props.getDetail) {
+                                this.props.getDetail();
+                            }
+                        }
+                    }
+                    else {
+                        alert("Mời chọn tài xế và phương tiện trước khi chuyển trạng thái");
+                    }
+                }
+                else {
+                    // bước tiếp theo của trạng thái hiện tại
+                    let result = await handleUpdateOrderStatus(id, this.updateStepNext(step))
+                    if (result && result.errCode === 0) {
+                        alert('Trạng thái đơn hàng có id ' + id + ' đã được cập nhật bước tiếp theo')
+                        getOrders(userInfo.idTransporter);
+                        if (this.props.getDetail) {
+                            this.props.getDetail();
+                        }
+                        if (step === 'OS0') {
+                            // Tạo transportation
+                            await handleCreateTransportationOrder(id);
+                        }
+
+                    }
+                }
+            }
+            else {
+                // bước tiếp theo của trạng thái hiện tại
+                let result = await handleUpdateOrderStatus(id, this.updateStepNext(step))
+                if (result && result.errCode === 0) {
+                    alert('Trạng thái đơn hàng có id ' + id + ' đã được cập nhật bước tiếp theo')
+                    getOrders(userInfo.idTransporter);
+                    if (this.props.getDetail) {
+                        this.props.getDetail();
+                    }
+                    if (step === 'OS0') {
+                        // Tạo transportation
+                        await handleCreateTransportationOrder(id);
+                    }
+                }
             }
         } catch (e) {
             console.log(e);
@@ -26,7 +75,6 @@ class AcceptBtn extends Component {
                 if (result && result.errCode === 0) {
                     alert('Trạng thái đơn hàng có id ' + id + ' đã được hủy bỏ')
                     this.props.getOrders(this.props.userInfo.idTransporter);
-
                 }
             } catch (e) {
                 console.log(e);
@@ -35,19 +83,25 @@ class AcceptBtn extends Component {
     }
     updateStepNext = (status) => {
         let stepNext = ''
-        if (status === 'OS0') {
+        const order = this.props.order;
+        if (status === 'OS0') { //Chờ xác nhận
             stepNext = 'TS0';
         }
-        if (status === 'TS0') {
+        if (status === 'TS0') { //chờ lấy hàng
             stepNext = 'TS1';
         }
-        if (status === 'TS1') {
-            stepNext = 'TS2';
+        if (status === 'TS1') { //tài xế đã nhận hàng
+            if (order.keyService !== 'SE2') {
+                stepNext = 'TS3';
+            }
+            else {
+                stepNext = 'TS2';
+            }
         }
-        if (status === 'TS2') {
+        if (status === 'TS2') { //Đơn hàng đang ở kho
             stepNext = 'TS3';
         }
-        if (status === 'TS3') {
+        if (status === 'TS3') { //Đơn hàng đang giao
             stepNext = 'TS4';
         }
         return stepNext;

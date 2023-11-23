@@ -9,10 +9,7 @@ class SimpleMap extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            center: {
-                lat: 10.7769,
-                lng: 106.7009
-            },
+            center: { lat: 10.7769, lng: 106.7009 },
             selectedLocation: null,
             zoom: 11,
             address: '',
@@ -41,7 +38,6 @@ class SimpleMap extends Component {
                     this.setState({
                         showAddress: formattedAddress
                     });
-                    console.log(this.state.selectedLocation)
                     this.addressTransmissionToAddress();
                 } else {
                     this.setState({ address: 'Không tìm thấy địa chỉ.' });
@@ -70,8 +66,8 @@ class SimpleMap extends Component {
 
                     if (results.length > 0) {
                         const location = results[0].geometry;
-                        const lng = location.lng;
                         const lat = location.lat;
+                        const lng = location.lng;
                         this.setState({
                             selectedLocation: { lat, lng },
                             showAddress: this.state.address,
@@ -85,7 +81,6 @@ class SimpleMap extends Component {
                                 map.map.setZoom(15); // Thay đổi mức độ phóng to theo nhu cầu của bạn
                             }
                         });
-                        console.log(this.state.selectedLocation)
                         this.addressTransmissionToAddress();
 
                     } else {
@@ -100,6 +95,13 @@ class SimpleMap extends Component {
 
     addressTransmissionToAddress = () => {
         this.props.getAddres(this.state.showAddress, this.state.selectedLocation);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.defaultLocation !== prevProps.defaultLocation) {
+            const { lat, lng } = this.props.defaultLocation;
+            this.map.map.setCenter({ lat, lng });
+        }
     }
 
     render() {
@@ -118,20 +120,20 @@ class SimpleMap extends Component {
                     <Map
                         style={{ height: '100vh', width: '95%' }}
                         google={this.props.google}
-                        initialCenter={this.state.selectedLocation || this.state.center}
+                        initialCenter={this.state.center}
                         zoom={this.state.zoom}
                         onClick={this.handleMapClick}
                         ref={(map) => (this.map = map)}
                     >
-                        {this.state.selectedLocation &&
-                            <Marker
-                                position={this.state.selectedLocation}
-                                icon={{
-                                    url: 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/map-marker-512.png', // Thay thế bằng đường dẫn đến biểu tượng của bạn
-                                    scaledSize: new window.google.maps.Size(30, 30)
-                                }}
-                            />
-                        }
+                        {/* {this.state.selectedLocation && */}
+                        <Marker
+                            position={this.state.selectedLocation || this.props.defaultLocation}
+                            icon={{
+                                url: 'https://cdn4.iconfinder.com/data/icons/small-n-flat/24/map-marker-512.png', // Thay thế bằng đường dẫn đến biểu tượng của bạn
+                                scaledSize: new window.google.maps.Size(30, 30)
+                            }}
+                        />
+                        {/* } */}
                     </Map>
                 </div>
             </React.Fragment>

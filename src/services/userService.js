@@ -198,3 +198,8 @@ export const handleCreateDriverForOrder = (idOrder, idDriver) => {
 export const handleCreateVehicleForOrder = (idOrder, idVehicle) => {
     return axios.post('/api/create-vehicle-for-order', { idOrder, idVehicle });
 }
+
+// tạo transportation cho đơn hàng
+export const handleCreateTransportationOrder = (idOrder) => {
+    return axios.post('/api/create-transportation-order', { idOrder });
+}

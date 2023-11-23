@@ -29,6 +29,7 @@
             border: 1px solid #ebe9e9;
             border-radius: 15px;
             background-color: #ebe9e9;
+            margin-bottom: 10px;
 
             .info-order-component {
                 padding: 15px;
@@ -47,6 +48,7 @@
                         width: 120px;
                         height: 120px;
                         object-fit: cover;
+                        border-radius: 10px;
                     }
 
                     .order-info {
@@ -118,6 +120,7 @@
                 flex: 50%;
                 border-radius: 15px;
                 background-color: #ebe9e9;
+                margin-bottom: 10px;
 
                 p {
                     text-align: center;
@@ -170,6 +173,105 @@
                 .goods-properties {
                     .type-of-good-component {
                         flex: 50%;
+                    }
+                }
+            }
+
+            .info-driver-component {
+                border: 1px solid #ebe9e9;
+                padding: 15px 30px;
+                flex: 50%;
+                border-radius: 15px;
+                background-color: #ebe9e9;
+                margin-bottom: 10px;
+
+                p {
+                    text-align: center;
+                }
+
+                .content-info-driver {
+                    margin-bottom: 10px;
+                    gap: 25px;
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        width: 100px;
+                        height: 100px;
+                        border-radius: 10px;
+                        object-fit: cover;
+                    }
+
+                    .driver-info {
+                        flex: 100%;
+
+                        .div-info {
+                            display: flex;
+
+                            .username {
+                                &.content {
+                                    font-weight: 500;
+                                    color: orangered;
+                                }
+                            }
+
+                            .title {
+                                flex: 50%;
+                            }
+
+                            .content {
+                                flex: 50%;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .info-vehicle-component {
+                border: 1px solid #ebe9e9;
+                padding: 15px 30px;
+                flex: 50%;
+                border-radius: 15px;
+                background-color: #ebe9e9;
+
+                p {
+                    text-align: center;
+                }
+
+                .content-info-vehicle {
+                    margin-bottom: 10px;
+                    gap: 25px;
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        width: 100px;
+                        height: 100px;
+                        border-radius: 10px;
+                        object-fit: cover;
+                    }
+
+                    .vehicle-info {
+                        flex: 100%;
+
+                        .div-info {
+                            display: flex;
+
+                            .licensePlates {
+                                &.content {
+                                    font-weight: 500;
+                                    color: #5b9346;
+                                }
+                            }
+
+                            .title {
+                                flex: 50%;
+                            }
+
+                            .content {
+                                flex: 50%;
+                            }
+                        }
                     }
                 }
             }

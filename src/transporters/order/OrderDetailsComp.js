@@ -21,6 +21,7 @@ import AcceptBtn from './AcceptBtn';
 import './OrderDetailsComp.scss';
 import boxImg from '../../assets/images/orders/box.png';
 import { GetOrderDetailByIdOrder } from '../../services/userService';
+import ShowPolyline from './ShowPolyline';
 
 // hiệu ứng trạng thái đơn hàng
 const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
@@ -149,7 +150,6 @@ class OrderDetailsComp extends Component {
         const steps = this.state.steps;
 
         const index = steps.findIndex(step => step.status === statusText);
-        console.log(index)
         return index;
     }
 
@@ -225,7 +225,6 @@ class OrderDetailsComp extends Component {
         // Chuyển đổi số thành chuỗi và thêm dấu phẩy sau mỗi 3 chữ số
         number = number ? number : 0;
         const formattedNumber = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        console.log('formattedNumber', formattedNumber)
         // Thêm ký tự VNĐ vào cuối chuỗi
         return formattedNumber + " VNĐ";
     }
@@ -233,35 +232,61 @@ class OrderDetailsComp extends Component {
     transportationCost = (priceA, priceB) => { //chuyển đổi 10,000 về dạng 10000
         let A = priceA ? parseInt(priceA.replace(/,/g, ""), 10) : 0
         let B = priceB ? parseInt(priceB.replace(/,/g, ""), 10) : 0
-        console.log(A)
-        console.log(B)
         return this.formatCurrency(A - B)
     }
 
-    updateNameAccept = (status) => {
+    updateNameAccept = (value) => {
         let nameAccept = '';
-        if (status === 'OS0') {
+        if (value.keyOrderStatus === 'OS0') {
             nameAccept = 'Nhận đơn';
         }
-        if (status === 'TS0') {
+        if (value.keyOrderStatus === 'TS0') {
             nameAccept = 'Đã lấy hàng';
         }
-        if (status === 'TS1') {
-            nameAccept = 'Đã về kho';
+        if (value.keyOrderStatus === 'TS1') {
+            if (value.keyService !== 'SE2') {
+                nameAccept = 'Giao Hàng';
+            }
+            else {
+                nameAccept = 'Đã về kho';
+            }
         }
-        if (status === 'TS2') {
+        if (value.keyOrderStatus === 'TS2') {
             nameAccept = 'Giao Hàng';
         }
-        if (status === 'TS3') {
+        if (value.keyOrderStatus === 'TS3') {
             nameAccept = 'Thành công';
         }
-        if (status === 'TS4') {
+        if (value.keyOrderStatus === 'TS4') {
             nameAccept = 'Chờ khách hàng xác nhận';
         }
-        if (status === 'OS2' || status === 'TS5') {
+        if (value.keyOrderStatus === 'OS2' || value.keyOrderStatus === 'TS5') {
             nameAccept = 'Xem chi tiết';
         }
         return nameAccept;
+    }
+
+    // tìm tài xế dựa vào id Tài xế
+    handleSearchDriverByIdDriver = (id) => {
+        let driverFind;
+        this.props.drivers.map((driver) => {
+            if (Number(driver.id) === Number(id)) {
+                driverFind = driver;
+            }
+        }
+        )
+        return driverFind
+    }
+
+    // tìm phương tiện dựa vào id phương tiện
+    handleSearchVehicleByIdVehicle = (id) => {
+        let vehicleFind;
+        this.props.vehicles.map((vehicle) => {
+            if (Number(vehicle.id) === Number(id)) {
+                vehicleFind = vehicle;
+            }
+        })
+        return vehicleFind
     }
 
     componentDidMount() {
@@ -275,7 +300,11 @@ class OrderDetailsComp extends Component {
     render() {
         let showNav = this.props.showNav;
         const { order, id, totalValue, totalWeight, steps } = this.state;
-        console.log(order);
+        const driver = order.transportationOrder && order.transportationOrder.idDriver
+            ? this.handleSearchDriverByIdDriver(order.transportationOrder.idDriver) : '';
+        const vehicle = order.transportationOrder && order.transportationOrder.idVehicle
+            ? this.handleSearchVehicleByIdVehicle(order.transportationOrder.idVehicle) : ''
+        console.log('this.state', this.state);
         return (
             <React.Fragment>
                 <Header />
@@ -284,7 +313,7 @@ class OrderDetailsComp extends Component {
                     {/* tiêu đề chi tiết đơn hàng */}
                     <div className='heading-order-detail'>
                         <span className='title-1-base '>CHI TIẾT ĐƠN HÀNG <span className='id-order'>#{id}</span> </span>
-                        <AcceptBtn nameAccept={order && this.updateNameAccept(order.keyOrderStatus)}
+                        <AcceptBtn nameAccept={order && this.updateNameAccept(order)} getDetail={this.getOrderDetail}
                             order={order} nameCancle='Hủy Bỏ' />
                     </div>
 
@@ -348,10 +377,22 @@ class OrderDetailsComp extends Component {
                             {/* Thông tin người nhận */}
                             <div className='info-receiver'>
                                 <p className='title-3-base '>Thông tin người nhận </p>
-                                <button>Xem đường đi</button>
+                                <button data-bs-toggle="modal" data-bs-target='#showPolyline'>Xem đường đi</button>
                                 <div className='name-phone'>{order.recieverName} - {order.recieverPhone}</div>
                                 <div>{order.recieverAddress}</div>
                             </div>
+                            {/* xem đường đi */}
+                            {/* Chọn vị trí google map */}
+                            <div className="modal fade" id="showPolyline" aria-hidden="true">
+                                <div className="modal-dialog">
+                                    <div className="modal-content">
+                                        <div className="modal-body">
+                                            <ShowPolyline order={this.state.order} />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div className='component-2 col-12 col-md-6'>
@@ -407,6 +448,67 @@ class OrderDetailsComp extends Component {
                                 </div>
 
                             </div>
+                            {/* Thông tin tài xế và phương tiện driver*/}
+                            {driver &&
+                                <div className='info-driver-component'>
+                                    <p className='title-3-base '>THÔNG TIN TÀI XẾ</p>
+
+                                    <div className='content-info-driver'>
+                                        <img src={driver.image ? process.env.REACT_APP_BACKEND_URL + driver.image
+                                            : 'https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png'}
+                                            alt='box Img' />
+                                        <div className='driver-info'>
+                                            <div className="username div-info">
+                                                <div className="title username">Họ tên</div>
+                                                <div className="content username">{driver.userName}</div>
+                                            </div>
+                                            <div className="phone div-info">
+                                                <div className="title phone">Số điện thoại</div>
+                                                <div className="content phone">{driver.phone}</div>
+                                            </div>
+                                            <div className="address div-info">
+                                                <div className="title address">Địa chỉ</div>
+                                                <div className="content address">{driver.address}</div>
+                                            </div>
+                                            <div className='birthday div-info'>
+                                                <div className="title">Ngày sinh</div>
+                                                <div className="content">{driver.birthday}</div>
+                                            </div>
+                                            <div className='gender div-info'>
+                                                <div className="title">Giới tính</div>
+                                                <div className="content">{driver.keyGender === 'G0' ? 'Nam' : 'Nữ'}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>}
+                            {vehicle &&
+                                <div className='info-vehicle-component'>
+                                    <p className='title-3-base '>THÔNG TIN PHƯƠNG TIỆN</p>
+
+                                    <div className='content-info-vehicle'>
+                                        <img src={process.env.REACT_APP_BACKEND_URL + vehicle.image}
+                                            alt='vehicle Img' />
+                                        <div className='vehicle-info'>
+                                            <div className="licensePlates div-info">
+                                                <div className="title licensePlates">Biến số xe</div>
+                                                <div className="content licensePlates">{vehicle.licensePlates}</div>
+                                            </div>
+                                            <div className="type div-info">
+                                                <div className="title type">Loại xe</div>
+                                                <div className="content type">{vehicle.type}</div>
+                                            </div>
+                                            <div className="weight div-info">
+                                                <div className="title weight">Khối lượng</div>
+                                                <div className="content weight">{vehicle.weight}</div>
+                                            </div>
+                                            <div className='description div-info'>
+                                                <div className="title description">Mô tả</div>
+                                                <div className="content description">{vehicle.description}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>}
+
                         </div>
                     </div>
 
@@ -441,6 +543,8 @@ class OrderDetailsComp extends Component {
 const mapStateToProps = state => {
     return {
         showNav: state.app.showNav,
+        drivers: state.user.drivers,
+        vehicles: state.user.vehicles,
     };
 };
 

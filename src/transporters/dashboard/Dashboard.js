@@ -45,29 +45,33 @@ class Dashboard extends Component {
     }
     // lấy thống kê dịch vụ
     getServiceStatistics = () => {
-        const orders = this.props.orders;
-        let SE0Statistics = 0;
-        let SE1Statistics = 0;
-        let SE2Statistics = 0;
-        orders.forEach(order => {
-            if (order.keyService === 'SE0') {
-                SE0Statistics++;
-            }
-            else if (order.keyService === 'SE1') {
-                SE1Statistics++;
-            }
-            else if (order.keyService === 'SE2') {
-                SE2Statistics++;
-            }
-        });
-        this.setState(prevState => ({
-            dashboard: {
-                ...prevState.dashboard,
-                SE0Total: SE0Statistics,
-                SE1Total: SE1Statistics,
-                SE2Total: SE2Statistics,
-            }
-        }))
+        if (this.props.orders && Array.isArray(this.props.orders)) {
+            const orders = this.props.orders;
+            let SE0Statistics = 0;
+            let SE1Statistics = 0;
+            let SE2Statistics = 0;
+
+            orders.forEach(order => {
+                if (order.keyService === 'SE0') {
+                    SE0Statistics++;
+                }
+                else if (order.keyService === 'SE1') {
+                    SE1Statistics++;
+                }
+                else if (order.keyService === 'SE2') {
+                    SE2Statistics++;
+                }
+            });
+
+            this.setState(prevState => ({
+                dashboard: {
+                    ...prevState.dashboard,
+                    SE0Total: SE0Statistics,
+                    SE1Total: SE1Statistics,
+                    SE2Total: SE2Statistics,
+                }
+            }))
+        }
     }
     formatCalculate = (priceA) => { //chuyển đổi 10,000 về dạng 10000
         let A = priceA ? parseInt(priceA.replace(/,/g, ""), 10) : 0
@@ -82,21 +86,23 @@ class Dashboard extends Component {
     }
     // lấy thống kê tổng doanh thu và tổng doanh thu sau chiết khấu
     getRevenueStatistics = () => {
-        const orders = this.props.orders;
-        let revenueTotal = 0;
-        orders.forEach(order => {
-            if (order.transportationOrder && order.transportationOrder.payment
-                && order.keyOrderStatus === 'TS5') {
-                revenueTotal += this.formatCalculate(order.totalCost);
-            }
-        });
-        this.setState(prevState => ({
-            dashboard: {
-                ...prevState.dashboard,
-                revenueTotal: revenueTotal,
-                revenueTotalAfterVAT: revenueTotal * 0.9,
-            }
-        }))
+        if (this.props.orders && Array.isArray(this.props.orders)) {
+            const orders = this.props.orders;
+            let revenueTotal = 0;
+            orders.forEach(order => {
+                if (order.transportationOrder && order.transportationOrder.payment
+                    && order.keyOrderStatus === 'TS5') {
+                    revenueTotal += this.formatCalculate(order.totalCost);
+                }
+            });
+            this.setState(prevState => ({
+                dashboard: {
+                    ...prevState.dashboard,
+                    revenueTotal: revenueTotal,
+                    revenueTotalAfterVAT: revenueTotal * 0.9,
+                }
+            }))
+        }
     }
     // kiểm tra ngày createdAt có thuộc ngày hôm nay không
     checkSameDay = (createdAt) => {
@@ -114,24 +120,26 @@ class Dashboard extends Component {
     }
     // Lấy thống kê theo ngày hôm nay
     getDataStatisticToday = () => {
-        const orders = this.props.orders;
-        let revenueTotal = 0;
-        let orderTotal = 0;
-        orders.forEach(order => {
-            if (this.checkSameDay(order.createdAt)) {
-                orderTotal++;
-                if (order.transportationOrder && order.transportationOrder.payment && order.keyOrderStatus === 'TS5') {
-                    revenueTotal += this.formatCalculate(order.totalCost);
+        if (this.props.orders) {
+            const orders = this.props.orders;
+            let revenueTotal = 0;
+            let orderTotal = 0;
+            orders.forEach(order => {
+                if (this.checkSameDay(order.createdAt)) {
+                    orderTotal++;
+                    if (order.transportationOrder && order.transportationOrder.payment && order.keyOrderStatus === 'TS5') {
+                        revenueTotal += this.formatCalculate(order.totalCost);
+                    }
                 }
-            }
-        })
-        this.setState({
-            dashboardToday: {
-                orderTotalToday: orderTotal,
-                revenueTotalToday: revenueTotal,
-                revenueTotalAfterVATToday: revenueTotal * 0.9,
-            }
-        })
+            })
+            this.setState({
+                dashboardToday: {
+                    orderTotalToday: orderTotal,
+                    revenueTotalToday: revenueTotal,
+                    revenueTotalAfterVATToday: revenueTotal * 0.9,
+                }
+            })
+        }
     }
     // Thay đổi month
     handleMonthChange = (selectedMonth) => {
@@ -196,17 +204,19 @@ class Dashboard extends Component {
 
     // Lấy tất cả dữ liệu trang thống kê
     getDataForDashboard = () => {
-        this.getServiceStatistics();
-        this.getRevenueStatistics();
-        this.getDataStatisticToday();
-        this.setState(prevState => ({
-            dashboard: {
-                ...prevState.dashboard,
-                orderTotal: this.props.orders.length,
-                driverTotal: this.props.drivers.length,
-                vehicleTotal: this.props.vehicles.length
-            }
-        }));
+        if (this.props.orders && this.props.drivers && this.props.vehicles) {
+            this.getServiceStatistics();
+            this.getRevenueStatistics();
+            this.getDataStatisticToday();
+            this.setState(prevState => ({
+                dashboard: {
+                    ...prevState.dashboard,
+                    orderTotal: this.props.orders.length,
+                    driverTotal: this.props.drivers.length,
+                    vehicleTotal: this.props.vehicles.length
+                }
+            }));
+        }
     }
     componentDidMount() {
         if (this.props.orders && this.props.vehicles && this.props.drivers) {

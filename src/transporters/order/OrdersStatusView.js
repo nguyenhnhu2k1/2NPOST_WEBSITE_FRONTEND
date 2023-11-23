@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 
 import boxImg from '../../assets/images/orders/box.png';
 
-import AcceptBtn from './AcceptBtn';
 import './OrdersStatusView.scss';
 import { Link } from 'react-router-dom';
-import { handleCreateDriverForOrder, handleCreateVehicleForOrder } from '../../services/userService';
-import { getOrdersByStatus } from '../../store/actions';
-import { getDatabase, ref, set, get, orderByKey, startAt, endAt, query } from "firebase/database";
+import { getDatabase, ref, set, get, orderByKey, startAt, endAt, query, onValue, onChildChanged } from "firebase/database";
 import app from '../../firebaseConfig';
+
+import { getOrdersByStatus } from '../../store/actions';
+import { handleCreateDriverForOrder, handleCreateVehicleForOrder, handleUpdateOrderStatus } from '../../services/userService';
+import AcceptBtn from './AcceptBtn';
 
 
 
@@ -31,6 +32,7 @@ class OrdersStatusView extends Component {
             isShowChatWindow: false,
             chatList: [],
             lastMessage: [],
+            newMessengerSender: [], //lưu danh sách tin nhắn mới dựa vào chatList
         })
     }
 
@@ -47,27 +49,32 @@ class OrdersStatusView extends Component {
         return formattedDate;
     }
 
-    updateNameAccept = (status) => {
+    updateNameAccept = (value) => {
         let nameAccept = '';
-        if (status === 'OS0') {
+        if (value.keyOrderStatus === 'OS0') {
             nameAccept = 'Nhận đơn';
         }
-        if (status === 'TS0') {
+        if (value.keyOrderStatus === 'TS0') {
             nameAccept = 'Đã lấy hàng';
         }
-        if (status === 'TS1') {
-            nameAccept = 'Đã về kho';
+        if (value.keyOrderStatus === 'TS1') {
+            if (value.keyService !== 'SE2') {
+                nameAccept = 'Giao Hàng';
+            }
+            else {
+                nameAccept = 'Đã về kho';
+            }
         }
-        if (status === 'TS2') {
+        if (value.keyOrderStatus === 'TS2') {
             nameAccept = 'Giao Hàng';
         }
-        if (status === 'TS3') {
+        if (value.keyOrderStatus === 'TS3') {
             nameAccept = 'Thành công';
         }
-        if (status === 'TS4') {
+        if (value.keyOrderStatus === 'TS4') {
             nameAccept = 'Chờ khách hàng xác nhận';
         }
-        if (status === 'OS2' || status === 'TS5') {
+        if (value.keyOrderStatus === 'OS2' || value.keyOrderStatus === 'TS5') {
             nameAccept = 'Xem chi tiết';
         }
         return nameAccept;
@@ -173,7 +180,6 @@ class OrdersStatusView extends Component {
         const orders = this.props.orders;
         const db = getDatabase(app);
         orders.forEach((order) => {
-            console.log(order)
             const chatInfoRef = ref(db, `chat/${order.idTransporter}-${order.idCustomer}/info`);
             // // Nếu đường dẫn đã tồn tại => không làm gì hết
             // // Nếu đường dẫn chưa tồn tại => Thêm đường dẫn
@@ -231,55 +237,130 @@ class OrdersStatusView extends Component {
     // sắp xếp thời gian nhắn tin của khách hàng
     sortTimeChatOfCustomerList = (chatList) => {
         chatList.sort((a, b) => {
-            console.log(this.getLastMessageOfCustomer(a.message).timestamp)
-            console.log(this.getLastMessageOfCustomer(b.message).timestamp)
             return this.getLastMessageOfCustomer(b.message).timestamp - this.getLastMessageOfCustomer(a.message).timestamp
         });
         return chatList;
     }
 
+    // đọc danh sách người nhắn tin
     readListCustomer = () => {
         const db = getDatabase(app);
-        const chatRef = ref(db, "chat/");
+        const chatRef = ref(db, "chat");
 
         // Sử dụng Firebase Query để lọc dữ liệu
-        const que = query(chatRef, orderByKey(), startAt(this.props.userInfo.idTransporter + "-"), endAt(this.props.userInfo.idTransporter + "~"));
+        const que = query(chatRef, orderByKey(), startAt(this.props.userInfo.idTransporter + "-"), endAt(this.props.userInfo.idTransporter + "-~"));
+        onValue(que, (snapshot) => {
+            if (snapshot.exists()) {
+                let customerListChat = [];
+                const chatData = snapshot.val();
 
-        get(que)
-            .then((snapshot) => {
-                if (snapshot.exists()) {
-                    let customerListChat = [];
-                    const chatData = snapshot.val();
-                    const chatDataList = Object.values(chatData);
-                    chatDataList.forEach(chatData => {
-                        if (chatData.message) {
-                            customerListChat.push(chatData);
-                        }
-                    })
-                    console.log('customerListChat', customerListChat)
+                const chatDataList = Object.values(chatData);
+                chatDataList.forEach(chatData => {
+                    if (chatData.message) {
+                        customerListChat.push(chatData);
+                    }
+                })
 
-                    // chatData chứa tất cả dữ liệu có dạng "chat/61-x"
-                    // Bạn có thể lặp qua các con của chatData để truy cập dữ liệu cụ thể
-                    let chatList = this.sortTimeChatOfCustomerList(customerListChat);
-                    console.log('chatList', chatList)
+                // chatData chứa tất cả dữ liệu có dạng "chat/61-x"
+                // Bạn có thể lặp qua các con của chatData để truy cập dữ liệu cụ thể
+                let chatList = this.sortTimeChatOfCustomerList(customerListChat);
 
-                    this.getLastMessage(chatList);
-                    this.setState({
-                        chatList
-                    })
-                } else {
-                    console.log("Không có dữ liệu có dạng 'chat/61-x' trong database.");
+                this.getLastMessage(chatList);
+                this.setState({
+                    chatList
+                })
+            } else {
+                console.log("Không có dữ liệu.");
+            }
+        })
+        let objChange;
+        // Lắng nghe sự kiện thay đổi trong nhánh cụ thể của cây dữ liệu
+        onChildChanged(que, (snapshot, prevChildKey) => {
+            objChange = snapshot.val(); //dữ liệu thay đổi
+            let newMessengerSender = [];
+            this.state.chatList.forEach(chat => {
+                if (JSON.stringify(chat.info) === JSON.stringify(objChange.info)) {
+                    newMessengerSender.push(true);
+                }
+                else {
+                    newMessengerSender.push(false);
                 }
             })
-            .catch((error) => {
-                console.error("Lỗi khi lấy dữ liệu:", error);
+            this.setState({
+                newMessengerSender
             });
+        });
+    }
+
+    onChangeNewMessengerSender = (index, result) => {
+        const updatedNewMessageSender = [...this.state.newMessengerSender];
+        updatedNewMessageSender[index] = result;
+
+        this.setState({
+            newMessengerSender: updatedNewMessageSender
+        });
+    }
+
+    // xử lý cập nhật tất cả đơn hàng tiêu chuẩn ngoại thành
+    handleUpdateAll = async () => {
+        const orders = this.props.orderStatus;
+        if (orders) {
+            let orderFind = orders.filter(order =>
+                order.keyService === 'SE2'
+            );
+            if (orderFind && orderFind.length !== 0) {
+                const promises = orderFind.map((order) => handleUpdateOrderStatus(order.id, this.updateStepNext(order.keyOrderStatus))); //
+
+                const results = await Promise.all(promises);
+
+                // Kiểm tra xem tất cả các cuộc gọi API có thành công hay không
+                const allSuccessful = results.every((result) => result !== null);
+
+                if (allSuccessful) {
+                    alert("Tất cả đơn hàng tiêu chuẩn của trạng thái " + orderFind[0].keyOrderStatusAllCode.valueVi + " đã được cập nhật")
+                    this.props.getOrders(this.props.userInfo.idTransporter);
+
+                } else {
+                    console.log('Có lỗi khi gọi API');
+                }
+            }
+            else {
+                alert("Không có đơn hàng tiêu chuẩn ngoại thành trong trạng thái này");
+            }
+        }
+    }
+
+    // cập nhật bước tiếp theo
+    updateStepNext = (status) => {
+        let stepNext = '';
+        const order = this.props.order;
+        if (status === 'OS0') { //Chờ xác nhận
+            stepNext = 'TS0';
+        }
+        if (status === 'TS0') { //chờ lấy hàng
+            stepNext = 'TS1';
+        }
+        if (status === 'TS1') { //tài xế đã nhận hàng
+            if (order.keyService !== 'SE2') {
+                stepNext = 'TS3';
+            }
+            else {
+                stepNext = 'TS2';
+            }
+        }
+        if (status === 'TS2') { //Đơn hàng đang ở kho
+            stepNext = 'TS3';
+        }
+        if (status === 'TS3') { //Đơn hàng đang giao
+            stepNext = 'TS4';
+        }
+        return stepNext;
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (this.props.orders !== prevProps.orders) {
             this.writeUserData();
-            this.readListCustomer();
+            // this.readListCustomer();
         }
     }
 
@@ -291,11 +372,19 @@ class OrdersStatusView extends Component {
     }
 
     render() {
-        let status = this.props.orderStatus;
-        console.log(this.state);
+        const status = this.props.orderStatus;
+        const statusText = this.props.statusText;
         return (
             <React.Fragment>
                 <div>
+                    {/* cập nhật tất cả */}
+                    {
+                        (status && status.length !== 0 && statusText !== 'orders' && statusText !== 'TS4'
+                            && statusText !== 'TS5' && statusText !== 'OS2')
+                        && <div className='update-all'>
+                            <button onClick={() => this.handleUpdateAll()}>Cập nhật tất cả đơn hàng tiêu chuẩn ngoại thành</button>
+                        </div>
+                    }
                     {status && status.map((value, index) => (
                         <div className='detail-component' key={index}>
 
@@ -310,81 +399,93 @@ class OrdersStatusView extends Component {
                                     </button>
                                 </div>
                                 {/* chọn tài xế và phương tiện */}
-                                <div className='driver-vehicle'>
-                                    <button className='driver' data-bs-toggle="modal" data-bs-target={`#selectDriver${value.id}`}>
+                                {value.keyService !== 'SE2' && value.keyOrderStatus !== 'OS0' &&
+                                    <div className='driver-vehicle'>
+                                        <button className='driver' data-bs-toggle="modal" data-bs-target={`#selectDriver${value.id}`}
+                                            disabled={value.keyOrderStatus !== 'TS0'}>
 
-                                        {value && value.transportationOrder && value.transportationOrder.idDriver
-                                            ? (<div className='show-selected-driver'>
-                                                <img src={this.handleSearchDriverByIdDriver(value.transportationOrder.idDriver).image ? process.env.REACT_APP_BACKEND_URL + this.handleSearchDriverByIdDriver(value.transportationOrder.idDriver).image : 'https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png'} alt='avt-driver' />
-                                                <span>{this.handleSearchDriverByIdDriver(value.transportationOrder.idDriver).userName}</span>
-                                            </div>)
-                                            : (<div>
-                                                <i className="fas fa-plus" style={{ color: '#ee0033' }}></i>
-                                                <span>Chọn tài xế</span>
-                                            </div>)}
-                                    </button>
-                                    <button className='vehicle' data-bs-toggle="modal" data-bs-target={`#selectVehicle${value.id}`}>
-                                        {value && value.transportationOrder && value.transportationOrder.idVehicle
-                                            ? (<div className='show-selected-vehicle'>
-                                                <img src={this.handleSearchVehicleByIdVehicle(value.transportationOrder.idVehicle) ? process.env.REACT_APP_BACKEND_URL + this.handleSearchVehicleByIdVehicle(value.transportationOrder.idVehicle).image : 'https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png'} alt='avt-driver' />
-                                                <span>{this.handleSearchVehicleByIdVehicle(value.transportationOrder.idVehicle) && this.handleSearchVehicleByIdVehicle(value.transportationOrder.idVehicle).licensePlates}</span>
-                                            </div>)
-                                            : (<div>
-                                                <i className="fas fa-plus" style={{ color: '#ee0033' }}></i>
-                                                <span>Chọn phương tiện</span>
-                                            </div>)}
-                                    </button>
-                                    <div className="modal fade selectDriver" id={`selectDriver${value.id}`} tabIndex="-1" aria-labelledby="selectDriverLabel" aria-hidden="true">
-                                        <div className="modal-dialog">
-                                            <div className="modal-content">
-                                                <div className="modal-header">
-                                                    <h5 className="modal-title" id="exampleModalLabel">
-                                                        Chọn tài xế cho đơn hàng #{value.id}
-                                                    </h5>
-                                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ref={this.btnCancel}></button>
+                                            {value && value.transportationOrder && value.transportationOrder.idDriver
+                                                ? (<div className='show-selected-driver'>
+                                                    <img src={this.handleSearchDriverByIdDriver(value.transportationOrder.idDriver).image
+                                                        ? process.env.REACT_APP_BACKEND_URL + this.handleSearchDriverByIdDriver(value.transportationOrder.idDriver).image
+                                                        : 'https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png'}
+                                                        alt='avt-driver' />
+                                                    <span>{this.handleSearchDriverByIdDriver(value.transportationOrder.idDriver).userName}</span>
+                                                </div>)
+                                                : (<div>
+                                                    <i className="fas fa-plus" style={{ color: '#ee0033' }}></i>
+                                                    <span>Chọn tài xế</span>
+                                                </div>)}
+                                        </button>
+                                        <button className='vehicle' data-bs-toggle="modal" data-bs-target={`#selectVehicle${value.id}`}
+                                            disabled={value.keyOrderStatus !== 'TS0'}>
+                                            {value && value.transportationOrder && value.transportationOrder.idVehicle
+                                                ? (<div className='show-selected-vehicle'>
+                                                    <img src={this.handleSearchVehicleByIdVehicle(value.transportationOrder.idVehicle)
+                                                        ? process.env.REACT_APP_BACKEND_URL + this.handleSearchVehicleByIdVehicle(value.transportationOrder.idVehicle).image
+                                                        : 'https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png'}
+                                                        alt='avt-driver' />
+                                                    <span>{this.handleSearchVehicleByIdVehicle(value.transportationOrder.idVehicle) && this.handleSearchVehicleByIdVehicle(value.transportationOrder.idVehicle).licensePlates}</span>
+                                                </div>)
+                                                : (<div>
+                                                    <i className="fas fa-plus" style={{ color: '#ee0033' }}></i>
+                                                    <span>Chọn phương tiện</span>
+                                                </div>)}
+                                        </button>
+                                        <div className="modal fade selectDriver" id={`selectDriver${value.id}`} tabIndex="-1" aria-labelledby="selectDriverLabel" aria-hidden="true">
+                                            <div className="modal-dialog">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h5 className="modal-title" id="exampleModalLabel">
+                                                            Chọn tài xế cho đơn hàng #{value.id}
+                                                        </h5>
+                                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ref={this.btnCancel}></button>
+                                                    </div>
+                                                    <div className='modal-body'>
+                                                        {
+                                                            this.props.drivers.filter(driver => driver.status === 1)
+                                                                .map((driver, indexDriver) =>
+                                                                    <div key={indexDriver} className={`select-driver ${this.state.temporarySelectedDriver === indexDriver ? 'action' : ''} `} onClick={(event) => this.handleSelectedTemporaryDriver(indexDriver)}>
+                                                                        <img src={driver.image ? process.env.REACT_APP_BACKEND_URL + driver.image : 'https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png'} alt='avt-driver' />
+                                                                        <span>{driver.userName}</span>
+                                                                    </div>)
+                                                        }
+                                                    </div>
+                                                    <div className="modal-footer">
+                                                        <button type="button" className="btn btn-primary" onClick={() => this.handleSelectedDriver(value.id)}>Chọn</button>
+                                                    </div>
                                                 </div>
-                                                <div className='modal-body'>
-                                                    {
-                                                        this.props.drivers.map((driver, indexDriver) =>
-                                                            <div key={indexDriver} className={`select-driver ${this.state.temporarySelectedDriver === indexDriver ? 'action' : ''} `} onClick={(event) => this.handleSelectedTemporaryDriver(indexDriver)}>
-                                                                <img src={driver.image ? process.env.REACT_APP_BACKEND_URL + driver.image : 'https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png'} alt='avt-driver' />
-                                                                <span>{driver.userName}</span>
-                                                            </div>
-                                                        )
-                                                    }
-                                                </div>
-                                                <div className="modal-footer">
-                                                    <button type="button" className="btn btn-primary" onClick={() => this.handleSelectedDriver(value.id)}>Chọn</button>
+                                            </div>
+                                        </div>
+                                        <div className="modal fade selectVehicle" id={`selectVehicle${value.id}`} tabIndex="-1" aria-labelledby="selectVehicleLabel" aria-hidden="true">
+                                            <div className="modal-dialog">
+                                                <div className="modal-content">
+                                                    <div className="modal-header">
+                                                        <h5 className="modal-title" id="exampleModalLabel">
+                                                            Chọn phương tiện cho đơn hàng #{value.id}
+                                                        </h5>
+                                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div className='modal-body'>
+                                                        {
+                                                            this.props.vehicles
+                                                                .filter(vehicle => vehicle.status === 1)
+                                                                .map((vehicle, indexVehicle) => (
+                                                                    <div key={indexVehicle} className={`select-vehicle ${this.state.temporarySelectedVehicle === indexVehicle ? 'action' : ''}`} onClick={(event) => this.handleSelectedTemporaryVehicle(indexVehicle)}>
+                                                                        <img src={vehicle.image ? process.env.REACT_APP_BACKEND_URL + vehicle.image : 'https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png'} alt='avt-driver' />
+                                                                        <span>{vehicle.licensePlates}</span>
+                                                                    </div>
+                                                                ))
+                                                        }
+                                                    </div>
+                                                    <div className="modal-footer">
+                                                        <button type="button" className="btn btn-primary" onClick={() => this.handleSelectedVehicle(value.id)}>Chọn</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="modal fade selectVehicle" id={`selectVehicle${value.id}`} tabIndex="-1" aria-labelledby="selectVehicleLabel" aria-hidden="true">
-                                        <div className="modal-dialog">
-                                            <div className="modal-content">
-                                                <div className="modal-header">
-                                                    <h5 className="modal-title" id="exampleModalLabel">
-                                                        Chọn phương tiện cho đơn hàng #{value.id}
-                                                    </h5>
-                                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div className='modal-body'>
-                                                    {
-                                                        this.props.vehicles.map((vehicle, indexVehicle) =>
-                                                            <div key={indexVehicle} className={`select-vehicle ${this.state.temporarySelectedVehicle === indexVehicle ? 'action' : ''} `} onClick={(event) => this.handleSelectedTemporaryVehicle(indexVehicle)}>
-                                                                <img src={vehicle.image ? process.env.REACT_APP_BACKEND_URL + vehicle.image : 'https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png'} alt='avt-driver' />
-                                                                <span>{vehicle.licensePlates}</span>
-                                                            </div>
-                                                        )
-                                                    }
-                                                </div>
-                                                <div className="modal-footer">
-                                                    <button type="button" className="btn btn-primary" onClick={() => this.handleSelectedVehicle(value.id)}>Chọn</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                }
 
                                 <div className='right-component'>
                                     <div className='status-component'>
@@ -470,7 +571,7 @@ class OrdersStatusView extends Component {
                                     <span>Đơn hàng sẽ được giao trong <span className='hours'>48 giờ</span></span>
                                 </div>
                                 <div className='right-component'>
-                                    <AcceptBtn nameAccept={this.updateNameAccept(value.keyOrderStatus)}
+                                    <AcceptBtn nameAccept={this.updateNameAccept(value)}
                                         order={value} nameCancle='Hủy Bỏ'
                                     />
                                 </div>
@@ -485,7 +586,10 @@ class OrdersStatusView extends Component {
                     </button>
                     {this.state.isShowChatWindow && this.state.chatList
                         && <ChatWindow chatList={this.state.chatList} lastMessage={this.state.lastMessage}
-                            hideChat={this.hideChatComponent} order={this.state.chatValue} readListCustomer={this.readListCustomer} />}
+                            hideChat={this.hideChatComponent} order={this.state.chatValue}
+                            readListCustomer={this.readListCustomer} newMessengerSender={this.state.newMessengerSender}
+                            onChangeNewMessengerSender={this.onChangeNewMessengerSender}
+                        />}
 
                 </div>
             </React.Fragment >

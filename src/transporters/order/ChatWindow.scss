@@ -7,6 +7,10 @@
     height: 500px;
     background-color: white;
 
+    @media (max-width: 600px) {
+        width: 80%;
+    }
+
     .header-x {
 
         i {
@@ -46,18 +50,20 @@
                         margin-left: 10px;
                     }
                 }
+
+                .newMessDot {
+                    position: absolute;
+                    bottom: 24px;
+                    right: 34px;
+                    font-size: x-small;
+                    color: #ee0033;
+                }
             }
         }
     }
 
     .card-message {
         max-height: 400px;
-
-        .br-message {
-            margin-bottom: 300px;
-            width: 100%;
-            height: 10px;
-        }
     }
 
     .form-outline {
