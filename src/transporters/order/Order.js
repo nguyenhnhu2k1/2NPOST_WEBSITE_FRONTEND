@@ -3,14 +3,16 @@ import { connect } from 'react-redux';
 
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js'
+import dayjs from 'dayjs';
+// import app from '../../firebaseConfig';
 
 import DateRangePickerValue from './DateRangePickerValue';
 import OrdersStatusView from './OrdersStatusView';
 import HeaderTrans from '../header/Header';
 import KeyCodeUtils from '../../utils/KeyCodeUtils.js';
 import './Order.scss'
-import dayjs from 'dayjs';
-
+import { getOrdersByStatus } from '../../store/actions';
+// import { getMessaging, getToken } from "firebase/messaging";
 
 class Order extends Component {
     constructor(props) {
@@ -94,6 +96,7 @@ class Order extends Component {
             this.changeOrderStatus('orders');
         }
     }
+
     // Lọc đơn hàng theo dịch vụ
     handleFilterByService = (event) => {
         if (event.target.value !== 'all') {
@@ -152,12 +155,70 @@ class Order extends Component {
         }
         this.changeOrderStatus('orders');
     }
+
+    // askForPermissionToReceiveNotifications = async () => {
+    //     try {
+    //         const messaging = getMessaging(app);
+    //         getToken(messaging, { vapidKey: '<YOUR_PUBLIC_VAPID_KEY_HERE>' }).then((currentToken) => {
+    //             if (currentToken) {
+    //                 // Send the token to your server and update the UI if necessary
+    //                 // ...
+    //                 console.log('token', currentToken);
+    //             } else {
+    //                 // Show permission request UI
+    //                 console.log('No registration token available. Request permission to generate one.');
+    //                 // ...
+    //             }
+    //         }).catch((err) => {
+    //             console.log('An error occurred while retrieving token. ', err);
+    //             // ...
+    //         });
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // };
+
+    // sendTokenToBackend = async (token) => {
+    //     try {
+    //         const backendUrl = process.env.REACT_APP_BACKEND_URL; // Replace with your backend endpoint
+    //         const response = await fetch(`${backendUrl}/register-fcm-token`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({ token }), // Send the token in the request body
+    //         });
+
+    //         if (response.ok) {
+    //             console.log('Token sent to backend successfully');
+    //         } else {
+    //             console.error('Failed to send token to backend');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error sending token to backend:', error);
+    //     }
+    // };
+
+    // listenForChange = () => {
+    //     const messaging = app.messaging();
+    //     // Lắng nghe sự kiện nhận thông báo
+    //     messaging.onMessage((payload) => {
+    //         console.log('Thông báo được nhận:', payload);
+    //         // Xử lý thông báo nhận được tại đây
+    //         this.props.getOrders(this.props.userInfo.idTransporter);
+    //     });
+    // }
+
     componentDidUpdate(prevProps, prevState) {
         if (this.props.orders !== prevProps.orders) {
             this.setState({
                 showOrder: this.props.orders,
             })
         }
+    }
+    componentDidMount() {
+        // Gọi hàm getToken() khi component được mount
+        // this.askForPermissionToReceiveNotifications();
     }
     render() {
 
@@ -242,6 +303,7 @@ class Order extends Component {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
+        userInfo: state.user.userInfo,
         showNav: state.app.showNav,
         language: state.app.language,
         OS0: state.user.OS0,
@@ -258,6 +320,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
+        getOrders: (idTrans) => dispatch(getOrdersByStatus(idTrans)),
     };
 };
 

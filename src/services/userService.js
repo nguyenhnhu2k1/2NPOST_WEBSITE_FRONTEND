@@ -203,3 +203,6 @@ export const handleCreateVehicleForOrder = (idOrder, idVehicle) => {
 export const handleCreateTransportationOrder = (idOrder) => {
     return axios.post('/api/create-transportation-order', { idOrder });
 }
+export const handleUpdateOrderPaymentStatus = (id, payment) => {
+    return axios.put('/api/update-order-payment-status', { id, payment });
+}

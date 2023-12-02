@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { handleUpdateOrderStatus } from '../../services/userService';
 import { getOrdersByStatus } from '../../store/actions';
 import './AcceptBtn.scss';
-import { handleCreateTransportationOrder } from '../../services/userService';
+import { handleCreateTransportationOrder, handleUpdateOrderPaymentStatus } from '../../services/userService';
 
 class AcceptBtn extends Component {
     // xử lý cập nhật trạng thái
@@ -19,6 +19,10 @@ class AcceptBtn extends Component {
                         // bước tiếp theo của trạng thái hiện tại
                         let result = await handleUpdateOrderStatus(id, this.updateStepNext(step))
                         if (result && result.errCode === 0) {
+                            console.log("cap nhat payment");
+                            let re = await handleUpdateOrderPaymentStatus(id, true);
+                            console.log('re', re);
+                            //cap nhat payment
                             alert('Trạng thái đơn hàng có id ' + id + ' đã được cập nhật bước tiếp theo')
                             getOrders(userInfo.idTransporter);
                             if (this.props.getDetail) {
@@ -51,6 +55,12 @@ class AcceptBtn extends Component {
                 // bước tiếp theo của trạng thái hiện tại
                 let result = await handleUpdateOrderStatus(id, this.updateStepNext(step))
                 if (result && result.errCode === 0) {
+                    console.log('TS0', step);
+                    if (step === 'TS0') {
+                        console.log("cap nhat payment");
+                        let re = await handleUpdateOrderPaymentStatus(id, true);
+                        console.log('re', re);
+                    }
                     alert('Trạng thái đơn hàng có id ' + id + ' đã được cập nhật bước tiếp theo')
                     getOrders(userInfo.idTransporter);
                     if (this.props.getDetail) {
