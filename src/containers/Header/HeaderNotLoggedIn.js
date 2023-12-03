@@ -45,8 +45,8 @@ class HeaderNotLoggedIn extends Component {
                     <div className={`nav-container ${this.state.showNav ? 'active-nav' : ''}`}>
                         <div><Link to='/home'><FormattedMessage id="login.header-home" /></Link></div>
                         <div><Link to='/home/about_us'><FormattedMessage id="login.header-about" /></Link></div>
-                        <div><Link to='/home/service'><FormattedMessage id="login.header-service" /></Link></div>
-                        <div><Link to='#'><FormattedMessage id="login.header-customer" /></Link></div>
+                        <div><Link to='/home'><FormattedMessage id="login.header-service" /></Link></div>
+                        <div><Link to='/home'><FormattedMessage id="login.header-customer" /></Link></div>
                     </div>
                     <div className='other-container'>
                         <div className='lang-container'>

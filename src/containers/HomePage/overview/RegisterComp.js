@@ -25,7 +25,7 @@ class RegisterComp extends Component {
                                 <p className='text-base'>Thống kê: Chức năng thống kê đơn hàng theo ngày/ tháng cho nhà vận chuyển dễ dàng nắm được tình hình hoạt động cũng như doanh thu</p>
                             </div>
                         </div>
-                        <div className='col-md-4'>
+                        <div className='col-md-4 img-register-comp-container'>
                             <img src={registerIMG} alt='' />
                         </div>
                     </div>

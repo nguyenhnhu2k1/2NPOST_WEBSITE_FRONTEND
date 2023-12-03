@@ -36,8 +36,14 @@ class Dashboard extends Component {
                 processingOrderMonth: 0,
                 successfulOrderMonth: 0,
                 cancelOrderMonth: 0,
-                revenueLast10Month: 0,
-                orderLast10Month: 0,
+            },
+            statisticsForTheLast10MonthsArr: {
+                order: {
+                    a: 0, b: 0
+                },
+                revenue: {
+                    a: 0, b: 0
+                },
             },
             month: 0,
             year: 0,
@@ -163,7 +169,7 @@ class Dashboard extends Component {
         const a = new Date(createdAt);
 
         // Biến month và year đã chọn
-        const selectedMonth = this.state.month; // Tháng 11 (đếm từ 0)
+        const selectedMonth = this.state.month - 1; // Tháng 11 (đếm từ 0)
         const selectedYear = this.state.year;
 
         // Kiểm tra xem đối tượng a có cùng tháng và năm không
@@ -180,10 +186,21 @@ class Dashboard extends Component {
         const OS2 = this.props.OS2;
 
         let revenue = 0;
+        let orderTotal = [];
+
+        let orderTotalMonth = 0;
+        let successfulOrderMonth = 0;
+        let cancelOrderMonth = 0;
+
         orders.forEach(order => {
             if (this.checkSameMonth(order.createdAt)) {
+                orderTotalMonth++;
                 if (order.transportationOrder && order.transportationOrder.payment && order.keyOrderStatus === 'TS5') {
                     revenue += this.formatCalculate(order.totalCost);
+                    successfulOrderMonth++;
+                }
+                if (order.keyOrderStatus === 'OS2') {
+                    cancelOrderMonth++;
                 }
             }
         })
@@ -192,12 +209,11 @@ class Dashboard extends Component {
                 revenueTotalMonth: revenue,
                 VATTotalMonth: revenue * 0.1,
                 revenueTotalAfterVATMonth: revenue * 0.9,
-                orderTotalMonth: orders.length,
-                processingOrderMonth: orders.length - TS5.length - OS2.length,
-                successfulOrderMonth: TS5.length,
-                cancelOrderMonth: OS2.length,
-                revenueLast10Month: 0,
-                orderLast10Month: 0,
+
+                orderTotalMonth: orderTotalMonth,
+                processingOrderMonth: orderTotalMonth - successfulOrderMonth - cancelOrderMonth,
+                successfulOrderMonth: successfulOrderMonth,
+                cancelOrderMonth: cancelOrderMonth,
             }
         })
     }
@@ -218,15 +234,70 @@ class Dashboard extends Component {
             }));
         }
     }
+
+    // checkSameMonth = (createdAt) => {
+    //     const a = new Date(createdAt);
+
+    //     // Biến month và year đã chọn
+    //     const selectedMonth = this.state.month - 1; // Tháng 11 (đếm từ 0)
+    //     const selectedYear = this.state.year;
+
+    //     // Kiểm tra xem đối tượng a có cùng tháng và năm không
+    //     if (a.getMonth() === selectedMonth && a.getFullYear() === selectedYear) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
+    statisticsForTheLast10Months = () => {
+        const orders = this.props.orders;
+
+        let orderNov = 0;
+        let revenueNov = 0;
+
+        let orderDec = 0;
+        let revenueDec = 0;
+
+        orders.forEach(order => {
+            let a = new Date(order.createdAt)
+            //nov
+            if (a.getMonth() === 10) {
+                if (order.transportationOrder && order.transportationOrder.payment && order.keyOrderStatus === 'TS5') {
+                    revenueNov += this.formatCalculate(order.totalCost);
+                    orderNov++;
+                }
+            }
+            //dec
+            else if (a.getMonth() === 11) {
+                if (order.transportationOrder && order.transportationOrder.payment && order.keyOrderStatus === 'TS5') {
+                    revenueDec += this.formatCalculate(order.totalCost);
+                    orderDec++;
+                }
+            }
+        })
+        this.setState({
+            statisticsForTheLast10MonthsArr: {
+                order: {
+                    a: orderNov, b: orderDec
+                },
+                revenue: {
+                    a: revenueNov, b: revenueDec
+                },
+            }
+        });
+    }
+
     componentDidMount() {
         if (this.props.orders && this.props.vehicles && this.props.drivers) {
             this.getDataForDashboard();
+            this.statisticsForTheLast10Months();
         }
     }
     componentDidUpdate(prevProps, prevState) {
         if (this.props.orders !== prevProps.orders || this.props.vehicles !== prevProps.vehicles
             || this.props.drivers !== prevProps.drivers) {
             this.getDataForDashboard();
+            this.statisticsForTheLast10Months();
         }
     }
     render() {
@@ -365,10 +436,10 @@ class Dashboard extends Component {
 
                                     <div className='revenue-chart'>
                                         <LineChart
-                                            xAxis={[{ data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }]}
+                                            xAxis={[{ data: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12] }]}
                                             series={[
                                                 {
-                                                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, this.state.dashboard.revenueTotal],
+                                                    data: [0, 0, 0, 0, 0, 0, 0, 0, this.state.statisticsForTheLast10MonthsArr.revenue.a, this.state.statisticsForTheLast10MonthsArr.revenue.b],
                                                     area: true,
                                                     color: '#04676d',
                                                 },
@@ -381,10 +452,10 @@ class Dashboard extends Component {
                                     </div>
                                     <div className='order-chart'>
                                         <LineChart
-                                            xAxis={[{ data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }]}
+                                            xAxis={[{ data: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12] }]}
                                             series={[
                                                 {
-                                                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, this.state.dashboard.orderTotal],
+                                                    data: [0, 0, 0, 0, 0, 0, 0, 0, this.state.statisticsForTheLast10MonthsArr.order.a, this.state.statisticsForTheLast10MonthsArr.order.b],
                                                     area: true,
                                                     color: '#04676d',
                                                 },
@@ -392,7 +463,7 @@ class Dashboard extends Component {
                                             width={400}
                                             height={300}
                                         />
-                                        <span>Tổng đơn hàng trong 10 tháng gần nhất</span>
+                                        <span>Tổng đơn hàng hoàn thành trong 10 tháng gần nhất</span>
                                     </div>
                                 </div>
                             )}

@@ -725,7 +725,7 @@ class Driver extends Component {
                         </div>
 
                         {/* phân trang */}
-                        <div className='component-3'>
+                        {/* <div className='component-3'>
                             <nav aria-label="Page navigation example">
                                 <ul className="pagination">
                                     <li className="page-item">
@@ -743,7 +743,7 @@ class Driver extends Component {
                                     </li>
                                 </ul>
                             </nav>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 

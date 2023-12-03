@@ -1,16 +1,29 @@
 .register-comp-container {
-    animation-name: slider;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    animation-duration: 2s;
+  animation-name: slider;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  animation-duration: 2s;
+
+  .register-comp-content {
+    padding: 40px;
   }
-  
-  @keyframes slider {
-    from {
-      transform: translateY(100%);
-    }
-    to {
-      transform: translateY(0);
+
+  .img-register-comp-container {
+    text-align: center;
+
+    img {
+      width: 350px;
     }
   }
+}
+
+@keyframes slider {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}

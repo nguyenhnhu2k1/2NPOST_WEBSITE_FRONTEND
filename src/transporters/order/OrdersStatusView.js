@@ -11,6 +11,7 @@ import app from '../../firebaseConfig';
 import { getOrdersByStatus } from '../../store/actions';
 import { handleCreateDriverForOrder, handleCreateVehicleForOrder, handleUpdateOrderStatus } from '../../services/userService';
 import AcceptBtn from './AcceptBtn';
+import imgChatWin from '../../assets/images/orders/img_chat_window.png'
 
 
 
@@ -378,13 +379,13 @@ class OrdersStatusView extends Component {
             <React.Fragment>
                 <div>
                     {/* cập nhật tất cả */}
-                    {
+                    {/* {
                         (status && status.length !== 0 && statusText !== 'orders' && statusText !== 'TS4'
                             && statusText !== 'TS5' && statusText !== 'OS2')
                         && <div className='update-all'>
                             <button onClick={() => this.handleUpdateAll()}>Cập nhật tất cả đơn hàng tiêu chuẩn ngoại thành</button>
                         </div>
-                    }
+                    } */}
                     {status && status.map((value, index) => (
                         <div className='detail-component' key={index}>
 
@@ -582,7 +583,7 @@ class OrdersStatusView extends Component {
                         && <SimpleChat order={this.state.chatValue} hideChat={this.hideChatComponent}
                             ref={(ref) => (this.simpleChatRef = ref)} />} */}
                     <button className='btn-chat' onClick={() => this.onChangeShowChatWindow(null)}>
-                        <img src='https://cdn-icons-png.flaticon.com/512/2950/2950711.png' alt='chat' />
+                        <img src={imgChatWin} alt='chat' />
                     </button>
                     {this.state.isShowChatWindow && this.state.chatList
                         && <ChatWindow chatList={this.state.chatList} lastMessage={this.state.lastMessage}
