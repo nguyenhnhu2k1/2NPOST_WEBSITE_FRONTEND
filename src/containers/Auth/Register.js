@@ -116,38 +116,43 @@ class Register extends Component {
             this.state.foundingDate.trim()) {
             if (this.state.password.trim() === this.state.repeatPassword.trim()) {
                 if (this.state.phone.length === 10) {
-                    try {
-                        let transporter = {
-                            transporterName: this.state.transporterName,
-                            foundingDate: this.state.foundingDate,
-                        }
-                        let user = {
-                            phone: this.state.phone,
-                            password: this.state.password,
-                            keyRole: this.state.keyRole,
-                        }
-                        let data = await handleRegisterAPI(transporter, user);
-                        if (data && data.errCode === 0) {
-                            let userInfo = {
-                                ...data.data.user,
-                                ...data.data.transporter,
+                    if (5 <= this.state.password.length && 5 <= this.state.password.length <= 20) {
+                        try {
+                            let transporter = {
+                                transporterName: this.state.transporterName,
+                                foundingDate: this.state.foundingDate,
                             }
+                            let user = {
+                                phone: this.state.phone,
+                                password: this.state.password,
+                                keyRole: this.state.keyRole,
+                            }
+                            let data = await handleRegisterAPI(transporter, user);
+                            if (data && data.errCode === 0) {
+                                let userInfo = {
+                                    ...data.data.user,
+                                    ...data.data.transporter,
+                                }
 
-                            this.props.userLoginSuccess(userInfo);
-                            this.props.history.push('/login');
+                                this.props.userLoginSuccess(userInfo);
+                                this.props.history.push('/login');
+                            }
+                            else {
+                                this.setState({
+                                    errMessage: data.message,
+                                });
+                            }
                         }
-                        else {
-                            this.setState({
-                                errMessage: data.message,
-                            });
+                        catch (e) {
+                            // this.setState({
+                            //     errMessage: e.response.data.message,
+                            // });
+                            console.log('catch', e)
                         }
                     }
-                    catch (e) {
-                        // this.setState({
-                        //     errMessage: e.response.data.message,
-                        // });
-                        console.log('catch', e)
-                    }
+                    this.setState({
+                        errMessage: 'Mật khẩu phải có độ dài từ 5 đến 20 ký tự!'
+                    });
                 }
                 else {
                     this.setState({

@@ -683,7 +683,8 @@ class StoreManager extends Component {
     }
     getUserLocation = async () => {
         let allUserLocation = await getAllUserLocationByIdUserAPI(this.props.userInfo.id);
-        if (allUserLocation) {
+        console.log(allUserLocation)
+        if (allUserLocation.data.length > 0) {
             const lat = parseFloat(allUserLocation.data[0].lat);
             const lng = parseFloat(allUserLocation.data[0].lng);
             this.setState({

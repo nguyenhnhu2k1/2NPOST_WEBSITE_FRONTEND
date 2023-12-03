@@ -84,12 +84,12 @@ class Header extends Component {
                         </div>
 
                         {/* language */}
-                        <div className='language-component'>
+                        {/* <div className='language-component'>
                             <div onClick={() => this.changeLanguage(language)}>
                                 {language === LANGUAGES.VI && <span style={{ color: '#219751', border: '1px solid #219751' }}>VI</span>}
                                 {language === LANGUAGES.EN && <span style={{ color: 'orange', border: '1px solid orange' }}>EN</span>}
                             </div>
-                        </div>
+                        </div> */}
 
                         {/* notification */}
                         <div className='notification-component'>

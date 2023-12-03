@@ -34,9 +34,12 @@ class Login extends Component {
 
     //xử lý nhập vào phone
     handleOnchangInputPhone = (event) => {
-        this.setState({
-            phone: event.target.value
-        })
+        const value = event.target.value;
+        if (/^[0-9]*$/.test(value) && value.length <= 10) {
+            this.setState({
+                phone: event.target.value
+            })
+        }
     }
 
     //xử lý nhập vào password

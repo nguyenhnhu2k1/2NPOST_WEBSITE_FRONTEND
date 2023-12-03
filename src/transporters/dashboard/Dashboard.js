@@ -258,23 +258,25 @@ class Dashboard extends Component {
         let orderDec = 0;
         let revenueDec = 0;
 
-        orders.forEach(order => {
-            let a = new Date(order.createdAt)
-            //nov
-            if (a.getMonth() === 10) {
-                if (order.transportationOrder && order.transportationOrder.payment && order.keyOrderStatus === 'TS5') {
-                    revenueNov += this.formatCalculate(order.totalCost);
-                    orderNov++;
+        if (orders.length > 0) {
+            orders.forEach(order => {
+                let a = new Date(order.createdAt)
+                //nov
+                if (a.getMonth() === 10) {
+                    if (order.transportationOrder && order.transportationOrder.payment && order.keyOrderStatus === 'TS5') {
+                        revenueNov += this.formatCalculate(order.totalCost);
+                        orderNov++;
+                    }
                 }
-            }
-            //dec
-            else if (a.getMonth() === 11) {
-                if (order.transportationOrder && order.transportationOrder.payment && order.keyOrderStatus === 'TS5') {
-                    revenueDec += this.formatCalculate(order.totalCost);
-                    orderDec++;
+                //dec
+                else if (a.getMonth() === 11) {
+                    if (order.transportationOrder && order.transportationOrder.payment && order.keyOrderStatus === 'TS5') {
+                        revenueDec += this.formatCalculate(order.totalCost);
+                        orderDec++;
+                    }
                 }
-            }
-        })
+            })
+        }
         this.setState({
             statisticsForTheLast10MonthsArr: {
                 order: {
@@ -294,10 +296,12 @@ class Dashboard extends Component {
         }
     }
     componentDidUpdate(prevProps, prevState) {
-        if (this.props.orders !== prevProps.orders || this.props.vehicles !== prevProps.vehicles
-            || this.props.drivers !== prevProps.drivers) {
-            this.getDataForDashboard();
-            this.statisticsForTheLast10Months();
+        if (this.props.orders && this.props.vehicles && this.props.drivers) {
+            if (this.props.orders !== prevProps.orders || this.props.vehicles !== prevProps.vehicles
+                || this.props.drivers !== prevProps.drivers) {
+                this.getDataForDashboard();
+                this.statisticsForTheLast10Months();
+            }
         }
     }
     render() {

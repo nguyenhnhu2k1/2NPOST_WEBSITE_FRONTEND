@@ -161,50 +161,56 @@ class Driver extends Component {
         const { image, userName, phone, password, address, email, birthday, keyGender, status } = this.state.drivers
         try {
             if (address && userName && phone && password && birthday && (keyGender === 'G0' || keyGender === 'G1') && (status === 1 || status === 0)) {
-                if (!email || (email && this.validationEmail(email))) {
-                    if (this.isValidPhoneNumber(phone)) {
-                        //tải ảnh lên server
-                        let img;
-                        if (image) {
-                            const formData = new FormData();
-                            formData.append('profile_pic', image);
-                            img = await uploadImage(formData);
-                        }
-                        // tạo tài xế
-                        const driverInput = {
-                            idTransporter: this.props.userInfo.idTransporter,
-                            image: img ? img.urlImage : '',
-                            userName: userName,
-                            phone: phone,
-                            password: password,
-                            address: address,
-                            email: email,
-                            birthday: birthday,
-                            keyGender: keyGender,
-                            status: status,
-                            keyRole: 'R3'
-                        }
-                        let driverNew = await CreateNewUserFromApi(driverInput);
-                        if (driverNew && driverNew.errCode === 0) {
-                            alert(`Tạo tài xế thành công\n phone: ${driverNew.data.phone} \n password: ${driverInput.password}`);
-                            this.resetForm();
-                            this.props.getAllDriverOfTransporter(this.props.userInfo.idTransporter);
-                            this.btnCancel.current.click();
-                        }
-                        else {
-                            alert(driverNew.message)
-                            // nếu sửa không thành công, thì xóa hình vừa thêm 
-                            if (driverInput.image) {
-                                await handleDeleteFile(driverInput.image);
+                if (5 <= password.length && password.length <= 20) {
+                    if (!email || (email && this.validationEmail(email))) {
+                        if (this.isValidPhoneNumber(phone)) {
+                            //tải ảnh lên server
+                            let img;
+                            if (image) {
+                                const formData = new FormData();
+                                formData.append('profile_pic', image);
+                                img = await uploadImage(formData);
+                            }
+                            // tạo tài xế
+                            const driverInput = {
+                                idTransporter: this.props.userInfo.idTransporter,
+                                image: img ? img.urlImage : '',
+                                userName: userName,
+                                phone: phone,
+                                password: password,
+                                address: address,
+                                email: email,
+                                birthday: birthday,
+                                keyGender: keyGender,
+                                status: status,
+                                keyRole: 'R3'
+                            }
+                            let driverNew = await CreateNewUserFromApi(driverInput);
+                            if (driverNew && driverNew.errCode === 0) {
+                                alert(`Tạo tài xế thành công\n phone: ${driverNew.data.phone} \n password: ${driverInput.password}`);
+                                this.resetForm();
+                                this.props.getAllDriverOfTransporter(this.props.userInfo.idTransporter);
+                                this.btnCancel.current.click();
+                            }
+                            else {
+                                alert(driverNew.message)
+                                // nếu sửa không thành công, thì xóa hình vừa thêm 
+                                if (driverInput.image) {
+                                    await handleDeleteFile(driverInput.image);
+                                }
                             }
                         }
+                        else {
+                            alert("Định dạng số điện thoại không hợp lệ");
+                        }
+
                     }
                     else {
-                        alert("Định dạng số điện thoại không hợp lệ");
+                        alert("Định dạng email không hợp lệ");
                     }
                 }
                 else {
-                    alert("Định dạng email không hợp lệ");
+                    alert("Mật khẩu phải có độ dài từ 5 đến 20 ký tự!")
                 }
             }
             else {

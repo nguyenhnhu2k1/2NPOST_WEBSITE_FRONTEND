@@ -49,12 +49,12 @@ class HeaderNotLoggedIn extends Component {
                         <div><Link to='/home'><FormattedMessage id="login.header-customer" /></Link></div>
                     </div>
                     <div className='other-container'>
-                        <div className='lang-container'>
+                        {/* <div className='lang-container'>
                             <div onClick={() => this.changeLanguage(language)}>
                                 {language === LANGUAGES.VI && <img className='logo-lang' src={ViLogo} alt='' />}
                                 {language === LANGUAGES.EN && <img className='logo-lang' src={EnLogo} alt='' />}
                             </div>
-                        </div>
+                        </div> */}
 
                         <div className='acc-container'>
 
