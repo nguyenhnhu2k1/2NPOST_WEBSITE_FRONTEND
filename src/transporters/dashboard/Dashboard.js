@@ -385,8 +385,8 @@ class Dashboard extends Component {
                             <p className='title-1-base'>Thống kê theo tháng</p>
                             <div className='select-by-month' >
                                 {/* chọn tháng và năm */}
-                                <SelectSmall labelProp='Month' itemSelect={items} onValueChange={this.handleMonthChange} />
-                                <SelectSmall labelProp='Year' itemSelect={itemYears} onValueChange={this.handleYearChange} />
+                                <SelectSmall labelProp='Tháng' itemSelect={items} onValueChange={this.handleMonthChange} />
+                                <SelectSmall labelProp='Năm' itemSelect={itemYears} onValueChange={this.handleYearChange} />
                             </div>
                         </div>
 
