@@ -109,37 +109,30 @@ class OrderDetailsComp extends Component {
                 {
                     status: 'TS0',
                     text: 'Chờ lấy hàng',
-                    date: '10/102001',
                 },
                 {
                     status: 'TS1',
                     text: 'Tài xế đã nhận hàng',
-                    date: '10/102001',
                 },
                 {
                     status: 'TS2',
                     text: 'Đơn hàng đang ở kho',
-                    date: '10/102001',
                 },
                 {
                     status: 'TS3',
                     text: 'Đơn hàng đang giao',
-                    date: '10/102001',
                 },
                 {
                     status: 'TS4',
                     text: 'Đơn hàng đã giao',
-                    date: '10/102001',
                 },
                 {
                     status: 'TS5',
                     text: 'Đơn hàng thành công',
-                    date: '10/102001',
                 },
                 {
                     status: 'OS2',
                     text: 'Đơn hàng đã hủy',
-                    date: '10/102001',
                 },
             ]
 

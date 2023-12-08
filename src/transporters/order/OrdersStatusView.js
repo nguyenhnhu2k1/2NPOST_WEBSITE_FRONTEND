@@ -26,8 +26,10 @@ class OrdersStatusView extends Component {
         this.state = ({
             selectedDriver: '',
             selectedVehicle: '',
-            temporarySelectedDriver: '',
-            temporarySelectedVehicle: '',
+            temporarySelectedDriverIndex: '',
+            temporarySelectedDriverId: '',
+            temporarySelectedVehicleIndex: '',
+            temporarySelectedVehicleId: '',
             chatValue: '',
             isShowChatComponent: false,
             isShowChatWindow: false,
@@ -81,21 +83,24 @@ class OrdersStatusView extends Component {
         return nameAccept;
     }
     // xử lý chọn tài xế tạm thời
-    handleSelectedTemporaryDriver = (index) => {
+    handleSelectedTemporaryDriver = (indexDriver, idDriver) => {
         this.setState({
-            temporarySelectedDriver: index
+            temporarySelectedDriverIndex: indexDriver,
+            temporarySelectedDriverId: idDriver,
+
         })
     }
     // xử lý chọn phương tiện tạm thời
-    handleSelectedTemporaryVehicle = (index) => {
+    handleSelectedTemporaryVehicle = (indexVehicle, idVehicle) => {
         this.setState({
-            temporarySelectedVehicle: index
+            temporarySelectedVehicleIndex: indexVehicle,
+            temporarySelectedVehicleId: idVehicle
         })
     }
     // xử lý chọn tài xế lên db
     handleSelectedDriver = async (idOrder) => {
         try {
-            let idDriver = this.props.drivers[this.state.temporarySelectedDriver].id;
+            let idDriver = this.state.temporarySelectedDriverId;
             let selectDriver = await handleCreateDriverForOrder(idOrder, idDriver);
             if (selectDriver) {
                 if (this.btnCancel && this.btnCancel.current) {
@@ -114,7 +119,7 @@ class OrdersStatusView extends Component {
     // xử lý chọn phương tiện lên db
     handleSelectedVehicle = async (idOrder) => {
         try {
-            let idVehicle = this.props.vehicles[this.state.temporarySelectedVehicle].id;
+            let idVehicle = this.state.temporarySelectedVehicleId;
             let selectVehicle = await handleCreateVehicleForOrder(idOrder, idVehicle);
             if (selectVehicle) {
                 if (this.btnCancel && this.btnCancel.current) {
@@ -392,6 +397,7 @@ class OrdersStatusView extends Component {
                             <div className='component-1'>
 
                                 <div className='left-component'>
+                                    <span>#{value.id}</span>
                                     <span>{value.keyServiceAllCode.valueVi}</span>
                                     <button className={`chat-component ${this.state.isShowChatWindow ? 'disable-chat-comp' : ''}`}
                                         disabled={this.state.isShowChatWindow} onClick={() => this.onChangeShowChatWindow(value)}>
@@ -446,7 +452,7 @@ class OrdersStatusView extends Component {
                                                         {
                                                             this.props.drivers.filter(driver => driver.status === 1)
                                                                 .map((driver, indexDriver) =>
-                                                                    <div key={indexDriver} className={`select-driver ${this.state.temporarySelectedDriver === indexDriver ? 'action' : ''} `} onClick={(event) => this.handleSelectedTemporaryDriver(indexDriver)}>
+                                                                    <div key={indexDriver} className={`select-driver ${this.state.temporarySelectedDriverIndex === indexDriver ? 'action' : ''} `} onClick={(event) => this.handleSelectedTemporaryDriver(indexDriver, driver.id)}>
                                                                         <img src={driver.image ? process.env.REACT_APP_BACKEND_URL + driver.image : 'https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png'} alt='avt-driver' />
                                                                         <span>{driver.userName}</span>
                                                                     </div>)
@@ -472,7 +478,7 @@ class OrdersStatusView extends Component {
                                                             this.props.vehicles
                                                                 .filter(vehicle => vehicle.status === 1)
                                                                 .map((vehicle, indexVehicle) => (
-                                                                    <div key={indexVehicle} className={`select-vehicle ${this.state.temporarySelectedVehicle === indexVehicle ? 'action' : ''}`} onClick={(event) => this.handleSelectedTemporaryVehicle(indexVehicle)}>
+                                                                    <div key={indexVehicle} className={`select-vehicle ${this.state.temporarySelectedVehicleIndex === indexVehicle ? 'action' : ''}`} onClick={(event) => this.handleSelectedTemporaryVehicle(indexVehicle, vehicle.id)}>
                                                                         <img src={vehicle.image ? process.env.REACT_APP_BACKEND_URL + vehicle.image : 'https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png'} alt='avt-driver' />
                                                                         <span>{vehicle.licensePlates}</span>
                                                                     </div>

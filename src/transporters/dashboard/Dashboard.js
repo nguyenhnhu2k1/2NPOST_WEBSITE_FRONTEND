@@ -263,16 +263,16 @@ class Dashboard extends Component {
                 let a = new Date(order.createdAt)
                 //nov
                 if (a.getMonth() === 10) {
+                    orderNov++;
                     if (order.transportationOrder && order.transportationOrder.payment && order.keyOrderStatus === 'TS5') {
                         revenueNov += this.formatCalculate(order.totalCost);
-                        orderNov++;
                     }
                 }
                 //dec
                 else if (a.getMonth() === 11) {
+                    orderDec++;
                     if (order.transportationOrder && order.transportationOrder.payment && order.keyOrderStatus === 'TS5') {
                         revenueDec += this.formatCalculate(order.totalCost);
-                        orderDec++;
                     }
                 }
             })
@@ -423,7 +423,7 @@ class Dashboard extends Component {
                             </div>
                             <div className='success'>
                                 <img src='https://cdn-icons-png.flaticon.com/512/148/148767.png' alt='order' />
-                                <div>Đon hàng thành công</div>
+                                <div>Đơn hàng thành công</div>
                                 <div>{successfulOrderMonth}</div>
                             </div>
                             <div className='cancel'>

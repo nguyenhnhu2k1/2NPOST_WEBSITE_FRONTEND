@@ -51,15 +51,15 @@ const userReducer = (state = initialState, action) => {
         case actionTypes.GET_ORDERS_BY_STATUS:
             return {
                 ...state,
-                OS0: action.dataOrders[0].data,
-                TS0: action.dataOrders[1].data,
-                TS1: action.dataOrders[2].data,
-                TS2: action.dataOrders[3].data,
-                TS3: action.dataOrders[4].data,
-                TS4: action.dataOrders[5].data,
-                TS5: action.dataOrders[6].data,
-                OS2: action.dataOrders[7].data,
-                orders: action.dataOrders[8].data,
+                OS0: action.dataOrders[0].data.reverse(),
+                TS0: action.dataOrders[1].data.reverse(),
+                TS1: action.dataOrders[2].data.reverse(),
+                TS2: action.dataOrders[3].data.reverse(),
+                TS3: action.dataOrders[4].data.reverse(),
+                TS4: action.dataOrders[5].data.reverse(),
+                TS5: action.dataOrders[6].data.reverse(),
+                OS2: action.dataOrders[7].data.reverse(),
+                orders: action.dataOrders[8].data.reverse(),
             }
         case actionTypes.GET_VEHICLES_BY_IDTRANSPORTER:
             return {

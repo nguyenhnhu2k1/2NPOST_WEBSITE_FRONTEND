@@ -116,7 +116,7 @@ class Register extends Component {
             this.state.foundingDate.trim()) {
             if (this.state.password.trim() === this.state.repeatPassword.trim()) {
                 if (this.state.phone.length === 10) {
-                    if (5 <= this.state.password.length && 5 <= this.state.password.length <= 20) {
+                    if (this.state.password.length >= 5 && this.state.password.length <= 20) {
                         try {
                             let transporter = {
                                 transporterName: this.state.transporterName,
@@ -150,9 +150,11 @@ class Register extends Component {
                             console.log('catch', e)
                         }
                     }
-                    this.setState({
-                        errMessage: 'Mật khẩu phải có độ dài từ 5 đến 20 ký tự!'
-                    });
+                    else {
+                        this.setState({
+                            errMessage: 'Mật khẩu phải có độ dài từ 5 đến 20 ký tự!'
+                        });
+                    }
                 }
                 else {
                     this.setState({
