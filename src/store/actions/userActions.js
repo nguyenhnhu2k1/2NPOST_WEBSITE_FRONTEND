@@ -24,7 +24,7 @@ export const getOrdersByStatus = (idTrans) => {
 
             // Kiểm tra xem tất cả các cuộc gọi API có thành công hay không
             const allSuccessful = results.every((result) => result !== null);
-
+            console.log(results)
             if (allSuccessful) {
                 dispatch(getOrdersByStatusSuccess(results));
             } else {

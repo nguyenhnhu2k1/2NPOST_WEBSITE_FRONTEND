@@ -185,30 +185,33 @@ class OrdersStatusView extends Component {
     writeUserData = () => {
         const orders = this.props.orders;
         const db = getDatabase(app);
-        orders.forEach((order) => {
-            const chatInfoRef = ref(db, `chat/${order.idTransporter}-${order.idCustomer}/info`);
-            // // Nếu đường dẫn đã tồn tại => không làm gì hết
-            // // Nếu đường dẫn chưa tồn tại => Thêm đường dẫn
-            get(chatInfoRef)
-                .then((snapshot) => {
-                    if (snapshot.exists()) {
-                        console.log("Đường dẫn tồn tại trong database.");
-                    } else {
-                        console.log("Đường dẫn không tồn tại trong database.");
-                        set((chatInfoRef), {
-                            idTrans: order.idTransporter,
-                            usernameTrans: this.props.userInfo.transporterName,
-                            profile_pictureTrans: this.props.userInfo.image,
-                            idCus: order.idCustomer,
-                            usernameCus: order.user.userName,
-                            profile_pictureCus: order.user.image,
-                        });
-                    }
-                })
-                .catch((error) => {
-                    console.error("Lỗi khi kiểm tra đường dẫn:", error);
-                });
-        })
+        console.log(this.props.orders);
+        if (orders && orders.length > 0) {
+            orders.forEach((order) => {
+                const chatInfoRef = ref(db, `chat/${order.idTransporter}-${order.idCustomer}/info`);
+                // // Nếu đường dẫn đã tồn tại => không làm gì hết
+                // // Nếu đường dẫn chưa tồn tại => Thêm đường dẫn
+                get(chatInfoRef)
+                    .then((snapshot) => {
+                        if (snapshot.exists()) {
+                            console.log("Đường dẫn tồn tại trong database.");
+                        } else {
+                            console.log("Đường dẫn không tồn tại trong database.");
+                            set((chatInfoRef), {
+                                idTrans: order.idTransporter,
+                                usernameTrans: this.props.userInfo.transporterName,
+                                profile_pictureTrans: this.props.userInfo.image,
+                                idCus: order.idCustomer,
+                                usernameCus: order.user.userName,
+                                profile_pictureCus: order.user.image,
+                            });
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("Lỗi khi kiểm tra đường dẫn:", error);
+                    });
+            })
+        }
     }
 
     // lưu thời gian nhắn tin cuối cùng lưu vào mảng
